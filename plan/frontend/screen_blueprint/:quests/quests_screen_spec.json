@@ -1,0 +1,220 @@
+{
+  "screen": {
+    "path": "/quests",
+    "layout": "app_shell",
+    "panel_variant": "quests_list",
+    "purpose": "Daily and weekly quests that reward gems and reinforce learning habits.",
+    "modules": [
+      "QuestBanner",
+      "DailyHeader",
+      "QuestListDaily",
+      "WeeklyHeader",
+      "QuestListWeekly"
+    ],
+    "data_inputs": [
+      "quest_config (config)",
+      "quest_progress (db/local)",
+      "xp_events_summary (db)",
+      "lesson_events_summary (db)"
+    ],
+    "interactions": [
+      {
+        "event": "claim_click",
+        "action": "update_progress\u2192toast_success"
+      },
+      {
+        "event": "quest_card_click_locked",
+        "action": "tooltip:show_requirement"
+      },
+      {
+        "event": "refresh_tick",
+        "action": "update_countdowns"
+      }
+    ],
+    "loading": "banner_skeleton + list_skeleton",
+    "empty_states": [
+      "no_daily_quests_placeholder",
+      "no_weekly_quests_placeholder"
+    ],
+    "error": "toast_retry",
+    "analytics": {
+      "events": [
+        "quests_view",
+        "daily_claimed",
+        "weekly_claimed",
+        "quest_locked_clicked"
+      ]
+    },
+    "performance": {
+      "prefetch": ["hover/focus claim \u2192 PATCH /quests/claim?id=\u2026"],
+      "defer_heavy": ["banner_illustration"]
+    },
+    "acceptance": [
+      "Daily quests reset at local midnight (configurable).",
+      "Weekly quests reset at start of week (configurable weekday).",
+      "Claim button enabled when progress \u2265 target and not already claimed.",
+      "Claim immediately updates balance and disables the card.",
+      "Locked quests show requirement tooltip and do not navigate.",
+      "Countdown timers tick at 1s/30s granularity without layout shift."
+    ]
+  },
+  "module_contracts": {
+    "types": {
+      "QuestFrequency": ["daily", "weekly"],
+      "QuestKind": [
+        "earn_xp",
+        "finish_lessons",
+        "perfect_lessons",
+        "streak_days",
+        "review_items"
+      ],
+      "Reward": [
+        {
+          "type": "gems",
+          "amount": 0
+        },
+        {
+          "type": "badge",
+          "id": "",
+          "label": ""
+        },
+        {
+          "type": "booster",
+          "id": "",
+          "label": "",
+          "durationHrs": 0
+        }
+      ],
+      "QuestConfig": {
+        "id": "string",
+        "frequency": "QuestFrequency",
+        "kind": "QuestKind",
+        "title": "string",
+        "target": "number",
+        "iconToken?": "string",
+        "reward": "Reward",
+        "unlocksAtLevel?": "number",
+        "enabled?": "boolean"
+      },
+      "QuestState": ["locked", "active", "complete_unclaimed", "claimed"],
+      "QuestProgress": {
+        "id": "string",
+        "current": "number",
+        "state": "QuestState",
+        "claimedAtISO?": "string",
+        "windowStartISO": "string",
+        "windowEndISO": "string"
+      },
+      "QuestCardProps": {
+        "config": "QuestConfig",
+        "progress": "QuestProgress",
+        "onClaim": "(id: string) => void",
+        "onLockedClick?": "(id: string) => void"
+      },
+      "QuestListProps": {
+        "items": "Array<{ config: QuestConfig; progress: QuestProgress }>",
+        "onClaim": "QuestCardProps['onClaim']",
+        "onLockedClick?": "QuestCardProps['onLockedClick']"
+      },
+      "QuestBannerProps": {
+        "title": "string",
+        "body": "string",
+        "illustration?": {
+          "src": "string",
+          "alt": "string"
+        }
+      },
+      "SectionHeaderProps": {
+        "title": "string",
+        "countdownLabel": "string"
+      },
+      "ClaimRequest": {
+        "id": "string",
+        "frequency": "QuestFrequency"
+      },
+      "ClaimResponse": {
+        "ok": "boolean",
+        "newBalance?": "number",
+        "progress?": "QuestProgress",
+        "toast?": {
+          "kind": "\"success\"|\"error\"",
+          "message": "string"
+        }
+      }
+    }
+  },
+  "defaults": {
+    "daily": [
+      {
+        "id": "daily_xp_30",
+        "frequency": "daily",
+        "kind": "earn_xp",
+        "title": "Earn 30 XP",
+        "target": 30,
+        "iconToken": "bolt",
+        "reward": {
+          "type": "gems",
+          "amount": 10
+        },
+        "enabled": true
+      },
+      {
+        "id": "daily_finish_2",
+        "frequency": "daily",
+        "kind": "finish_lessons",
+        "title": "Finish 2 lessons",
+        "target": 2,
+        "iconToken": "check",
+        "reward": {
+          "type": "gems",
+          "amount": 10
+        },
+        "enabled": true
+      },
+      {
+        "id": "daily_locked_placeholder",
+        "frequency": "daily",
+        "kind": "earn_xp",
+        "title": "More quests unlock soon",
+        "target": 0,
+        "iconToken": "lock",
+        "reward": {
+          "type": "gems",
+          "amount": 0
+        },
+        "enabled": false
+      }
+    ],
+    "weekly": [
+      {
+        "id": "weekly_xp_150",
+        "frequency": "weekly",
+        "kind": "earn_xp",
+        "title": "Earn 150 XP",
+        "target": 150,
+        "iconToken": "star",
+        "reward": {
+          "type": "gems",
+          "amount": 30
+        },
+        "enabled": true
+      },
+      {
+        "id": "weekly_perfect_3",
+        "frequency": "weekly",
+        "kind": "perfect_lessons",
+        "title": "Complete 3 perfect lessons",
+        "target": 3,
+        "iconToken": "medal",
+        "reward": {
+          "type": "gems",
+          "amount": 30
+        },
+        "enabled": true
+      }
+    ]
+  },
+  "wireframes_assets": {
+    "markdown": "quests_wireframes.md"
+  }
+}

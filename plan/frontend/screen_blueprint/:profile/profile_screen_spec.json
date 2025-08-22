@@ -1,0 +1,150 @@
+{
+  "screen": {
+    "path": "/profile/[username]",
+    "layout": "app_shell",
+    "panel_variant": "profile_view",
+    "purpose": "Public profile: identity, stats, achievements, social graph.",
+    "modules": [
+      "ProfileHeader",
+      "StatsGrid",
+      "AchievementsList",
+      "RightPanel: SocialTabs",
+      "RightPanel: AddFriendsCard"
+    ],
+    "data_inputs": [
+      "user_profile (db)",
+      "xp_events_summary (db)",
+      "league_snapshot? (db)",
+      "achievements (db)",
+      "social_graph (db)"
+    ],
+    "guards": [
+      {
+        "rule": "profile_exists",
+        "on_missing": "404"
+      }
+    ],
+    "interactions": [
+      {
+        "event": "avatar_click_me",
+        "action": "open:avatar_uploader"
+      },
+      {
+        "event": "cover_edit_click_me",
+        "action": "open:cover_uploader"
+      },
+      {
+        "event": "follow_click",
+        "action": "POST /api/social/follow \u2192 optimistic_toggle"
+      },
+      {
+        "event": "unfollow_click",
+        "action": "POST /api/social/unfollow \u2192 optimistic_toggle"
+      },
+      {
+        "event": "view_all_achievements",
+        "action": "nav:/profile/[username]/achievements"
+      },
+      {
+        "event": "social_tab_change",
+        "action": "load_list(tab)"
+      },
+      {
+        "event": "add_friends_click",
+        "action": "nav:/leaderboards?view=friends&me=1"
+      }
+    ],
+    "loading": "header_skeleton + stats_skeleton + list_skeleton",
+    "empty_states": ["no_achievements_placeholder"],
+    "error": "toast_retry",
+    "analytics": {
+      "events": [
+        "profile_view",
+        "follow_action",
+        "avatar_updated",
+        "cover_updated",
+        "achievements_view_all"
+      ]
+    },
+    "acceptance": [
+      "Unknown username returns 404.",
+      "Shows totals + optional last 7 days XP.",
+      "Achievements show progress bars and counts; View all opens dedicated list.",
+      "Right panel renders Social tabs and Add friends card.",
+      "Owner sees edit CTAs; visitors see Follow/Unfollow."
+    ]
+  },
+  "module_contracts": {
+    "types": {
+      "UserPublic": {
+        "id": "string",
+        "username": "string",
+        "displayName": "string",
+        "joinedAtISO": "string",
+        "avatarUrl?": "string",
+        "coverUrl?": "string",
+        "isMe?": "boolean",
+        "isFollowing?": "boolean"
+      },
+      "XPStats": {
+        "totalXP": "number",
+        "weekXP?": "number",
+        "streakDays?": "number",
+        "leagueName?": "string",
+        "top3Finishes?": "number"
+      },
+      "Achievement": {
+        "id": "string",
+        "title": "string",
+        "description": "string",
+        "iconToken?": "string",
+        "progress": {
+          "current": "number",
+          "target": "number"
+        },
+        "level?": "number"
+      },
+      "SocialCounts": {
+        "following": "number",
+        "followers": "number"
+      },
+      "SocialPreviewUser": {
+        "username": "string",
+        "displayName?": "string",
+        "avatarUrl?": "string"
+      },
+      "ProfileHeaderProps": {
+        "user": "UserPublic",
+        "social": "SocialCounts",
+        "onEditAvatar?": "()=>void",
+        "onEditCover?": "()=>void",
+        "onFollowToggle?": "()=>void"
+      },
+      "StatsGridProps": {
+        "xp": "XPStats"
+      },
+      "AchievementsListProps": {
+        "items": "Achievement[]",
+        "onViewAll?": "()=>void"
+      },
+      "SocialTab": ["following", "followers"],
+      "SocialTabsProps": {
+        "active": "SocialTab",
+        "counts": "SocialCounts",
+        "samples": {
+          "following?": "SocialPreviewUser[]",
+          "followers?": "SocialPreviewUser[]"
+        },
+        "onTabChange": "(t: SocialTab)=>void",
+        "onOpenFindFriends": "()=>void"
+      },
+      "AddFriendsCardProps": {
+        "onFindFriends": "()=>void",
+        "onInviteFriends": "()=>void"
+      }
+    }
+  },
+  "wireframes_assets": {
+    "markdown": "profile_wireframes.md"
+  }
+}

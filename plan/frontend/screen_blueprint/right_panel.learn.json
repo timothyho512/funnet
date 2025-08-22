@@ -1,0 +1,70 @@
+{
+  "route": "/learn",
+  "cards_order": [
+    "TopBarDock",
+    "PromoCard?",
+    "LeaderboardUnlockCard",
+    "DailyQuestsCard",
+    "AdSlot?"
+  ],
+  "data_inputs": [
+    "quest_progress (db/local)",
+    "weekly_xp (db)",
+    "promotions (config/flags)"
+  ],
+  "cards": {
+    "TopBarDock": {
+      "kind": "TopBar",
+      "source": "topbar.json"
+    },
+    "PromoCard?": {
+      "kind": "PromoCard",
+      "experimentKey": "promo_super_v1",
+      "cta": {
+        "label": "Try Premium",
+        "href": "/shop?tab=premium"
+      }
+    },
+    "LeaderboardUnlockCard": {
+      "kind": "InfoCard",
+      "text": "Complete Unit 1 to unlock Leaderboards",
+      "visible_if": "weekly_xp.eligible === false"
+    },
+    "DailyQuestsCard": {
+      "kind": "QuestsSummary",
+      "viewAllHref": "/quests"
+    },
+    "AdSlot?": {
+      "kind": "AdSlot",
+      "provider": "internal",
+      "slotId": "rp-rect-1",
+      "defer": true
+    }
+  },
+  "interactions": [
+    {
+      "event": "try_premium_click",
+      "action": "nav:/shop?tab=premium"
+    },
+    {
+      "event": "view_all_quests_click",
+      "action": "nav:/quests"
+    }
+  ],
+  "performance": {
+    "defer_heavy": [
+      "AdSlot?",
+      "PromoCard?.image"
+    ],
+    "prefetch": [
+      "view_all_quests_click \u2192 /quests"
+    ]
+  },
+  "loading": "card_skeletons",
+  "error": "toast_retry",
+  "acceptance": [
+    "Cards render in cards_order with consistent spacing.",
+    "LeaderboardUnlockCard hides once weekly_xp.eligible === true.",
+    "AdSlot is deferred and never blocks interaction readiness (TTI)."
+  ]
+}

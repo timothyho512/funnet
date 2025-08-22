@@ -1,0 +1,187 @@
+{
+  "screen": {
+    "path": "/shop",
+    "layout": "app_shell",
+    "panel_variant": "shop_grid",
+    "purpose": "Spend gems on boosts and cosmetics; show balance and purchase confirmations.",
+    "modules": ["BalanceCard", "ShopSectionList", "PurchaseConfirmModal"],
+    "data_inputs": ["balance (db/local)", "products (config/db)"],
+    "interactions": [
+      {
+        "event": "buy_click_guest",
+        "action": "nav:/learn?isLoggingIn=true"
+      },
+      {
+        "event": "buy_click_authed",
+        "action": "open_modal(PurchaseConfirmModal)"
+      },
+      {
+        "event": "confirm_purchase",
+        "action": "PATCH /api/shop/purchase \u2192 update_balance \u2192 toast_success"
+      },
+      {
+        "event": "insufficient_gems_click",
+        "action": "tooltip:show('Not enough gems')"
+      }
+    ],
+    "loading": "balance_skeleton + list_skeleton",
+    "empty_states": ["no_products_message"],
+    "error": "toast_retry",
+    "analytics": {
+      "events": [
+        "shop_view",
+        "product_view",
+        "buy_clicked",
+        "purchase_confirmed",
+        "purchase_failed"
+      ]
+    },
+    "performance": {
+      "prefetch": [
+        "hover/focus product \u2192 product_details_light",
+        "open_modal \u2192 preload_receipt_assets"
+      ],
+      "defer_heavy": ["mascot_illustrations"]
+    },
+    "acceptance": [
+      "Balance shows up-to-date gems and updates immediately after purchase.",
+      "Guest buy attempts route to /learn with auth overlay (isLoggingIn=true).",
+      "Items with price > balance show disabled CTA + \u2018not enough gems\u2019 tooltip.",
+      "Equipped/owned items display state badges; consumables show quantity.",
+      "Purchase modal shows price, new balance, and effect; confirm completes purchase and disables the item when applicable.",
+      "Accessible: product cards tabbable; screen readers announce title, price, state."
+    ]
+  },
+  "module_contracts": {
+    "types": {
+      "Balance": {
+        "gems": "number",
+        "updatedAtISO": "string"
+      },
+      "ProductType": ["consumable", "booster", "cosmetic"],
+      "SectionKey": ["hearts", "powerups", "merch"],
+      "Product": {
+        "id": "string",
+        "section": "SectionKey",
+        "type": "ProductType",
+        "title": "string",
+        "subtitle?": "string",
+        "priceGems": "number",
+        "iconToken?": "string",
+        "badge?": {
+          "text": "string",
+          "tone?": "\"success\"|\"info\""
+        },
+        "ownedQty?": "number",
+        "equipped?": "boolean",
+        "enabled?": "boolean",
+        "requiresAuth?": "boolean"
+      },
+      "ShopSection": {
+        "key": "SectionKey",
+        "title": "string",
+        "products": "Product[]"
+      },
+      "ShopSectionListProps": {
+        "sections": "ShopSection[]",
+        "balance": "Balance",
+        "onBuyClick": "(productId: string) => void",
+        "onInsufficientClick?": "(productId: string) => void"
+      },
+      "ProductCardProps": {
+        "product": "Product",
+        "balance": "Balance",
+        "onBuy": "(productId: string) => void",
+        "onInsufficient?": "(productId: string) => void",
+        "stateBadges?": "Array<{ text: string; tone?: \"success\"|\"warning\" }>",
+        "canAfford": "boolean",
+        "isOwned?": "boolean"
+      },
+      "BalanceCardProps": {
+        "balance": "Balance",
+        "ctaHref?": "string"
+      },
+      "PurchaseConfirmModalProps": {
+        "open": "boolean",
+        "product": "Product",
+        "balance": "Balance",
+        "onConfirm": "(productId: string) => void",
+        "onClose": "() => void",
+        "derived": {
+          "newBalance": "number",
+          "afford": "boolean"
+        }
+      },
+      "PurchaseRequest": {
+        "productId": "string"
+      },
+      "PurchaseResponse": {
+        "ok": "boolean",
+        "newBalance?": "number",
+        "ownedQtyDelta?": "number",
+        "equipped?": "boolean",
+        "toast?": {
+          "kind": "\"success\"|\"error\"",
+          "message": "string"
+        }
+      }
+    }
+  },
+  "defaults": {
+    "catalog": [
+      {
+        "key": "hearts",
+        "title": "Hearts",
+        "products": [
+          {
+            "id": "refill_hearts_1",
+            "section": "hearts",
+            "type": "consumable",
+            "title": "Refill Hearts",
+            "subtitle": "Get full hearts so you can worry less in a lesson",
+            "priceGems": 350,
+            "iconToken": "heart",
+            "requiresAuth": true
+          }
+        ]
+      },
+      {
+        "key": "powerups",
+        "title": "Power-Ups",
+        "products": [
+          {
+            "id": "streak_freeze",
+            "section": "powerups",
+            "type": "booster",
+            "title": "Streak Freeze",
+            "subtitle": "Keep your streak for one day of inactivity",
+            "priceGems": 200,
+            "iconToken": "freeze",
+            "badge": {
+              "text": "2/2 EQUIPPED",
+              "tone": "success"
+            }
+          }
+        ]
+      },
+      {
+        "key": "merch",
+        "title": "Merch",
+        "products": [
+          {
+            "id": "duo_plushie",
+            "section": "merch",
+            "type": "cosmetic",
+            "title": "Duo Plushie",
+            "subtitle": "Never miss a lesson with an adorable reminder",
+            "priceGems": 2995,
+            "iconToken": "duo"
+          }
+        ]
+      }
+    ]
+  },
+  "wireframes_assets": {
+    "markdown": "shop_wireframes.md"
+  }
+}

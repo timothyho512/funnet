@@ -1,0 +1,235 @@
+{
+  "layouts": {
+    "root_minimal": {
+      "description": "Public/marketing shell for '/' and '/help'. No left nav; simple page container.",
+      "slots": {
+        "header": {
+          "visible": false
+        },
+        "left_nav": {
+          "visible": false
+        },
+        "toolbar": {
+          "visible": false
+        },
+        "content": {
+          "max_width_px": 960,
+          "padding_px": 24
+        }
+      },
+      "responsive": {
+        "breakpoints": {
+          "sm": 640,
+          "md": 768,
+          "lg": 1024
+        },
+        "content_max_width_px": 960
+      },
+      "a11y": {
+        "landmarks": ["main"],
+        "skip_link": {
+          "enabled": true,
+          "target": "#main"
+        }
+      },
+      "acceptance": [
+        "Landing and help render without left nav or toolbar.",
+        "Page width constrained to 960px and centered.",
+        "Skip link focuses #main."
+      ]
+    },
+    "app_shell": {
+      "description": "Authenticated/guest app shell used by /learn, /practice-hub, /lesson, /quests, /leaderboards, /shop, /characters, /profile/*, /settings. Persistent left nav + toolbar.",
+      "slots": {
+        "left_nav": {
+          "visible": true,
+          "width_px": {
+            "desktop": 240,
+            "tablet": 72,
+            "mobile": 0
+          },
+          "collapse_below": "lg",
+          "items": [
+            {
+              "href": "/learn",
+              "label": "Learn",
+              "icon": "Home"
+            },
+            {
+              "href": "/practice-hub",
+              "label": "Practice",
+              "icon": "Target"
+            },
+            {
+              "href": "/quests",
+              "label": "Quests",
+              "icon": "Trophy"
+            },
+            {
+              "href": "/leaderboards",
+              "label": "Leaderboards",
+              "icon": "Award"
+            },
+            {
+              "href": "/shop",
+              "label": "Shop",
+              "icon": "Store"
+            },
+            {
+              "href": "/characters",
+              "label": "Characters",
+              "icon": "Users"
+            },
+            {
+              "href": "/profile/me",
+              "label": "Profile",
+              "icon": "User"
+            },
+            {
+              "href": "/settings",
+              "label": "Settings",
+              "icon": "Settings"
+            }
+          ],
+          "guest_profile_behavior": "open_auth_overlay_on_/learn"
+        },
+        "toolbar": {
+          "visible": true,
+          "items": [
+            {
+              "id": "xp_pill",
+              "bind": "xp"
+            },
+            {
+              "id": "streak_flame",
+              "bind": "streakDays"
+            },
+            {
+              "id": "gems_counter",
+              "bind": "gems"
+            },
+            {
+              "id": "notifications_icon"
+            }
+          ],
+          "sticky": true
+        },
+        "content": {
+          "max_width_px": 1040,
+          "padding_px": {
+            "desktop": 24,
+            "mobile": 16
+          },
+          "panel_variants": {
+            "skill_path_shared": {
+              "used_by": ["/learn", "/practice-hub", "/sections"]
+            },
+            "quests_list": {},
+            "leaderboard_table": {},
+            "shop_grid": {},
+            "characters_grid": {},
+            "profile_view": {},
+            "settings_form": {},
+            "full_takeover": {
+              "used_by": ["/lesson"]
+            }
+          }
+        }
+      },
+      "responsive": {
+        "breakpoints": {
+          "sm": 640,
+          "md": 768,
+          "lg": 1024
+        },
+        "left_nav_drawer": {
+          "enabled_below": "lg",
+          "trigger": "hamburger"
+        }
+      },
+      "a11y": {
+        "landmarks": ["navigation", "main"],
+        "nav_aria": {
+          "role": "navigation",
+          "label": "Primary"
+        },
+        "focus_order": "hamburger \u2192 nav \u2192 main",
+        "skip_link": {
+          "enabled": true,
+          "target": "#main"
+        }
+      },
+      "acceptance": [
+        "Left nav persists across all app routes; collapses to drawer below lg.",
+        "Toolbar stays sticky; counters update without layout shift.",
+        "Learn and Practice-hub reuse the same right-panel container."
+      ]
+    }
+  },
+  "route_to_layout": [
+    {
+      "path": "/",
+      "layout": "root_minimal"
+    },
+    {
+      "path": "/help",
+      "layout": "root_minimal"
+    },
+    {
+      "path": "/learn",
+      "layout": "app_shell",
+      "panel_variant": "skill_path_shared"
+    },
+    {
+      "path": "/practice-hub",
+      "layout": "app_shell",
+      "panel_variant": "skill_path_shared"
+    },
+    {
+      "path": "/sections",
+      "layout": "app_shell",
+      "panel_variant": "skill_path_shared"
+    },
+    {
+      "path": "/lesson",
+      "layout": "app_shell",
+      "panel_variant": "full_takeover"
+    },
+    {
+      "path": "/quests",
+      "layout": "app_shell",
+      "panel_variant": "quests_list"
+    },
+    {
+      "path": "/leaderboards",
+      "layout": "app_shell",
+      "panel_variant": "leaderboard_table"
+    },
+    {
+      "path": "/shop",
+      "layout": "app_shell",
+      "panel_variant": "shop_grid"
+    },
+    {
+      "path": "/characters",
+      "layout": "app_shell",
+      "panel_variant": "characters_grid"
+    },
+    {
+      "path": "/profile/[username]",
+      "layout": "app_shell",
+      "panel_variant": "profile_view"
+    },
+    {
+      "path": "/settings",
+      "layout": "app_shell",
+      "panel_variant": "settings_form"
+    }
+  ],
+  "integration_notes": {
+    "design_tokens_source": "design_tokens_blue.json",
+    "css_variables": "Expose tokens as :root CSS vars; consume with Tailwind if desired.",
+    "analytics": "Fire page_view on layout mount; per-route events handled in page components.",
+    "noindex": "Apply meta noindex in app_shell pages except /help if desired."
+  }
+}

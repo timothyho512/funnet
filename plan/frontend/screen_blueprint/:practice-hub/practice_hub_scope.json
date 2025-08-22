@@ -1,0 +1,16 @@
+{
+  "screen": {
+    "path": "/practice-hub",
+    "status": "post_mvp",
+    "reason": "Practice hub (mistake review, modes) is valuable for retention but not required for initial learning loop.",
+    "dependencies": [
+      "/learn",
+      "/lesson"
+    ],
+    "notes": [
+      "Defer until after MVP release.",
+      "Core MVP = onboarding, /learn waterfall, /lesson player, /sections.",
+      "Practice features (mistake log, recommended practice, review modes) can be layered in later."
+    ]
+  }
+}

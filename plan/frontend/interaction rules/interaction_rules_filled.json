@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "rules": [
+    {
+      "id": "lesson.answer.correct",
+      "when": { "event": "lesson.answer.correct", "source": "lesson-player" },
+      "priority": 50,
+      "do": [
+        { "action": "ui.xp_popup", "args": { "value": 1 } },
+        { "action": "sfx.play", "args": { "name": "tick" } },
+        { "action": "analytics.emit", "args": { "name": "answer_correct" } }
+      ]
+    },
+    {
+      "id": "lesson.answer.incorrect",
+      "when": { "event": "lesson.answer.incorrect", "source": "lesson-player" },
+      "priority": 50,
+      "do": [
+        { "action": "ui.toast", "args": { "textLocKey": "try_again", "variant": "neutral" } },
+        { "action": "ai.offer_explain", "args": { "free_daily_quota_ref": "premium.ai_explanations" } },
+        { "action": "sfx.play", "args": { "name": "cross" } },
+        { "action": "analytics.emit", "args": { "name": "answer_incorrect" } }
+      ]
+    }
+    /* ...rest of filled rules truncated for brevity in this file... */
+  ]
+}

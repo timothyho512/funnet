@@ -1,0 +1,106 @@
+{
+  "route": "*",
+  "behavior": {
+    "collapsed_width": 80,
+    "expanded": false,
+    "drawer_on_mobile": true
+  },
+  "items": [
+    {
+      "id": "learn",
+      "label": "Learn",
+      "href": "/learn",
+      "iconToken": "book",
+      "active_for": [
+        "/learn"
+      ]
+    },
+    {
+      "id": "practice",
+      "label": "Practice",
+      "href": "/practice-hub",
+      "iconToken": "repeat",
+      "active_for": [
+        "/practice-hub"
+      ]
+    },
+    {
+      "id": "leaderboards",
+      "label": "Leaderboards",
+      "href": "/leaderboards",
+      "iconToken": "trophy",
+      "active_for": [
+        "/leaderboards"
+      ]
+    },
+    {
+      "id": "quests",
+      "label": "Quests",
+      "href": "/quests",
+      "iconToken": "flame",
+      "active_for": [
+        "/quests"
+      ]
+    },
+    {
+      "id": "shop",
+      "label": "Shop",
+      "href": "/shop",
+      "iconToken": "store",
+      "active_for": [
+        "/shop"
+      ]
+    },
+    {
+      "id": "sections",
+      "label": "Sections",
+      "href": "/sections",
+      "iconToken": "grid",
+      "active_for": [
+        "/sections"
+      ]
+    },
+    {
+      "id": "profile",
+      "label": "Profile",
+      "href": "/profile/{username}",
+      "iconToken": "user",
+      "active_for": [
+        "/profile/*"
+      ]
+    },
+    {
+      "id": "settings",
+      "label": "Settings",
+      "href": "/settings",
+      "iconToken": "cog",
+      "active_for": [
+        "/settings"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "event": "nav_item_click",
+      "action": "nav:{href}"
+    },
+    {
+      "event": "hamburger_click",
+      "action": "drawer:toggle"
+    },
+    {
+      "event": "escape_key",
+      "action": "drawer:close"
+    }
+  ],
+  "a11y": {
+    "nav_role": "navigation",
+    "aria_label": "Primary",
+    "keyboard": "Arrow key roving tabindex; Enter/Space to activate; Esc closes drawer."
+  },
+  "acceptance": [
+    "Active item reflects current route via aria-current=page.",
+    "Drawer traps focus and restores it to hamburger when closed.",
+    "All items are reachable by keyboard and have visible focus rings."
+  ]
+}

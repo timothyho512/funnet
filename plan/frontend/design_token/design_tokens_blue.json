@@ -1,0 +1,259 @@
+{
+  "tokens": {
+    "color": {
+      "brand": {
+        "core": [
+          {
+            "name": "hero_blue",
+            "value": "#1CB0F6",
+            "on": "#FFFFFF",
+            "description": "Primary brand hue / main CTA / links / positive highlights."
+          },
+          {
+            "name": "mask_blue",
+            "value": "#2B70C9",
+            "on": "#FFFFFF",
+            "description": "Secondary blue for headers, emphasis states, gradients with hero_blue."
+          },
+          {
+            "name": "ink",
+            "value": "#1F2937",
+            "on": "#FFFFFF",
+            "description": "Primary UI ink / headings / high-contrast text on light surfaces."
+          },
+          {
+            "name": "snow",
+            "value": "#FFFFFF",
+            "on": "#1F2937",
+            "description": "Primary background and card surface."
+          }
+        ],
+        "secondary": [
+          {
+            "name": "sky",
+            "value": "#8ED1FC",
+            "on": "#1F2937",
+            "description": "Light accent / info backgrounds / hover for blue buttons."
+          },
+          {
+            "name": "crimson",
+            "value": "#FF4B4B",
+            "on": "#FFFFFF",
+            "description": "Destructive actions / errors / validation."
+          },
+          {
+            "name": "gold",
+            "value": "#FFC800",
+            "on": "#111111",
+            "description": "XP, highlights, badges, celebratory accents."
+          },
+          {
+            "name": "amber",
+            "value": "#FF9600",
+            "on": "#111111",
+            "description": "Warnings, attention banners, warm accents."
+          },
+          {
+            "name": "lavender",
+            "value": "#CE82FF",
+            "on": "#111111",
+            "description": "Playful accents, empty-state illustrations."
+          },
+          {
+            "name": "teal",
+            "value": "#00D6C9",
+            "on": "#111111",
+            "description": "Positive info, alternative success accents."
+          }
+        ]
+      },
+      "neutral": [
+        {
+          "name": "ink",
+          "value": "#1F2937",
+          "on": "#FFFFFF",
+          "description": "Primary text on light surfaces."
+        },
+        {
+          "name": "graphite",
+          "value": "#4B5563",
+          "on": "#FFFFFF",
+          "description": "Secondary text, subdued icons."
+        },
+        {
+          "name": "slate",
+          "value": "#9CA3AF",
+          "on": "#1F2937",
+          "description": "Muted labels, placeholders."
+        },
+        {
+          "name": "cloud",
+          "value": "#E5E7EB",
+          "on": "#1F2937",
+          "description": "Dividers, hairline borders."
+        },
+        {
+          "name": "mist",
+          "value": "#F3F4F6",
+          "on": "#1F2937",
+          "description": "Muted background blocks / panels."
+        },
+        {
+          "name": "snow",
+          "value": "#FFFFFF",
+          "on": "#1F2937",
+          "description": "Cards and base surfaces."
+        }
+      ],
+      "functional": [
+        {
+          "name": "success",
+          "value": "#58CC02",
+          "on": "#FFFFFF",
+          "description": "Success states / confirmations (keeps Duo\u2019s green for learnability)."
+        },
+        {
+          "name": "error",
+          "value": "#FF4B4B",
+          "on": "#FFFFFF",
+          "description": "Errors, destructive actions."
+        },
+        {
+          "name": "warning",
+          "value": "#FFC800",
+          "on": "#111111",
+          "description": "Warnings / caution banners."
+        },
+        {
+          "name": "info",
+          "value": "#1CB0F6",
+          "on": "#FFFFFF",
+          "description": "Informational emphasis / tips."
+        }
+      ],
+      "mascot_palette": [
+        {
+          "name": "wing_overlay_navy",
+          "value": "#1E3A8A",
+          "description": "Dark contour for blue mascot wings."
+        },
+        {
+          "name": "feather_blue",
+          "value": "#1CB0F6",
+          "description": "Primary feather fill."
+        },
+        {
+          "name": "mask_blue",
+          "value": "#2B70C9",
+          "description": "Face/wing mask areas."
+        },
+        {
+          "name": "beak_inner",
+          "value": "#B66E28",
+          "description": "Beak inner shading."
+        },
+        {
+          "name": "beak_lower_feet",
+          "value": "#F49000",
+          "description": "Beak lower / feet."
+        },
+        {
+          "name": "beak_upper",
+          "value": "#FFC200",
+          "description": "Beak upper highlight."
+        },
+        {
+          "name": "beak_highlight",
+          "value": "#FFDE00",
+          "description": "Specular highlight on beak."
+        },
+        {
+          "name": "tongue_pink",
+          "value": "#FFCAFF",
+          "description": "Tongue / inner mouth accent."
+        },
+        {
+          "name": "pupil_ink",
+          "value": "#1F2937",
+          "description": "Eye pupils / outlines."
+        },
+        {
+          "name": "polar",
+          "value": "#F7F7F7",
+          "description": "Light neutral for eye whites / highlights."
+        },
+        {
+          "name": "snow",
+          "value": "#FFFFFF",
+          "description": "White accents / mascot highlights."
+        }
+      ]
+    },
+    "radius": {
+      "sm": 8,
+      "md": 12,
+      "lg": 16,
+      "xl": 24
+    },
+    "space": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      32,
+      40
+    ],
+    "type_scale": {
+      "h1": {
+        "size": 32,
+        "lineHeight": 40,
+        "weight": 700,
+        "usage": "Hero titles / landing."
+      },
+      "h2": {
+        "size": 24,
+        "lineHeight": 32,
+        "weight": 700,
+        "usage": "Section headings."
+      },
+      "h3": {
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 600,
+        "usage": "Card titles / panel headers."
+      },
+      "body": {
+        "size": 16,
+        "lineHeight": 24,
+        "weight": 400,
+        "usage": "Default text."
+      },
+      "small": {
+        "size": 14,
+        "lineHeight": 20,
+        "weight": 400,
+        "usage": "Meta / helper text."
+      },
+      "label": {
+        "size": 12,
+        "lineHeight": 16,
+        "weight": 600,
+        "usage": "Badges / UI labels."
+      }
+    },
+    "shadow": {
+      "sm": "0 1px 2px rgba(0,0,0,0.06)",
+      "md": "0 4px 10px rgba(0,0,0,0.08)",
+      "lg": "0 12px 24px rgba(0,0,0,0.12)"
+    },
+    "contrast_guidance": [
+      "Use hero_blue on snow with on-color #FFFFFF for primary CTAs.",
+      "Keep text on sky/mist at ink (#1F2937) for > 4.5:1 contrast.",
+      "Avoid using gold as a text color; reserve for icons/badges/accents.",
+      "Crimson is for destructive actions; never pair with hero_blue text."
+    ]
+  }
+}

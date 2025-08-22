@@ -1,0 +1,167 @@
+{
+  "topic": "Fractions",
+  "version": "1.0.0",
+  "sections": [
+    {
+      "name": "Section 1: Fractions",
+      "units": [
+        {
+          "name": "Unit 1: Fractions Basics",
+          "guidebook": {
+            "summary": "Numerators & denominators, visual models, comparing simple fractions, proper vs improper.",
+            "key_points": [
+              "A fraction is parts/whole with equal parts.",
+              "When denominators match, compare numerators.",
+              "Convert to common denominators to compare or add."
+            ]
+          },
+          "nodes": [
+            {
+              "id": "FRA-101",
+              "type": "skill",
+              "title": "What is a fraction?",
+              "stars": {
+                "current": 0,
+                "max": 3
+              },
+              "lessons": [
+                {
+                  "id": "FRA-101-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-101-L1.json"
+                },
+                {
+                  "id": "FRA-101-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-101-L2.json"
+                },
+                {
+                  "id": "FRA-101-L3",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-101-L3.json"
+                },
+                {
+                  "id": "FRA-101-L4",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-101-L4.json"
+                }
+              ]
+            },
+            {
+              "id": "FRA-102",
+              "type": "skill",
+              "title": "Compare fractions",
+              "stars": {
+                "current": 0,
+                "max": 3
+              },
+              "lessons": [
+                {
+                  "id": "FRA-102-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-102-L1.json"
+                },
+                {
+                  "id": "FRA-102-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-102-L2.json"
+                },
+                {
+                  "id": "FRA-102-L3",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-102-L3.json"
+                },
+                {
+                  "id": "FRA-102-L4",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-102-L4.json"
+                }
+              ]
+            },
+            {
+              "id": "FRA-103",
+              "type": "skill",
+              "title": "Add same denominators",
+              "stars": {
+                "current": 0,
+                "max": 3
+              },
+              "lessons": [
+                {
+                  "id": "FRA-103-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-103-L1.json"
+                },
+                {
+                  "id": "FRA-103-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-103-L2.json"
+                },
+                {
+                  "id": "FRA-103-L3",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-103-L3.json"
+                },
+                {
+                  "id": "FRA-103-L4",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-103-L4.json"
+                }
+              ]
+            },
+            {
+              "id": "FRA-104",
+              "type": "skill",
+              "title": "Add different denominators",
+              "stars": {
+                "current": 0,
+                "max": 3
+              },
+              "lessons": [
+                {
+                  "id": "FRA-104-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-104-L1.json"
+                },
+                {
+                  "id": "FRA-104-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-104-L2.json"
+                },
+                {
+                  "id": "FRA-104-L3",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-104-L3.json"
+                },
+                {
+                  "id": "FRA-104-L4",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-104-L4.json"
+                }
+              ]
+            },
+            {
+              "id": "FRA-CHECK-1",
+              "type": "checkpoint",
+              "title": "Unit 1 Checkpoint",
+              "requires": [
+                "FRA-101",
+                "FRA-102",
+                "FRA-103",
+                "FRA-104"
+              ],
+              "quiz": {
+                "question_count": 18
+              },
+              "reward": {
+                "xp": 50,
+                "gems": 50,
+                "badge": "fractions_unit_1"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

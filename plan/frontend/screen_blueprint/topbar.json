@@ -1,0 +1,65 @@
+{
+  "placement": {
+    "desktop": "rightpanel_top",
+    "mobile": "header"
+  },
+  "widgets": [
+    {
+      "id": "streak",
+      "type": "Counter",
+      "iconToken": "flame",
+      "data": "streakDays"
+    },
+    {
+      "id": "hearts",
+      "type": "Counter",
+      "iconToken": "heart",
+      "data": "heartsRemaining"
+    },
+    {
+      "id": "gems",
+      "type": "Counter",
+      "iconToken": "gem",
+      "data": "gemBalance"
+    },
+    {
+      "id": "avatar",
+      "type": "AvatarMenu",
+      "items": [
+        {
+          "label": "Profile",
+          "href": "/profile/{username}"
+        },
+        {
+          "label": "Settings",
+          "href": "/settings"
+        },
+        {
+          "label": "Logout",
+          "action": "auth:logout"
+        }
+      ]
+    }
+  ],
+  "data_inputs": [
+    "streakDays (db)",
+    "heartsRemaining (db)",
+    "gemBalance (db)",
+    "profile (db)"
+  ],
+  "interactions": [
+    {
+      "event": "avatar_click",
+      "action": "menu:toggle"
+    },
+    {
+      "event": "profile_click_guest",
+      "action": "nav:/learn?isLoggingIn=true"
+    }
+  ],
+  "acceptance": [
+    "Counters are announced with accessible names (e.g., 'Streak: 5 days').",
+    "Avatar menu is keyboard navigable and closes on Esc and blur.",
+    "On mobile, TopBar renders in the header; on desktop it docks above the right panel."
+  ]
+}

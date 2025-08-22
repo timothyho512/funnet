@@ -1,0 +1,146 @@
+{
+  "project": "Maths Duolingo",
+  "competitive_analysis": [
+    {
+      "competitor": "Duolingo",
+      "strengths": [
+        "Habit-forming gamification (streaks, XP, badges)",
+        "Bite-sized lessons",
+        "Personalisation"
+      ],
+      "weaknesses": [
+        "Limited to languages",
+        "Repetitive patterns",
+        "AI locked to premium"
+      ],
+      "what_to_emulate": [
+        "Streak system",
+        "XP",
+        "Micro-lessons",
+        "Skill path",
+        "Weak-skill review"
+      ],
+      "gap_to_fill": "Apply gamification to math with story-driven, real-world examples"
+    },
+    {
+      "competitor": "Brilliant.org",
+      "strengths": [
+        "Interactive problem-solving",
+        "High-quality STEM content",
+        "Clean UX"
+      ],
+      "weaknesses": [
+        "High cost",
+        "Steep jumps in difficulty"
+      ],
+      "what_to_emulate": [
+        "Visual, interactive question formats"
+      ],
+      "gap_to_fill": "Smoother difficulty progression, free starter tier"
+    },
+    {
+      "competitor": "Khan Academy",
+      "strengths": [
+        "Free, trusted educational content",
+        "Adaptive learning"
+      ],
+      "weaknesses": [
+        "Less gamification",
+        "Passive learning style"
+      ],
+      "what_to_emulate": [
+        "Accessibility",
+        "Structured curriculum"
+      ],
+      "gap_to_fill": "Add game loops & engagement hooks for casual learners"
+    },
+    {
+      "competitor": "Mathigon",
+      "strengths": [
+        "Story-driven math",
+        "Creative lesson design",
+        "Free access"
+      ],
+      "weaknesses": [
+        "Limited subject scope",
+        "Less structured pathways"
+      ],
+      "what_to_emulate": [
+        "Narrative",
+        "Puzzle-style learning"
+      ],
+      "gap_to_fill": "Create a clear, gamified progression path"
+    }
+  ],
+  "positioning_statement": "Our platform sits at the intersection of Duolingo\u2019s gamified engagement and Brilliant.org\u2019s interactivity \u2014 but tailored exclusively for mathematics. We combine addictive streak mechanics, XP rewards, and personalised skill review with story-rich, real-world examples and problem-solving exercises. Core learning is free, ensuring accessibility, while premium AI-enhanced tutoring offers deeper personalisation for those who want to go further.",
+  "value_proposition": "Friendly, gamified, and interactive math learning for students and hobbyists \u2014 free to start, AI-powered to deepen. Learners progress through bite-sized modules, earn rewards, maintain streaks, and unlock new challenges while receiving instant, personalised feedback. Our app bridges the gap between high-engagement gamified learning and structured math mastery.",
+  "target_audience": {
+    "primary": "Middle school students (ages 11\u201314) needing accessible, structured practice",
+    "secondary": "Hobbyists and adults wanting to refresh foundational maths"
+  },
+  "mvp_scope": {
+    "core_content": {
+      "topics": [
+        "Fractions",
+        "Percentages",
+        "Basic Algebra"
+      ],
+      "lessons_per_topic": 5,
+      "total_lessons": 15,
+      "lesson_duration": "3\u20135 minutes",
+      "formats": [
+        "MCQ",
+        "Type-in",
+        "Drag-and-drop",
+        "Step ordering"
+      ],
+      "real_world_examples": true
+    },
+    "core_features": [
+      "Skill path with lesson unlocking",
+      "XP system",
+      "Streak tracking",
+      "Badges",
+      "Explain My Answer (pre-written explanations)",
+      "Profile page with progress tracking"
+    ]
+  },
+  "gamification_loop": [
+    "Complete lesson \u2192 earn XP",
+    "Maintain streak \u2192 visual streak flame",
+    "Unlock next skill \u2192 visible skill path progression",
+    "Collect badges for topic mastery"
+  ],
+  "monetisation_strategy": {
+    "model": "Freemium",
+    "free_content": "Core content",
+    "premium_content": "Advanced lessons",
+    "premium_ai_tutoring": "Unlimited Explain My Answer using live AI",
+    "ads": "Non-intrusive banner or rewarded ads"
+  },
+  "technical_approach": {
+    "frontend": "Next.js + Tailwind CSS",
+    "backend": "Firebase Auth & Firestore (for MVP speed)",
+    "hosting": {
+      "frontend": "Vercel",
+      "backend": "Firebase"
+    },
+    "optional_ai": "OpenAI API (controlled usage)"
+  },
+  "future_roadmap": [
+    "Add Physics & Science topics",
+    "Exam prep mode with timed quizzes",
+    "Social leaderboards and challenge mode",
+    "AI-generated personalised practice sets"
+  ],
+  "outcome_goals": {
+    "portfolio_impact": "Demonstrate product design + technical build in 4 weeks",
+    "market_potential": "Early traction from free users; monetisation through premium tutoring",
+    "scalability": "Easily add topics and features without redesign"
+  },
+  "links": {
+    "gamification_mechanism": "https://www.notion.so/Gamification-Mechanism-250d2286adbe80cfa866c14bd1835ccc?pvs=21",
+    "question_demo": "https://www.notion.so/Question-demo-250d2286adbe802eaf36fc209c2b7d91?pvs=21",
+    "tech_stack": "https://www.notion.so/tech-stack-253d2286adbe809f8d5be173504edec8?pvs=21"
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "screen": {
+    "path": "/settings",
+    "layout": "app_shell",
+    "panel_variant": "settings_form",
+    "purpose": "Manage account details and app preferences.",
+    "modules": [
+      "AccountCard",
+      "PreferencesForm",
+      "DangerZone?"
+    ],
+    "guards": [
+      {
+        "rule": "authed_only",
+        "on_missing": "redirect:/learn?isLoggingIn=true"
+      }
+    ],
+    "data_inputs": [
+      "profile (db)",
+      "preferences (db/local)"
+    ],
+    "interactions": [
+      {
+        "event": "save_click",
+        "action": "PATCH /api/settings \u2192 toast_success"
+      },
+      {
+        "event": "input_change",
+        "action": "local_state:dirtied"
+      },
+      {
+        "event": "before_leave_dirty",
+        "action": "confirm_modal"
+      },
+      {
+        "event": "delete_account",
+        "action": "modal_confirm \u2192 DELETE /api/account \u2192 signout"
+      },
+      {
+        "event": "signout_click",
+        "action": "POST /api/auth/signout \u2192 nav:/"
+      }
+    ],
+    "loading": "form_skeleton",
+    "empty_states": [],
+    "error": "inline_errors",
+    "analytics": {
+      "events": [
+        "settings_view",
+        "settings_saved",
+        "settings_error",
+        "account_deleted",
+        "signout"
+      ]
+    },
+    "acceptance": [
+      "Form initializes with server values; Save disabled until dirty.",
+      "Inline validation messages under fields; screen\u2011reader friendly.",
+      "Save shows success toast and disables until next change.",
+      "Leaving with unsaved changes prompts confirmation.",
+      "Right panel remains consistent with app shell (TopBar docked)."
+    ]
+  },
+  "module_contracts": {
+    "types": {
+      "AuthProvider": [
+        "email",
+        "google",
+        "apple",
+        "github"
+      ],
+      "Profile": {
+        "id": "string",
+        "displayName": "string",
+        "username": "string",
+        "email?": "string",
+        "authProvider": "AuthProvider",
+        "avatarUrl?": "string",
+        "joinedAtISO": "string"
+      },
+      "DailyGoal": [
+        10,
+        20,
+        30,
+        50
+      ],
+      "Preferences": {
+        "interfaceLanguage": "string",
+        "studyLanguage": "string",
+        "dailyGoal": "DailyGoal",
+        "soundEffects": "boolean",
+        "speakingEnabled?": "boolean",
+        "theme": [
+          "system",
+          "light",
+          "dark"
+        ],
+        "notifications": {
+          "email": "boolean",
+          "push": "boolean",
+          "productUpdates?": "boolean"
+        },
+        "privacy": {
+          "profileVisibility": [
+            "public",
+            "friends",
+            "private"
+          ],
+          "leaderboardOptIn": "boolean"
+        }
+      },
+      "AccountCardProps": {
+        "profile": "Profile",
+        "onEditAvatar?": "function",
+        "onChangeEmail?": "function",
+        "onChangePassword?": "function",
+        "onSignOut": "function"
+      },
+      "PreferencesFormProps": {
+        "initial": "Preferences",
+        "onChange": "function",
+        "onSave": "function",
+        "saving?": "boolean",
+        "dirty?": "boolean",
+        "errors?": "Record<string,string>"
+      },
+      "DangerZoneProps": {
+        "onDeleteAccount": "function"
+      },
+      "SaveSettingsRequest": {
+        "preferences": "Preferences"
+      },
+      "SaveSettingsResponse": {
+        "ok": "boolean",
+        "preferences?": "Preferences",
+        "error?": "string"
+      },
+      "DeleteAccountResponse": {
+        "ok": "boolean"
+      }
+    }
+  },
+  "wireframes": {
+    "desktop": [
+      "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510",
+      "\u2502 LEFT NAV       \u2502 MAIN: /settings                                              \u2502 RIGHT PANEL          \u2502",
+      "\u2502 (icons)        \u2502                                                              \u2502 [TopBar docked]      \u2502",
+      "\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524",
+      "\u2502                \u2502 ACCOUNT                                                       \u2502  \ud83d\udd252  \u26a1175  \ud83d\udc8e227    \u2502",
+      "\u2502                \u2502 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  \u2502  \u27645                 \u2502",
+      "\u2502                \u2502 \u2502 [\ud83d\ude42 avatar]  Timothy Ho                                   \u2502  \u2502\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2502",
+      "\u2502                \u2502 \u2502 username: @timothy \u2022 provider: Google                      \u2502  \u2502 Tips / Promo?      \u2502",
+      "\u2502                \u2502 \u2502 [Change email] [Change password] [Sign out]                \u2502  \u2502                    \u2502",
+      "\u2502                \u2502 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518  \u2502                    \u2502",
+      "\u2502                \u2502                                                              \u2502                    \u2502",
+      "\u2502                \u2502 PREFERENCES                                                   \u2502                    \u2502",
+      "\u2502                \u2502 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  \u2502                    \u2502",
+      "\u2502                \u2502 \u2502 Language:  Interface [en \u25bc]  Study [math \u25bc]             \u2502  \u2502                    \u2502",
+      "\u2502                \u2502 \u2502 Daily goal:  ( )10  (\u2022)20  ( )30  ( )50 XP/day          \u2502  \u2502                    \u2502",
+      "\u2502                \u2502 \u2502 Sound effects:  [ ON ]                                   \u2502  \u2502                    \u2502",
+      "\u2502                \u2502 \u2502 Theme:  (\u2022) System  ( ) Light  ( ) Dark                  \u2502  \u2502                    \u2502",
+      "\u2502                \u2502 \u2502 Notifications:  Email [ON]  Push [ON]  Updates [OFF]     \u2502  \u2502                    \u2502",
+      "\u2502                \u2502 \u2502 Privacy:  Visibility [ Public | Friends | Private ]      \u2502  \u2502                    \u2502",
+      "\u2502                \u2502 \u2502           Leaderboards [ ON ]                            \u2502  \u2502                    \u2502",
+      "\u2502                \u2502 \u2502                                          [Cancel] [Save] \u2502  \u2502                    \u2502",
+      "\u2502                \u2502 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518  \u2502                    \u2502",
+      "\u2502                \u2502                                                              \u2502                    \u2502",
+      "\u2502                \u2502 DANGER ZONE (optional)                                       \u2502                    \u2502",
+      "\u2502                \u2502 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  \u2502                    \u2502",
+      "\u2502                \u2502 \u2502 Delete account  \u2014 removes all data permanently  [Delete] \u2502  \u2502                    \u2502",
+      "\u2502                \u2502 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518  \u2502                    \u2502",
+      "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518"
+    ],
+    "mobile": [
+      "[TopBar merged]",
+      "",
+      "ACCOUNT",
+      "[\ud83d\ude42 avatar]  Timothy Ho",
+      "@timothy \u2022 Google",
+      "[Change email] [Change password] [Sign out]",
+      "",
+      "PREFERENCES",
+      "Language",
+      " Interface [en \u25bc]   Study [math \u25bc]",
+      "Daily goal:  ( )10  (\u2022)20  ( )30  ( )50",
+      "Sound effects [ ON ]",
+      "Theme  (\u2022)System ( )Light ( )Dark",
+      "Notifications  Email [ON]  Push [ON]  Updates [OFF]",
+      "Privacy  Visibility [ Public | Friends | Private ]",
+      "         Leaderboards [ ON ]",
+      "",
+      "[Cancel]                                      [Save]",
+      "",
+      "Danger zone",
+      "[ Delete account ]"
+    ]
+  }
+}

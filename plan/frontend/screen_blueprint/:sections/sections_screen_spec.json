@@ -1,0 +1,152 @@
+{
+  "screen": {
+    "path": "/sections",
+    "layout": "app_shell",
+    "panel_variant": "skill_path_shared",
+    "purpose": "Topic hub listing all available sections/units with progress and entry points.",
+    "modules": ["SectionsHeader", "FilterBar", "SectionGrid", "FooterNote?"],
+    "data_inputs": [
+      "sections (db/ssr): array of Section",
+      "user_progress (db/local) mapped by sectionId"
+    ],
+    "query": {
+      "topic_id?": "string",
+      "topic_slug?": "string",
+      "q?": "search string",
+      "status?": "\"locked\"|\"in_progress\"|\"complete\"",
+      "sort?": "\"recommended\"|\"a_z\"|\"progress\""
+    },
+    "interactions": [
+      {
+        "event": "search_change",
+        "action": "local_filter:update"
+      },
+      {
+        "event": "filter_change",
+        "action": "local_filter:update"
+      },
+      {
+        "event": "sort_change",
+        "action": "local_sort:update"
+      },
+      {
+        "event": "card_click_unlocked",
+        "action": "nav:/learn?topic={section.slug}"
+      },
+      {
+        "event": "start_click",
+        "action": "nav:/lesson?topic={section.slug}&n=1"
+      },
+      {
+        "event": "card_click_locked",
+        "action": "tooltip:show_requirement"
+      }
+    ],
+    "loading": "skeleton_header + skeleton_filters + grid_skeleton",
+    "empty_states": [
+      "no_sections_found (respect current filters/search)",
+      "not_enrolled_call_to_action?"
+    ],
+    "error": "retry_inline_toast",
+    "analytics": {
+      "events": [
+        "sections_view",
+        "search_used",
+        "filter_used",
+        "sort_used",
+        "section_card_opened",
+        "start_lesson_from_sections"
+      ]
+    },
+    "performance": {
+      "prefetch": [
+        "hover/focus SectionCard \u2192 /learn?topic=\u2026",
+        "start button hover/focus \u2192 /lesson?topic=\u2026&n=1"
+      ],
+      "defer_heavy": ["FooterNote?"]
+    },
+    "acceptance": [
+      "Typing in search filters SectionGrid client-side with debounced input.",
+      "Locked SectionCard shows requirement tooltip and is not navigable.",
+      "Keyboard users can tab through cards; Enter opens; tooltips close on Esc.",
+      "Right panel follows skill_path_shared variant (TopBar docked, etc.).",
+      "Deep links with ?topic_id or ?topic_slug pre-select relevant subset.",
+      "ARIA roles/labels added for list/grid and cards."
+    ]
+  },
+  "module_contracts": {
+    "types": {
+      "SectionStatus": ["locked", "in_progress", "complete"],
+      "Progress": {
+        "lessonsTotal": "number",
+        "lessonsDone": "number",
+        "percent": "number"
+      },
+      "Section": {
+        "id": "string",
+        "slug": "string",
+        "unit": "number",
+        "title": "string",
+        "subtitle?": "string",
+        "illustration?": {
+          "src": "string",
+          "alt": "string"
+        },
+        "status": "SectionStatus",
+        "progress": "Progress",
+        "lockReason?": "\"prereq\"|\"checkpoint\"|\"premium\"",
+        "requirements?": [
+          {
+            "type": "\"skill\"|\"checkpoint\"",
+            "id": "string",
+            "title": "string"
+          }
+        ],
+        "recommended?": "boolean"
+      },
+      "SectionsHeaderProps": {
+        "title": "string",
+        "topicLabel?": "string",
+        "breadcrumb?": [
+          {
+            "label": "string",
+            "href": "string"
+          }
+        ]
+      },
+      "FilterBarProps": {
+        "query": "string",
+        "onQueryChange": "function",
+        "status?": "\"locked\"|\"in_progress\"|\"complete\"|\"all\"",
+        "onStatusChange?": "function",
+        "sort?": "\"recommended\"|\"a_z\"|\"progress\"",
+        "onSortChange?": "function"
+      },
+      "SectionCardProps": {
+        "section": "Section",
+        "onOpen": "function",
+        "onStart?": "function",
+        "onLockedClick?": "function"
+      },
+      "SectionGridProps": {
+        "sections": "Section[]",
+        "layout?": "\"auto\"|\"2col\"|\"3col\"",
+        "onCardOpen": "function",
+        "onStart?": "function",
+        "onLockedClick?": "function"
+      },
+      "FooterNoteProps": {
+        "text": "string",
+        "links?": [
+          {
+            "label": "string",
+            "href": "string"
+          }
+        ]
+      }
+    }
+  },
+  "wireframes_assets": {
+    "markdown": "sections_wireframes.md"
+  }
+}

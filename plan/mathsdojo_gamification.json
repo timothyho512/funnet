@@ -1,0 +1,554 @@
+{
+  "version": "1.0.0",
+  "last_updated_utc": "AUTO-FILL-AT-BUILD",
+  "metadata": {
+    "app": "MathsDojo MVP",
+    "owner": "product",
+    "notes": "Central gamification config. Safe to tweak numbers without code changes."
+  },
+  "time_policies": {
+    "day_boundary": {
+      "mode": "local_user_timezone",
+      "fixed_utc_rollover_hour": 0,
+      "grace_period_minutes": 60
+    },
+    "weekly_reset": {
+      "weekday": "MON",
+      "hour_local": 0
+    },
+    "timezone_standard": "IANA",
+    "dst_handling": "automatic_by_library"
+  },
+  "data_types": {
+    "xp_fields": "integer",
+    "times": "ISO8601_UTC_or_local_with_offset"
+  },
+  "xp_system": {
+    "base": {
+      "standard_lesson_xp": 10,
+      "perfect_lesson_bonus_xp": 5,
+      "partial_completion_xp": 0
+    },
+    "difficulty_scaling": {
+      "enabled": true,
+      "xp_by_difficulty": {
+        "easy": 10,
+        "medium": 15,
+        "hard": 20
+      }
+    },
+    "xp_calculation_policy": {
+      "lesson_base_source": "difficulty_only",
+      "use_standard_if_difficulty_unspecified": true
+    },
+    "repeat_decay": {
+      "enabled": true,
+      "rule": "first_completion_only",
+      "window_minutes": 0,
+      "decay_schedule": [1.0, 0.0]
+    },
+    "repeat_policy": {
+      "rule": "first_completion_only",
+      "practice_review": {
+        "enabled": false,
+        "daily_cap_xp": 0
+      }
+    },
+    "speed_bonus": {
+      "enabled": false,
+      "threshold_seconds": 60,
+      "bonus_xp": 5,
+      "requires_perfect": true
+    },
+    "daily_goal_options": [10, 20, 30, 50],
+    "daily_goal": {
+      "options": [10, 20, 30, 50],
+      "default": 20,
+      "streak_tied": true,
+      "change_policy": {
+        "allow_same_day_change": false
+      },
+      "reward": "celebration_only"
+    },
+    "xp_boosts": {
+      "multiplier": 2.0,
+      "duration_minutes": 15,
+      "stacking": "no_stack",
+      "earn_sources": ["streak_7", "topic_mastery"],
+      "premium_unlimited_activation": false
+    },
+    "caps": {
+      "max_xp_counted_per_day_free": 300,
+      "max_xp_counted_per_day_premium": 1000
+    },
+    "topic_completion_bonus_xp": 50
+  },
+  "streaks": {
+    "definition": "Complete >= daily_xp_goal before day_boundary.",
+    "show_on_home": true,
+    "milestones_days": [7, 30, 100, 365, 730, 1825],
+    "freeze": {
+      "enabled": true,
+      "max_inventory": 10,
+      "earn_sources": ["weekly_quest_complete"],
+      "premium_purchase_allowed": true
+    },
+    "repair": {
+      "enabled": true,
+      "window_hours": 24,
+      "cost_type": "premium_only",
+      "limit_per_month": 1
+    }
+  },
+  "badges": {
+    "tiers": ["bronze", "silver", "gold"],
+    "definitions": [
+      {
+        "id": "streak_7",
+        "type": "streak",
+        "threshold": 7,
+        "tier": "bronze"
+      },
+      {
+        "id": "streak_30",
+        "type": "streak",
+        "threshold": 30,
+        "tier": "silver"
+      },
+      {
+        "id": "streak_100",
+        "type": "streak",
+        "threshold": 100,
+        "tier": "gold"
+      },
+      {
+        "id": "topic_mastery_fractions",
+        "type": "topic_mastery",
+        "topic": "fractions"
+      },
+      {
+        "id": "topic_mastery_percentages",
+        "type": "topic_mastery",
+        "topic": "percentages"
+      },
+      {
+        "id": "topic_mastery_algebra",
+        "type": "topic_mastery",
+        "topic": "algebra"
+      },
+      {
+        "id": "answers_500",
+        "type": "correct_answers",
+        "threshold": 500
+      },
+      {
+        "id": "answers_1000",
+        "type": "correct_answers",
+        "threshold": 1000
+      },
+      {
+        "id": "answers_5000",
+        "type": "correct_answers",
+        "threshold": 5000
+      },
+      {
+        "id": "xp_500",
+        "type": "total_xp",
+        "threshold": 500
+      },
+      {
+        "id": "xp_1000",
+        "type": "total_xp",
+        "threshold": 1000
+      },
+      {
+        "id": "xp_2000",
+        "type": "total_xp",
+        "threshold": 2000
+      }
+    ],
+    "seasonal": {
+      "enabled": true,
+      "examples": ["winter_fest_2025", "back_to_school"],
+      "visible_only_in_season": true,
+      "legacy_visible_if_earned": true
+    }
+  },
+  "seasonal_events": [
+    {
+      "id": "winter_fest_2025",
+      "start_utc": "2025-12-15T00:00:00Z",
+      "end_utc": "2026-01-05T00:00:00Z"
+    },
+    {
+      "id": "back_to_school",
+      "start_utc": "2025-08-15T00:00:00Z",
+      "end_utc": "2025-09-15T00:00:00Z"
+    }
+  ],
+  "quests": {
+    "daily": [
+      {
+        "id": "complete_3_lessons",
+        "type": "count_lessons",
+        "target": 3,
+        "reward": {
+          "xp": 20
+        }
+      },
+      {
+        "id": "score_100_once",
+        "type": "perfect_lesson",
+        "target": 1,
+        "reward": {
+          "xp": 15
+        }
+      }
+    ],
+    "weekly": [
+      {
+        "id": "earn_200_xp",
+        "type": "xp_accumulate",
+        "target": 200,
+        "reward": {
+          "xp": 30
+        }
+      }
+    ],
+    "reset": {
+      "daily_hour_local": 0,
+      "weekly_weekday": "MON",
+      "weekly_hour_local": 0
+    }
+  },
+  "unlock_logic": {
+    "skill_path": {
+      "lesson1_unlocked": true,
+      "unlock_next_on_complete": true,
+      "require_score_percent": 100
+    },
+    "topic_unlocks": {
+      "sequence": ["fractions", "percentages", "algebra"],
+      "unlock_next_on_topic_complete": true
+    },
+    "bonus_challenges": {
+      "enabled": true,
+      "unlock_on_topic_complete": true,
+      "xp_reward": 20
+    }
+  },
+  "leaderboards": {
+    "scopes": ["friends", "global"],
+    "mvp_enabled_scopes": ["friends"],
+    "ranking_metric": "weekly_xp",
+    "tiebreakers": ["last_active_desc", "total_xp_desc"],
+    "weekly_reset": "per time_policies.weekly_reset",
+    "visibility": {
+      "show_movement": true,
+      "opt_out_allowed": true
+    },
+    "anti_abuse": {
+      "min_session_length_seconds_for_full_xp": 30,
+      "max_lessons_counted_per_day": 40,
+      "max_weekly_xp_for_ranking": 20000,
+      "suspicious_xp_burst_threshold": 500,
+      "suspicious_xp_burst_window_minutes": 10,
+      "action_on_suspicious": "exclude_from_ranking"
+    },
+    "privacy": {
+      "opt_out_allowed": true,
+      "min_age_for_global": 13
+    }
+  },
+  "visual_feedback": {
+    "in_lesson": {
+      "correct": {
+        "show_tick": true,
+        "micro_xp_popup": {
+          "enabled": true,
+          "value": 1
+        }
+      },
+      "incorrect": {
+        "show_cross": true,
+        "offer_explain": true
+      }
+    },
+    "post_lesson": {
+      "confetti": true,
+      "xp_popup": true,
+      "streak_animation": true
+    },
+    "milestones": {
+      "level_up": {
+        "sound": "level_up_chime",
+        "modal": true
+      },
+      "badge_unlock": {
+        "shine_anim": true,
+        "modal": true
+      }
+    },
+    "sfx": {
+      "enabled": true,
+      "mute_default": false
+    }
+  },
+  "premium": {
+    "ai_explanations": {
+      "free_daily_quota": 3,
+      "premium_unlimited": true
+    },
+    "xp_boosters": {
+      "free_daily_quota": 1,
+      "premium_unlimited": true
+    },
+    "cosmetics": {
+      "streak_flame_styles": ["classic", "blue", "neon"]
+    }
+  },
+  "economy": {
+    "currencies": [
+      {
+        "id": "gems",
+        "type": "soft"
+      }
+    ],
+    "store_items": [
+      {
+        "id": "streak_freeze",
+        "type": "consumable",
+        "price": {
+          "gems": 200
+        },
+        "max_inventory": 10
+      },
+      {
+        "id": "xp_boost_15m",
+        "type": "consumable",
+        "price": {
+          "gems": 150
+        }
+      }
+    ]
+  },
+  "leveling": {
+    "per_topic_levels": false,
+    "xp_scope": "global_total_xp_first_completion_only",
+    "overflow_behavior": {
+      "carry_over_to_next_level": true
+    },
+    "cap_level": 100,
+    "xp_curve": {
+      "type": "quadratic_rounded_to_50",
+      "formula": "xp_to_next = round_to_nearest_50(a*level^2 + b*level + c)",
+      "params": {
+        "a": 0.6,
+        "b": 8,
+        "c": 40
+      },
+      "examples_first_10_levels": {
+        "L1->2": 50,
+        "L2->3": 100,
+        "L3->4": 150,
+        "L4->5": 200,
+        "L5->6": 300,
+        "L6->7": 400,
+        "L7->8": 500,
+        "L8->9": 650,
+        "L9->10": 800,
+        "L10->11": 950
+      }
+    },
+    "rewards_catalog": {
+      "badge_shape_variant": {
+        "type": "cosmetic",
+        "description": "Unlocks an alternate badge shape."
+      },
+      "avatar_accessory_basic": {
+        "type": "cosmetic",
+        "description": "Unlocks a basic avatar accessory."
+      },
+      "avatar_accessory_pro": {
+        "type": "cosmetic",
+        "description": "Unlocks a premium-style avatar accessory."
+      },
+      "streak_flame_blue": {
+        "type": "cosmetic",
+        "description": "Blue streak flame color."
+      },
+      "streak_flame_neon": {
+        "type": "cosmetic",
+        "description": "Neon streak flame color."
+      },
+      "profile_frame_bronze": {
+        "type": "cosmetic",
+        "description": "Bronze profile frame."
+      },
+      "profile_frame_silver": {
+        "type": "cosmetic",
+        "description": "Silver profile frame."
+      },
+      "profile_frame_gold": {
+        "type": "cosmetic",
+        "description": "Gold profile frame."
+      },
+      "profile_title_math_whiz": {
+        "type": "title",
+        "description": "Profile title: Math Whiz."
+      },
+      "profile_title_elite_learner": {
+        "type": "title",
+        "description": "Profile title: Elite Learner."
+      },
+      "xp_booster_token": {
+        "type": "consumable",
+        "description": "1 \u00d7 2x XP booster for 15 minutes."
+      },
+      "topic_mastery_trophy": {
+        "type": "cosmetic",
+        "description": "Golden topic trophy displayed on profile."
+      }
+    },
+    "reward_rules": [
+      {
+        "levels": [5, 15, 25],
+        "rewards": ["badge_shape_variant"]
+      },
+      {
+        "levels": [10, 20],
+        "rewards": ["avatar_accessory_basic"]
+      },
+      {
+        "levels": [30],
+        "rewards": ["avatar_accessory_pro", "profile_title_elite_learner"]
+      },
+      {
+        "levels": [12],
+        "rewards": ["streak_flame_blue"]
+      },
+      {
+        "levels": [22],
+        "rewards": ["streak_flame_neon"]
+      },
+      {
+        "levels": [15],
+        "rewards": ["profile_frame_bronze"]
+      },
+      {
+        "levels": [35],
+        "rewards": ["profile_frame_silver"]
+      },
+      {
+        "levels": [50],
+        "rewards": ["profile_frame_gold"]
+      },
+      {
+        "levels": [25],
+        "rewards": ["profile_title_math_whiz"]
+      },
+      {
+        "levels": [7, 18, 27, 40, 60, 80],
+        "rewards": ["xp_booster_token"]
+      },
+      {
+        "levels": [100],
+        "rewards": ["topic_mastery_trophy"]
+      }
+    ]
+  },
+  "xp_decay": {
+    "enabled": true,
+    "apply_scope": "global_and_topic",
+    "inactive_days_threshold": 7,
+    "rusty_penalty_percent": 5,
+    "max_decay_percent_per_week": 10,
+    "restore_rule": "Complete one review lesson to restore lost XP on that topic"
+  },
+  "anti_abuse": {
+    "min_unique_questions_per_day": 20,
+    "min_seconds_per_lesson_for_full_xp": 30,
+    "cooldowns": {
+      "lesson_restart_seconds": 5
+    },
+    "ip_rate_limits": {
+      "window_minutes": 10,
+      "max_sessions": 30
+    }
+  },
+  "xp_award_policy": {
+    "rounding": "nearest_integer",
+    "idempotency": {
+      "event_id_required": true,
+      "dedupe_window_minutes": 10
+    },
+    "award_source_of_truth": "server"
+  },
+  "accessibility": {
+    "reduced_motion_default": false,
+    "color_blind_safe_mode": false,
+    "haptics_enabled": true
+  },
+  "analytics_events": [
+    {
+      "name": "session_start",
+      "required_props": ["user_id", "tz"]
+    },
+    {
+      "name": "lesson_start",
+      "required_props": ["user_id", "lesson_id", "topic"]
+    },
+    {
+      "name": "lesson_complete",
+      "required_props": [
+        "user_id",
+        "lesson_id",
+        "score_percent",
+        "duration_seconds",
+        "xp_awarded"
+      ]
+    },
+    {
+      "name": "streak_update",
+      "required_props": ["user_id", "streak_days", "action"]
+    },
+    {
+      "name": "badge_awarded",
+      "required_props": ["user_id", "badge_id"]
+    },
+    {
+      "name": "level_up",
+      "required_props": ["user_id", "topic", "new_level"]
+    },
+    {
+      "name": "quest_progress",
+      "required_props": ["user_id", "quest_id", "progress", "completed"]
+    }
+  ],
+  "analytics": {
+    "events_version": 1,
+    "sampling": {
+      "default": 1.0,
+      "high_volume": 0.2
+    }
+  },
+  "qa_checklist_version": 1,
+  "localization": {
+    "supported_locales": ["en-US", "en-GB"],
+    "default_locale": "en-GB"
+  },
+  "feature_flags": {
+    "speed_bonus": false,
+    "global_leaderboard": true,
+    "seasonal_badges": true
+  },
+  "defaults_and_ranges": {
+    "xp": {
+      "min": 0,
+      "max": 100000
+    },
+    "daily_goal_options": {
+      "allowed": [10, 20, 30, 50]
+    }
+  }
+}

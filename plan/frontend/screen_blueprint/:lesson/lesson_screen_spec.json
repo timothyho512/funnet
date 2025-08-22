@@ -1,0 +1,261 @@
+{
+  "screen": {
+    "path": "/lesson",
+    "layout": "app_shell",
+    "panel_variant": "full_takeover",
+    "purpose": "Focused lesson player: question \u2192 check \u2192 feedback \u2192 continue.",
+    "modules": [
+      "LessonHeader",
+      "ProgressBar",
+      "QuestionArea",
+      "Options",
+      "FeedbackBanner",
+      "SubmitBar",
+      "ExitConfirmModal"
+    ],
+    "data_inputs": [
+      "lesson_session (from ?topic & n OR restored via sid)",
+      "xp_rules (config)"
+    ],
+    "guards": [
+      {
+        "rule": "required_context",
+        "keys": ["topic_or_sid"],
+        "on_missing": "redirect:/learn"
+      },
+      {
+        "rule": "beforeunload_confirm",
+        "applies_when": "session.active"
+      }
+    ],
+    "interactions": [
+      {
+        "event": "select_choice",
+        "action": "local_state:update"
+      },
+      {
+        "event": "input_change",
+        "action": "local_state:update"
+      },
+      {
+        "event": "check_click",
+        "action": "grade\u2192feedback\u2192advance_state_to_continue"
+      },
+      {
+        "event": "continue_click",
+        "action": "session:next_step"
+      },
+      {
+        "event": "explain_click",
+        "action": "drawer_or_modal:open_explain"
+      },
+      {
+        "event": "exit_click",
+        "action": "modal:open_exit_confirm"
+      },
+      {
+        "event": "exit_keep_learning",
+        "action": "modal:close"
+      },
+      {
+        "event": "exit_end_session",
+        "action": "session:abandon\u2192replace:/learn"
+      },
+      {
+        "event": "end_of_session",
+        "action": "compute_xp\u2192sessionStorage.set('celebrate',payload)\u2192replace:/learn"
+      }
+    ],
+    "loading": "skeleton_question",
+    "empty_states": [],
+    "error": "friendly_modal_then_redirect:/learn",
+    "analytics": {
+      "events": [
+        "lesson_loaded",
+        "question_shown",
+        "choice_selected",
+        "checked_correct",
+        "checked_incorrect",
+        "explain_opened",
+        "step_advanced",
+        "lesson_completed",
+        "exit_modal_opened",
+        "session_abandoned"
+      ]
+    },
+    "performance": {
+      "prefetch": ["next_step_question_assets"],
+      "defer_heavy": ["explain_rich_media", "celebration_lottie"]
+    },
+    "xp_rules": {
+      "base": {
+        "award": 10,
+        "when": "lesson_complete"
+      },
+      "perfect_bonus": {
+        "award": 5,
+        "when": "lesson_complete",
+        "condition": "no_wrong_attempts"
+      },
+      "per_question": {
+        "award": 0
+      }
+    },
+    "acceptance": [
+      "No hearts UI shown.",
+      "Explain button is bottom-left; opens without leaving step.",
+      "CHECK becomes CONTINUE after feedback.",
+      "Exit (X) opens confirm modal; End session returns to /learn without celebration.",
+      "XP awarded only at lesson completion (+10 base; +5 bonus if no mistakes).",
+      "Warn on browser leave/refresh while active.",
+      "Keyboard-only and screen-reader flows supported."
+    ]
+  },
+  "module_contracts": {
+    "types": {
+      "QType": ["mcq_single", "mcq_multi", "numeric"],
+      "LessonSession": {
+        "sid": "string",
+        "topic": "string",
+        "nodeId": "string",
+        "stepCount": "number",
+        "stepIndex": "number",
+        "startedAtISO": "string",
+        "madeMistake": "boolean"
+      },
+      "QuestionCommon": {
+        "id": "string",
+        "type": "QType",
+        "stem": "string",
+        "media?": {
+          "kind": "\"img\"|\"audio\"|\"svg\"",
+          "src": "string",
+          "alt?": "string"
+        },
+        "promptA11y?": "string",
+        "shuffle?": "boolean"
+      },
+      "MCQSingle": {
+        "extends": "QuestionCommon",
+        "type": "mcq_single",
+        "options": [
+          {
+            "id": "string",
+            "label": "string"
+          }
+        ]
+      },
+      "MCQMulti": {
+        "extends": "QuestionCommon",
+        "type": "mcq_multi",
+        "options": [
+          {
+            "id": "string",
+            "label": "string"
+          }
+        ],
+        "maxSelect?": "number"
+      },
+      "NumericQ": {
+        "extends": "QuestionCommon",
+        "type": "numeric",
+        "answerFormat?": {
+          "decimals?": "number",
+          "allowSimplifiedFraction?": "boolean"
+        },
+        "unitsLabel?": "string"
+      },
+      "Question": "MCQSingle | MCQMulti | NumericQ",
+      "LessonHeaderProps": {
+        "topic": "string",
+        "nodeTitle": "string",
+        "stepIndex": "number",
+        "stepCount": "number",
+        "onExit": "function",
+        "onSettings?": "function"
+      },
+      "ProgressBarProps": {
+        "value": "number",
+        "max": "number"
+      },
+      "QuestionAreaProps": {
+        "question": "Question"
+      },
+      "OptionsProps": {
+        "question": "Question",
+        "selection": "string[]",
+        "onChange": "function"
+      },
+      "FeedbackBannerProps": {
+        "visible": "boolean",
+        "kind": "\"correct\"|\"incorrect\"|\"partial\"",
+        "message": "string"
+      },
+      "ExplainDrawerProps": {
+        "open": "boolean",
+        "title": "string",
+        "body": "string",
+        "media?": {
+          "kind": "\"img\"|\"svg\"",
+          "src": "string",
+          "alt?": "string"
+        }
+      },
+      "SubmitBarProps": {
+        "state": "\"idle\"|\"can_check\"|\"grading\"|\"continue\"",
+        "onCheck": "function",
+        "onContinue": "function",
+        "onExplain": "function",
+        "disableCheck?": "boolean",
+        "labels?": {
+          "check?": "string",
+          "continue?": "string",
+          "explain?": "string"
+        }
+      },
+      "ExitConfirmModalProps": {
+        "open": "boolean",
+        "title": "string",
+        "body": "string",
+        "primary": {
+          "label": "string",
+          "onClick": "function"
+        },
+        "secondary": {
+          "label": "string",
+          "onClick": "function",
+          "danger?": "boolean"
+        },
+        "onClose": "function"
+      },
+      "GradeRequest": {
+        "sid": "string",
+        "questionId": "string",
+        "response": "string[]",
+        "attemptIndex": "number"
+      },
+      "GradeResponse": {
+        "correct": "boolean",
+        "partial?": "boolean",
+        "feedback": "string",
+        "reveal?": {
+          "correctOptionIds?": "string[]",
+          "correctValue?": "string"
+        },
+        "explain?": {
+          "title": "string",
+          "body": "string",
+          "media?": {
+            "kind": "\"img\"|\"svg\"",
+            "src": "string",
+            "alt?": "string"
+          }
+        },
+        "next": "\"same_step_retry\"|\"advance\"|\"end_session\""
+      }
+    }
+  },
+  "wireframes_assets": {
+    "markdown": "lesson_wireframes.md"
+  }
+}

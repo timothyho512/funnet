@@ -1,0 +1,287 @@
+{
+  "project": "Duolingo-Style STEM Learning App",
+  "version": "1.0",
+  "goals": [
+    "Relational data model with strong consistency",
+    "Secure multi-tenant isolation (RLS)",
+    "Gamified UX (XP, streaks, badges, leaderboards)",
+    "Realtime updates where needed",
+    "Low vendor sprawl for MVP",
+    "Clean migration path for scale and mobile"
+  ],
+  "objectives": {
+    "primary": [
+      "Standout portfolio demonstrating full-stack, gamification, data correctness and security",
+      "Ship MVP fast with low vendor sprawl",
+      "Design for future mobile app and scale"
+    ],
+    "secondary": [
+      "Enable analytics-driven iteration (A/B tests, funnels)",
+      "Keep clean migration paths for each layer"
+    ],
+    "kpis": [
+      "Time-to-first-correct-answer < 5s p95",
+      "Lesson completion rate > 60% for new users",
+      "7-day streak retention > 15%",
+      "Crash-free sessions > 99.5%"
+    ]
+  },
+  "frontend": {
+    "framework": "Next.js (App Router) + React",
+    "language": "TypeScript",
+    "styling": {
+      "css": "TailwindCSS",
+      "components": "shadcn/ui",
+      "animations": "Framer Motion"
+    },
+    "forms": {
+      "state": "React Hook Form",
+      "validation": "Zod"
+    },
+    "state": "Zustand (minimal, ephemeral UI state)",
+    "features": [
+      "React Server Components",
+      "Server Actions",
+      "SSR/SSG/ISR",
+      "Streaming & Suspense"
+    ],
+    "rationale": [
+      "RSC + SSR reduce client JS and improve TTFB; great DX for data-heavy pages",
+      "TypeScript gives end-to-end safety across UI/server/DB",
+      "Tailwind + shadcn balances speed and design control; Framer Motion adds polish for gamification"
+    ],
+    "alternatives": {
+      "spa_vite_react": "Simpler build but loses RSC/SSR/SEO defaults; requires separate API",
+      "remix": "Great progressive enhancement; less native RSC support today",
+      "sveltekit_nuxt": "Excellent, but React/Next has stronger hiring signal"
+    },
+    "when_not_to_use": [
+      "Pure CSR dashboard with no SEO and heavy custom runtime constraints",
+      "Team unfamiliar with RSC boundaries and needs ultra-simple SPA"
+    ],
+    "migration_path": "Keep UI pure; business logic in /src/core so it can be reused by other frontends (web/mobile)"
+  },
+  "api_server": {
+    "pattern": "Next.js Server Actions + API Routes",
+    "api_versioning": "/api/v1/*",
+    "validation": "Zod",
+    "authz": "Derive user_id from verified JWT; never trust client payload",
+    "rationale": [
+      "One deployable; no CORS; fewer moving parts; faster MVP",
+      "Server Actions centralize secrets and validation"
+    ],
+    "alternatives": {
+      "trpc_in_next": "End-to-end TS contract; great with React Native; optional for v1",
+      "separate_service": "Express/Fastify/Nest/FastAPI for polyglot/SLAs/public API"
+    },
+    "when_not_to_use": [
+      "Multiple external clients and strict SLAs from day one",
+      "Heavy long-running workflows needing dedicated workers"
+    ],
+    "migration_path": "Extract /src/core to shared package; stand up separate API (REST/tRPC/GraphQL); gradually move /api/v1 routes"
+  },
+  "database": {
+    "platform": "Supabase (Postgres)",
+    "features": {
+      "auth_integration": "Supabase Auth (JWT \u2192 RLS)",
+      "storage": "Supabase Storage",
+      "realtime": "Supabase Realtime"
+    },
+    "orm": "Drizzle ORM (Prisma acceptable)",
+    "security": "Row Level Security on all user-scoped tables",
+    "schema": [
+      "users, profiles",
+      "units, lessons (ordered)",
+      "questions (type, payload_json validated by Zod)",
+      "attempts (immutable event log)",
+      "xp_events (event-sourced XP changes)",
+      "streaks (derived/cacheable)",
+      "badges, user_badges",
+      "leaderboard_daily (precomputed snapshots)"
+    ],
+    "indexes": [
+      "attempts(user_id, created_at)",
+      "attempts(question_id)",
+      "xp_events(user_id, created_at)",
+      "leaderboard_daily(day, xp DESC)"
+    ],
+    "rationale": [
+      "Relational domain (joins/aggregates) fits Postgres; ACID ensures atomic \u2018attempt + XP\u2019",
+      "RLS enforces tenant isolation in the DB, not just app code",
+      "Realtime piggybacks on Postgres replication for live leaderboards"
+    ],
+    "alternatives": {
+      "firestore": "Great DX/realtime; painful for joins/aggregates without denormalization",
+      "mongodb_atlas": "Flexible docs; weaker relational guarantees; constraints in app code",
+      "planetscale_mysql": "Superb DX; discouraged FKs, no RLS; adds vendors for auth/realtime"
+    },
+    "when_not_to_use": [
+      "Schema-less content-only app with minimal relational needs",
+      "Extreme write throughput with simple key-value access patterns"
+    ],
+    "migration_path": "Portable SQL migrations \u2192 Neon/RDS/Cloud SQL; swap Auth/Realtime providers if needed"
+  },
+  "authentication": {
+    "provider": "Supabase Auth",
+    "methods": ["Email/password", "Magic links", "OAuth"],
+    "rationale": [
+      "Direct JWT \u2192 RLS mapping simplifies secure multi-tenant access"
+    ],
+    "alternatives": {
+      "clerk": "Polished UIs, passkeys, orgs/SSO; extra cost/vendor",
+      "auth0": "Enterprise SSO; cost/complexity"
+    },
+    "when_not_to_use": ["Strict enterprise SSO/compliance from day one"],
+    "migration_path": "Abstract user claims; switch to Clerk/Auth0 with JWT claims mapped to RLS"
+  },
+  "payments": {
+    "provider": "Stripe",
+    "stage": "v2 (not MVP)",
+    "webhook_pattern": "Verify \u2192 idempotent entitlement write (pro_until) \u2192 reconcile via daily job",
+    "rationale": ["Best-in-class subscriptions, trials, proration, dashboards"],
+    "alternatives": {
+      "lemonsqueezy_or_paddle": "MoR simplifies VAT; good for EU B2C"
+    }
+  },
+  "emails_notifications": {
+    "provider": "Resend",
+    "use_cases": ["Welcome/reset", "Streak reminder", "Digest"],
+    "rationale": ["Clean DX, TS-first"],
+    "alternatives": {
+      "postmark": "Top deliverability",
+      "sendgrid": "Ubiquitous"
+    }
+  },
+  "analytics_observability": {
+    "product_analytics": "PostHog (events, funnels, retention, feature flags, A/B)",
+    "error_tracking": "Sentry (optional)",
+    "logging": "Structured logs from server actions; Vercel dashboard",
+    "rationale": [
+      "Measure engagement and iterate; flags enable safe experiments"
+    ]
+  },
+  "background_jobs": {
+    "mvp": "Vercel Cron",
+    "future": {
+      "workflows": "Inngest (durable, event-driven)",
+      "rate_limiting": "Upstash Redis",
+      "queues": "Upstash QStash"
+    },
+    "enterprise_option": "Temporal (not needed for MVP)",
+    "rationale": [
+      "Zero-infra scheduling at first; evolve to durable workflows as complexity grows"
+    ],
+    "use_cases": [
+      "Streak checks",
+      "Leaderboard resets",
+      "Digest emails",
+      "Stripe reconcile",
+      "Badge awarding (workflow)"
+    ]
+  },
+  "hosting_devops": {
+    "platform": "Vercel",
+    "regioning": "Co-locate with Supabase",
+    "features": [
+      "Preview deploys per PR",
+      "Edge/Node runtimes per route",
+      "Built-in cron"
+    ],
+    "ci_cd": "GitHub \u2192 Vercel previews (PostHog/Sentry attached)",
+    "env_secrets": "Vercel env vars; no client exposure",
+    "rationale": [
+      "Best-in-class Next.js DX; instant previews help hiring demos"
+    ],
+    "alternatives": {
+      "netlify": "Comparable",
+      "fly_io_render": "More control for backends",
+      "aws_gcp": "Max control, slower DX"
+    }
+  },
+  "testing_quality": {
+    "unit": ["XP/streak engine", "Zod validators", "policy tests (RLS)"],
+    "integration": ["API routes + DB (test schema)"],
+    "e2e": "Playwright (login \u2192 lesson \u2192 submit \u2192 XP/streak/leaderboard)",
+    "seed_data": "Deterministic demo users/lessons for recruiter demos",
+    "rationale": [
+      "Prove correctness where it matters; negative tests for security boundaries"
+    ]
+  },
+  "performance": {
+    "optimizations": [
+      "RSC + streaming minimize JS",
+      "Server-side queries with proper indexes",
+      "Precompute leaderboards",
+      "Realtime only where it adds value"
+    ],
+    "targets": {
+      "ttfb_ms": 150,
+      "lcp_s": 2.5,
+      "api_p95_ms": 300
+    }
+  },
+  "mobile_readiness": {
+    "api": "Versioned REST via Next API routes (/api/v1/*)",
+    "auth": "Supabase Auth JWT",
+    "pattern": "Mobile uses API for writes; optional direct read of public curriculum via RLS",
+    "rationale": [
+      "No need for a separate server until there are multi-client SLAs"
+    ],
+    "split_criteria": [
+      "Public API/SDKs",
+      "Heavy workers",
+      "Polyglot services",
+      "Compliance segmentation"
+    ]
+  },
+  "ai_features": {
+    "optional": true,
+    "use_cases": ["Generate distractors/explanations", "Expand seed questions"],
+    "guardrails": [
+      "Cache outputs",
+      "Human-in-the-loop approvals",
+      "Zod validation of payloads"
+    ],
+    "rationale": ["Reduce content treadmill while keeping quality control"]
+  },
+  "risks_mitigations": {
+    "rls_complexity": "Keep policies small; write negative tests",
+    "serverless_pg_limits": "Use pooling; same-region deploys",
+    "vendor_gravity": "Portable SQL; abstract auth/realtime",
+    "realtime_load": "Limit channels; prefer revalidation for non-critical views"
+  },
+  "roadmap": [
+    {
+      "phase": "MVP (6-8 weeks)",
+      "items": [
+        "Auth",
+        "Lessons/MCQ engine",
+        "Attempts",
+        "XP + streaks",
+        "Daily leaderboard",
+        "Vercel Cron",
+        "PostHog events",
+        "Pretty UI",
+        "Seed data"
+      ]
+    },
+    {
+      "phase": "V2 (4-6 weeks)",
+      "items": [
+        "Badges",
+        "Authoring UI",
+        "Stripe paywall",
+        "A/B flags for XP tuning",
+        "Sentry"
+      ]
+    },
+    {
+      "phase": "Mobile-ready",
+      "items": [
+        "Finalize /api/v1 spec",
+        "Rate limiting",
+        "OpenAPI docs from Zod"
+      ]
+    }
+  ]
+}

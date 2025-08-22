@@ -1,0 +1,137 @@
+{
+  "screen": {
+    "path": "/leaderboards",
+    "layout": "app_shell",
+    "panel_variant": "leaderboard_table",
+    "purpose": "Single weekly XP leaderboard (no leagues, no promotion/demotion).",
+    "modules": ["BoardHeader", "LeaderboardTable", "RulesNote?"],
+    "data_inputs": [
+      "weekly_xp (db, ISR_30s)",
+      "user_profile (db)",
+      "friends_list? (db)",
+      "flags (config)"
+    ],
+    "query": {
+      "view?": "\"friends\"|\"global\"",
+      "page?": "number",
+      "me?": "\"1\""
+    },
+    "interactions": [
+      {
+        "event": "tab_change",
+        "action": "reload:list(view={view})"
+      },
+      {
+        "event": "jump_to_me",
+        "action": "table:scroll_to_me\u2192highlight"
+      },
+      {
+        "event": "row_click",
+        "action": "nav:/profile/{username}"
+      },
+      {
+        "event": "next_page",
+        "action": "fetch:page+1"
+      },
+      {
+        "event": "prev_page",
+        "action": "fetch:page-1"
+      }
+    ],
+    "loading": "header_skeleton + table_skeleton",
+    "empty_states": ["no_friends_yet_cta", "no_data_week"],
+    "error": "toast_retry",
+    "analytics": {
+      "events": [
+        "leaderboard_view",
+        "tab_change",
+        "jump_to_me",
+        "row_open_profile",
+        "page_advance"
+      ]
+    },
+    "performance": {
+      "prefetch": [
+        "hover/focus profile row \u2192 /profile/{username}",
+        "near-bottom \u2192 prefetch next page"
+      ],
+      "table": {
+        "virtualize": true,
+        "row_estimate_px": 56,
+        "overscan": 8
+      }
+    },
+    "ranking_policy": {
+      "window": "weekly",
+      "ties": ["xp_prev_week_desc", "join_time_asc", "username_asc"]
+    },
+    "acceptance": [
+      "Shows current week window in user\u2019s locale.",
+      "User is always visible (pinned) with rank; table scrolls to me if ?me=1.",
+      "Friends tab filters to friends_list; Global tab flag-gated via config.",
+      "Accessible rows: keyboard focus, SR announces rank, name, XP.",
+      "Virtualized table keeps 60fps on mid-tier laptops."
+    ]
+  },
+  "module_contracts": {
+    "types": {
+      "ViewTab": ["friends", "global"],
+      "WeekWindow": {
+        "startISO": "string",
+        "endISO": "string",
+        "timezone": "string"
+      },
+      "UserRankRow": {
+        "rank": "number",
+        "userId": "string",
+        "username": "string",
+        "displayName?": "string",
+        "avatarUrl?": "string",
+        "xp": "number",
+        "isMe?": "boolean",
+        "streakDays?": "number",
+        "lastActiveISO?": "string",
+        "chevron?": "\"up\"|\"down\"|\"same\""
+      },
+      "BoardData": {
+        "window": "WeekWindow",
+        "view": "ViewTab",
+        "rows": "UserRankRow[]",
+        "totalCount": "number",
+        "me?": "UserRankRow"
+      },
+      "BoardHeaderProps": {
+        "window": "WeekWindow",
+        "view": "ViewTab",
+        "tabsEnabled": {
+          "friends": "boolean",
+          "global": "boolean"
+        },
+        "onTabChange": "(view: ViewTab) => void"
+      },
+      "LeaderboardTableProps": {
+        "rows": "UserRankRow[]",
+        "totalCount": "number",
+        "pinnedMe?": "UserRankRow",
+        "view": "ViewTab",
+        "page?": "number",
+        "pageSize?": "number",
+        "onRowClick": "(username: string) => void",
+        "onNextPage?": "() => void",
+        "onPrevPage?": "() => void",
+        "onJumpToMe?": "() => void",
+        "virtualization?": {
+          "enabled": "boolean",
+          "rowEstimatePx": "number",
+          "overscan": "number"
+        }
+      },
+      "RulesNoteProps": {
+        "text": "string"
+      }
+    }
+  },
+  "wireframes_assets": {
+    "markdown": "leaderboards_wireframes.md"
+  }
+}

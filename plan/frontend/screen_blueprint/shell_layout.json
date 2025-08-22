@@ -1,0 +1,62 @@
+{
+  "app_shell": {
+    "regions": ["topbar", "leftnav", "main", "rightpanel"],
+    "grid": {
+      "lg": {
+        "columns": ["leftnav: 80px", "main: 1fr", "rightpanel: 340px"],
+        "gap": "24px"
+      },
+      "md": {
+        "columns": ["leftnav: 72px", "main: 1fr", "rightpanel: 320px"],
+        "gap": "20px"
+      },
+      "sm": {
+        "columns": ["main: 1fr"],
+        "gap": "16px"
+      }
+    },
+    "breakpoints": {
+      "lg": "\u2265 1200px",
+      "md": "\u2265 992px",
+      "sm": "< 992px"
+    },
+    "collapse_rules": {
+      "lg": {
+        "leftnav": "visible",
+        "rightpanel": "visible",
+        "topbar": "rightpanel_top"
+      },
+      "sm": {
+        "leftnav": "drawer",
+        "rightpanel": "inline_below_main",
+        "topbar": "header"
+      }
+    },
+    "right_panel_variants": {
+      "skill_path_shared": {
+        "rightpanel_desktop": [
+          "TopBarDock",
+          "PromoCard?",
+          "LeaderboardUnlockCard",
+          "DailyQuestsCard",
+          "AdSlot?"
+        ],
+        "rightpanel_mobile_inline": [
+          "PromoCard?",
+          "LeaderboardUnlockCard",
+          "DailyQuestsCard",
+          "AdSlot?"
+        ]
+      }
+    },
+    "a11y": {
+      "landmarks": ["header", "nav", "main", "complementary", "footer?"]
+    },
+    "acceptance": [
+      "Leftnav collapses to a modal drawer on < md; focus is trapped while open.",
+      "Right panel cards render inline beneath main content on < md.",
+      "TopBar docks at top of RightPanel on \u2265 md; moves to header on < md.",
+      "Route swaps that share skill_path_shared do not cause layout shift > 0.1 CLS."
+    ]
+  }
+}

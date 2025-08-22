@@ -1,0 +1,1376 @@
+{
+  "screens": {
+    "lesson_screen_spec.json": {
+      "screen": {
+        "path": "/lesson",
+        "layout": "app_shell",
+        "panel_variant": "full_takeover",
+        "purpose": "Focused lesson player: question \u2192 check \u2192 feedback \u2192 continue.",
+        "modules": [
+          "LessonHeader",
+          "ProgressBar",
+          "QuestionArea",
+          "Options",
+          "FeedbackBanner",
+          "SubmitBar",
+          "ExitConfirmModal"
+        ],
+        "data_inputs": [
+          "lesson_session (from ?topic & n OR restored via sid)",
+          "xp_rules (config)"
+        ],
+        "guards": [
+          {
+            "rule": "required_context",
+            "keys": [
+              "topic_or_sid"
+            ],
+            "on_missing": "redirect:/learn"
+          },
+          {
+            "rule": "beforeunload_confirm",
+            "applies_when": "session.active"
+          }
+        ],
+        "interactions": [
+          {
+            "event": "select_choice",
+            "action": "local_state:update"
+          },
+          {
+            "event": "input_change",
+            "action": "local_state:update"
+          },
+          {
+            "event": "check_click",
+            "action": "grade\u2192feedback\u2192advance_state_to_continue"
+          },
+          {
+            "event": "continue_click",
+            "action": "session:next_step"
+          },
+          {
+            "event": "explain_click",
+            "action": "drawer_or_modal:open_explain"
+          },
+          {
+            "event": "exit_click",
+            "action": "modal:open_exit_confirm"
+          },
+          {
+            "event": "exit_keep_learning",
+            "action": "modal:close"
+          },
+          {
+            "event": "exit_end_session",
+            "action": "session:abandon\u2192replace:/learn"
+          },
+          {
+            "event": "end_of_session",
+            "action": "compute_xp\u2192sessionStorage.set('celebrate',payload)\u2192replace:/learn"
+          }
+        ],
+        "loading": "skeleton_question",
+        "empty_states": [],
+        "error": "friendly_modal_then_redirect:/learn",
+        "analytics": {
+          "events": [
+            "lesson_loaded",
+            "question_shown",
+            "choice_selected",
+            "checked_correct",
+            "checked_incorrect",
+            "explain_opened",
+            "step_advanced",
+            "lesson_completed",
+            "exit_modal_opened",
+            "session_abandoned"
+          ]
+        },
+        "performance": {
+          "prefetch": [
+            "next_step_question_assets"
+          ],
+          "defer_heavy": [
+            "explain_rich_media",
+            "celebration_lottie"
+          ]
+        },
+        "xp_rules": {
+          "base": {
+            "award": 10,
+            "when": "lesson_complete"
+          },
+          "perfect_bonus": {
+            "award": 5,
+            "when": "lesson_complete",
+            "condition": "no_wrong_attempts"
+          },
+          "per_question": {
+            "award": 0
+          }
+        },
+        "acceptance": [
+          "No hearts UI shown.",
+          "Explain button is bottom-left; opens without leaving step.",
+          "CHECK becomes CONTINUE after feedback.",
+          "Exit (X) opens confirm modal; End session returns to /learn without celebration.",
+          "XP awarded only at lesson completion (+10 base; +5 bonus if no mistakes).",
+          "Warn on browser leave/refresh while active.",
+          "Keyboard-only and screen-reader flows supported."
+        ]
+      },
+      "module_contracts": {
+        "types": {
+          "QType": [
+            "mcq_single",
+            "mcq_multi",
+            "numeric"
+          ],
+          "LessonSession": {
+            "sid": "string",
+            "topic": "string",
+            "nodeId": "string",
+            "stepCount": "number",
+            "stepIndex": "number",
+            "startedAtISO": "string",
+            "madeMistake": "boolean"
+          },
+          "QuestionCommon": {
+            "id": "string",
+            "type": "QType",
+            "stem": "string",
+            "media?": {
+              "kind": "\"img\"|\"audio\"|\"svg\"",
+              "src": "string",
+              "alt?": "string"
+            },
+            "promptA11y?": "string",
+            "shuffle?": "boolean"
+          },
+          "MCQSingle": {
+            "extends": "QuestionCommon",
+            "type": "mcq_single",
+            "options": [
+              {
+                "id": "string",
+                "label": "string"
+              }
+            ]
+          },
+          "MCQMulti": {
+            "extends": "QuestionCommon",
+            "type": "mcq_multi",
+            "options": [
+              {
+                "id": "string",
+                "label": "string"
+              }
+            ],
+            "maxSelect?": "number"
+          },
+          "NumericQ": {
+            "extends": "QuestionCommon",
+            "type": "numeric",
+            "answerFormat?": {
+              "decimals?": "number",
+              "allowSimplifiedFraction?": "boolean"
+            },
+            "unitsLabel?": "string"
+          },
+          "Question": "MCQSingle | MCQMulti | NumericQ",
+          "LessonHeaderProps": {
+            "topic": "string",
+            "nodeTitle": "string",
+            "stepIndex": "number",
+            "stepCount": "number",
+            "onExit": "function",
+            "onSettings?": "function"
+          },
+          "ProgressBarProps": {
+            "value": "number",
+            "max": "number"
+          },
+          "QuestionAreaProps": {
+            "question": "Question"
+          },
+          "OptionsProps": {
+            "question": "Question",
+            "selection": "string[]",
+            "onChange": "function"
+          },
+          "FeedbackBannerProps": {
+            "visible": "boolean",
+            "kind": "\"correct\"|\"incorrect\"|\"partial\"",
+            "message": "string"
+          },
+          "ExplainDrawerProps": {
+            "open": "boolean",
+            "title": "string",
+            "body": "string",
+            "media?": {
+              "kind": "\"img\"|\"svg\"",
+              "src": "string",
+              "alt?": "string"
+            }
+          },
+          "SubmitBarProps": {
+            "state": "\"idle\"|\"can_check\"|\"grading\"|\"continue\"",
+            "onCheck": "function",
+            "onContinue": "function",
+            "onExplain": "function",
+            "disableCheck?": "boolean",
+            "labels?": {
+              "check?": "string",
+              "continue?": "string",
+              "explain?": "string"
+            }
+          },
+          "ExitConfirmModalProps": {
+            "open": "boolean",
+            "title": "string",
+            "body": "string",
+            "primary": {
+              "label": "string",
+              "onClick": "function"
+            },
+            "secondary": {
+              "label": "string",
+              "onClick": "function",
+              "danger?": "boolean"
+            },
+            "onClose": "function"
+          },
+          "GradeRequest": {
+            "sid": "string",
+            "questionId": "string",
+            "response": "string[]",
+            "attemptIndex": "number"
+          },
+          "GradeResponse": {
+            "correct": "boolean",
+            "partial?": "boolean",
+            "feedback": "string",
+            "reveal?": {
+              "correctOptionIds?": "string[]",
+              "correctValue?": "string"
+            },
+            "explain?": {
+              "title": "string",
+              "body": "string",
+              "media?": {
+                "kind": "\"img\"|\"svg\"",
+                "src": "string",
+                "alt?": "string"
+              }
+            },
+            "next": "\"same_step_retry\"|\"advance\"|\"end_session\""
+          }
+        }
+      },
+      "wireframes_assets": {
+        "markdown": "lesson_wireframes.md"
+      }
+    },
+    "leaderboards_screen_spec.json": {
+      "screen": {
+        "path": "/leaderboards",
+        "layout": "app_shell",
+        "panel_variant": "leaderboard_table",
+        "purpose": "Single weekly XP leaderboard (no leagues, no promotion/demotion).",
+        "modules": [
+          "BoardHeader",
+          "LeaderboardTable",
+          "RulesNote?"
+        ],
+        "data_inputs": [
+          "weekly_xp (db, ISR_30s)",
+          "user_profile (db)",
+          "friends_list? (db)",
+          "flags (config)"
+        ],
+        "query": {
+          "view?": "\"friends\"|\"global\"",
+          "page?": "number",
+          "me?": "\"1\""
+        },
+        "interactions": [
+          {
+            "event": "tab_change",
+            "action": "reload:list(view={view})"
+          },
+          {
+            "event": "jump_to_me",
+            "action": "table:scroll_to_me\u2192highlight"
+          },
+          {
+            "event": "row_click",
+            "action": "nav:/profile/{username}"
+          },
+          {
+            "event": "next_page",
+            "action": "fetch:page+1"
+          },
+          {
+            "event": "prev_page",
+            "action": "fetch:page-1"
+          }
+        ],
+        "loading": "header_skeleton + table_skeleton",
+        "empty_states": [
+          "no_friends_yet_cta",
+          "no_data_week"
+        ],
+        "error": "toast_retry",
+        "analytics": {
+          "events": [
+            "leaderboard_view",
+            "tab_change",
+            "jump_to_me",
+            "row_open_profile",
+            "page_advance"
+          ]
+        },
+        "performance": {
+          "prefetch": [
+            "hover/focus profile row \u2192 /profile/{username}",
+            "near-bottom \u2192 prefetch next page"
+          ],
+          "table": {
+            "virtualize": true,
+            "row_estimate_px": 56,
+            "overscan": 8
+          }
+        },
+        "ranking_policy": {
+          "window": "weekly",
+          "ties": [
+            "xp_prev_week_desc",
+            "join_time_asc",
+            "username_asc"
+          ]
+        },
+        "acceptance": [
+          "Shows current week window in user\u2019s locale.",
+          "User is always visible (pinned) with rank; table scrolls to me if ?me=1.",
+          "Friends tab filters to friends_list; Global tab flag-gated via config.",
+          "Accessible rows: keyboard focus, SR announces rank, name, XP.",
+          "Virtualized table keeps 60fps on mid-tier laptops."
+        ]
+      },
+      "module_contracts": {
+        "types": {
+          "ViewTab": [
+            "friends",
+            "global"
+          ],
+          "WeekWindow": {
+            "startISO": "string",
+            "endISO": "string",
+            "timezone": "string"
+          },
+          "UserRankRow": {
+            "rank": "number",
+            "userId": "string",
+            "username": "string",
+            "displayName?": "string",
+            "avatarUrl?": "string",
+            "xp": "number",
+            "isMe?": "boolean",
+            "streakDays?": "number",
+            "lastActiveISO?": "string",
+            "chevron?": "\"up\"|\"down\"|\"same\""
+          },
+          "BoardData": {
+            "window": "WeekWindow",
+            "view": "ViewTab",
+            "rows": "UserRankRow[]",
+            "totalCount": "number",
+            "me?": "UserRankRow"
+          },
+          "BoardHeaderProps": {
+            "window": "WeekWindow",
+            "view": "ViewTab",
+            "tabsEnabled": {
+              "friends": "boolean",
+              "global": "boolean"
+            },
+            "onTabChange": "(view: ViewTab) => void"
+          },
+          "LeaderboardTableProps": {
+            "rows": "UserRankRow[]",
+            "totalCount": "number",
+            "pinnedMe?": "UserRankRow",
+            "view": "ViewTab",
+            "page?": "number",
+            "pageSize?": "number",
+            "onRowClick": "(username: string) => void",
+            "onNextPage?": "() => void",
+            "onPrevPage?": "() => void",
+            "onJumpToMe?": "() => void",
+            "virtualization?": {
+              "enabled": "boolean",
+              "rowEstimatePx": "number",
+              "overscan": "number"
+            }
+          },
+          "RulesNoteProps": {
+            "text": "string"
+          }
+        }
+      },
+      "wireframes_assets": {
+        "markdown": "leaderboards_wireframes.md"
+      }
+    },
+    "sections_screen_spec.json": {
+      "screen": {
+        "path": "/sections",
+        "layout": "app_shell",
+        "panel_variant": "skill_path_shared",
+        "purpose": "Topic hub listing all available sections/units with progress and entry points.",
+        "modules": [
+          "SectionsHeader",
+          "FilterBar",
+          "SectionGrid",
+          "FooterNote?"
+        ],
+        "data_inputs": [
+          "sections (db/ssr): array of Section",
+          "user_progress (db/local) mapped by sectionId"
+        ],
+        "query": {
+          "topic_id?": "string",
+          "topic_slug?": "string",
+          "q?": "search string",
+          "status?": "\"locked\"|\"in_progress\"|\"complete\"",
+          "sort?": "\"recommended\"|\"a_z\"|\"progress\""
+        },
+        "interactions": [
+          {
+            "event": "search_change",
+            "action": "local_filter:update"
+          },
+          {
+            "event": "filter_change",
+            "action": "local_filter:update"
+          },
+          {
+            "event": "sort_change",
+            "action": "local_sort:update"
+          },
+          {
+            "event": "card_click_unlocked",
+            "action": "nav:/learn?topic={section.slug}"
+          },
+          {
+            "event": "start_click",
+            "action": "nav:/lesson?topic={section.slug}&n=1"
+          },
+          {
+            "event": "card_click_locked",
+            "action": "tooltip:show_requirement"
+          }
+        ],
+        "loading": "skeleton_header + skeleton_filters + grid_skeleton",
+        "empty_states": [
+          "no_sections_found (respect current filters/search)",
+          "not_enrolled_call_to_action?"
+        ],
+        "error": "retry_inline_toast",
+        "analytics": {
+          "events": [
+            "sections_view",
+            "search_used",
+            "filter_used",
+            "sort_used",
+            "section_card_opened",
+            "start_lesson_from_sections"
+          ]
+        },
+        "performance": {
+          "prefetch": [
+            "hover/focus SectionCard \u2192 /learn?topic=\u2026",
+            "start button hover/focus \u2192 /lesson?topic=\u2026&n=1"
+          ],
+          "defer_heavy": [
+            "FooterNote?"
+          ]
+        },
+        "acceptance": [
+          "Typing in search filters SectionGrid client-side with debounced input.",
+          "Locked SectionCard shows requirement tooltip and is not navigable.",
+          "Keyboard users can tab through cards; Enter opens; tooltips close on Esc.",
+          "Right panel follows skill_path_shared variant (TopBar docked, etc.).",
+          "Deep links with ?topic_id or ?topic_slug pre-select relevant subset.",
+          "ARIA roles/labels added for list/grid and cards."
+        ]
+      },
+      "module_contracts": {
+        "types": {
+          "SectionStatus": [
+            "locked",
+            "in_progress",
+            "complete"
+          ],
+          "Progress": {
+            "lessonsTotal": "number",
+            "lessonsDone": "number",
+            "percent": "number"
+          },
+          "Section": {
+            "id": "string",
+            "slug": "string",
+            "unit": "number",
+            "title": "string",
+            "subtitle?": "string",
+            "illustration?": {
+              "src": "string",
+              "alt": "string"
+            },
+            "status": "SectionStatus",
+            "progress": "Progress",
+            "lockReason?": "\"prereq\"|\"checkpoint\"|\"premium\"",
+            "requirements?": [
+              {
+                "type": "\"skill\"|\"checkpoint\"",
+                "id": "string",
+                "title": "string"
+              }
+            ],
+            "recommended?": "boolean"
+          },
+          "SectionsHeaderProps": {
+            "title": "string",
+            "topicLabel?": "string",
+            "breadcrumb?": [
+              {
+                "label": "string",
+                "href": "string"
+              }
+            ]
+          },
+          "FilterBarProps": {
+            "query": "string",
+            "onQueryChange": "function",
+            "status?": "\"locked\"|\"in_progress\"|\"complete\"|\"all\"",
+            "onStatusChange?": "function",
+            "sort?": "\"recommended\"|\"a_z\"|\"progress\"",
+            "onSortChange?": "function"
+          },
+          "SectionCardProps": {
+            "section": "Section",
+            "onOpen": "function",
+            "onStart?": "function",
+            "onLockedClick?": "function"
+          },
+          "SectionGridProps": {
+            "sections": "Section[]",
+            "layout?": "\"auto\"|\"2col\"|\"3col\"",
+            "onCardOpen": "function",
+            "onStart?": "function",
+            "onLockedClick?": "function"
+          },
+          "FooterNoteProps": {
+            "text": "string",
+            "links?": [
+              {
+                "label": "string",
+                "href": "string"
+              }
+            ]
+          }
+        }
+      },
+      "wireframes_assets": {
+        "markdown": "sections_wireframes.md"
+      }
+    },
+    "quests_screen_spec.json": {
+      "screen": {
+        "path": "/quests",
+        "layout": "app_shell",
+        "panel_variant": "quests_list",
+        "purpose": "Daily and weekly quests that reward gems and reinforce learning habits.",
+        "modules": [
+          "QuestBanner",
+          "DailyHeader",
+          "QuestListDaily",
+          "WeeklyHeader",
+          "QuestListWeekly"
+        ],
+        "data_inputs": [
+          "quest_config (config)",
+          "quest_progress (db/local)",
+          "xp_events_summary (db)",
+          "lesson_events_summary (db)"
+        ],
+        "interactions": [
+          {
+            "event": "claim_click",
+            "action": "update_progress\u2192toast_success"
+          },
+          {
+            "event": "quest_card_click_locked",
+            "action": "tooltip:show_requirement"
+          },
+          {
+            "event": "refresh_tick",
+            "action": "update_countdowns"
+          }
+        ],
+        "loading": "banner_skeleton + list_skeleton",
+        "empty_states": [
+          "no_daily_quests_placeholder",
+          "no_weekly_quests_placeholder"
+        ],
+        "error": "toast_retry",
+        "analytics": {
+          "events": [
+            "quests_view",
+            "daily_claimed",
+            "weekly_claimed",
+            "quest_locked_clicked"
+          ]
+        },
+        "performance": {
+          "prefetch": [
+            "hover/focus claim \u2192 PATCH /quests/claim?id=\u2026"
+          ],
+          "defer_heavy": [
+            "banner_illustration"
+          ]
+        },
+        "acceptance": [
+          "Daily quests reset at local midnight (configurable).",
+          "Weekly quests reset at start of week (configurable weekday).",
+          "Claim button enabled when progress \u2265 target and not already claimed.",
+          "Claim immediately updates balance and disables the card.",
+          "Locked quests show requirement tooltip and do not navigate.",
+          "Countdown timers tick at 1s/30s granularity without layout shift."
+        ]
+      },
+      "module_contracts": {
+        "types": {
+          "QuestFrequency": [
+            "daily",
+            "weekly"
+          ],
+          "QuestKind": [
+            "earn_xp",
+            "finish_lessons",
+            "perfect_lessons",
+            "streak_days",
+            "review_items"
+          ],
+          "Reward": [
+            {
+              "type": "gems",
+              "amount": 0
+            },
+            {
+              "type": "badge",
+              "id": "",
+              "label": ""
+            },
+            {
+              "type": "booster",
+              "id": "",
+              "label": "",
+              "durationHrs": 0
+            }
+          ],
+          "QuestConfig": {
+            "id": "string",
+            "frequency": "QuestFrequency",
+            "kind": "QuestKind",
+            "title": "string",
+            "target": "number",
+            "iconToken?": "string",
+            "reward": "Reward",
+            "unlocksAtLevel?": "number",
+            "enabled?": "boolean"
+          },
+          "QuestState": [
+            "locked",
+            "active",
+            "complete_unclaimed",
+            "claimed"
+          ],
+          "QuestProgress": {
+            "id": "string",
+            "current": "number",
+            "state": "QuestState",
+            "claimedAtISO?": "string",
+            "windowStartISO": "string",
+            "windowEndISO": "string"
+          },
+          "QuestCardProps": {
+            "config": "QuestConfig",
+            "progress": "QuestProgress",
+            "onClaim": "(id: string) => void",
+            "onLockedClick?": "(id: string) => void"
+          },
+          "QuestListProps": {
+            "items": "Array<{ config: QuestConfig; progress: QuestProgress }>",
+            "onClaim": "QuestCardProps['onClaim']",
+            "onLockedClick?": "QuestCardProps['onLockedClick']"
+          },
+          "QuestBannerProps": {
+            "title": "string",
+            "body": "string",
+            "illustration?": {
+              "src": "string",
+              "alt": "string"
+            }
+          },
+          "SectionHeaderProps": {
+            "title": "string",
+            "countdownLabel": "string"
+          },
+          "ClaimRequest": {
+            "id": "string",
+            "frequency": "QuestFrequency"
+          },
+          "ClaimResponse": {
+            "ok": "boolean",
+            "newBalance?": "number",
+            "progress?": "QuestProgress",
+            "toast?": {
+              "kind": "\"success\"|\"error\"",
+              "message": "string"
+            }
+          }
+        }
+      },
+      "defaults": {
+        "daily": [
+          {
+            "id": "daily_xp_30",
+            "frequency": "daily",
+            "kind": "earn_xp",
+            "title": "Earn 30 XP",
+            "target": 30,
+            "iconToken": "bolt",
+            "reward": {
+              "type": "gems",
+              "amount": 10
+            },
+            "enabled": true
+          },
+          {
+            "id": "daily_finish_2",
+            "frequency": "daily",
+            "kind": "finish_lessons",
+            "title": "Finish 2 lessons",
+            "target": 2,
+            "iconToken": "check",
+            "reward": {
+              "type": "gems",
+              "amount": 10
+            },
+            "enabled": true
+          },
+          {
+            "id": "daily_locked_placeholder",
+            "frequency": "daily",
+            "kind": "earn_xp",
+            "title": "More quests unlock soon",
+            "target": 0,
+            "iconToken": "lock",
+            "reward": {
+              "type": "gems",
+              "amount": 0
+            },
+            "enabled": false
+          }
+        ],
+        "weekly": [
+          {
+            "id": "weekly_xp_150",
+            "frequency": "weekly",
+            "kind": "earn_xp",
+            "title": "Earn 150 XP",
+            "target": 150,
+            "iconToken": "star",
+            "reward": {
+              "type": "gems",
+              "amount": 30
+            },
+            "enabled": true
+          },
+          {
+            "id": "weekly_perfect_3",
+            "frequency": "weekly",
+            "kind": "perfect_lessons",
+            "title": "Complete 3 perfect lessons",
+            "target": 3,
+            "iconToken": "medal",
+            "reward": {
+              "type": "gems",
+              "amount": 30
+            },
+            "enabled": true
+          }
+        ]
+      },
+      "wireframes_assets": {
+        "markdown": "quests_wireframes.md"
+      }
+    },
+    "landing_page_mvp.json": {
+      "screen": {
+        "path": "/",
+        "layout": "root_minimal",
+        "purpose": "Marketing/entry. Funnel to /learn.",
+        "modules": [
+          "Hero",
+          "USPSectionList",
+          "PrimaryCTA",
+          "Footer"
+        ],
+        "data_inputs": [],
+        "interactions": [
+          {
+            "event": "cta_click",
+            "action": "nav:/learn"
+          }
+        ],
+        "loading": "none",
+        "empty_states": [],
+        "error": "fallback_message",
+        "acceptance": [
+          "Primary CTA routes to /learn.",
+          "Page is indexable and has OG meta.",
+          "Footer renders required links (Help, Privacy, Terms, Contact).",
+          "All CTAs are keyboard-focusable with visible outlines.",
+          "Content is centered and constrained to the root_minimal max width."
+        ]
+      },
+      "module_contracts": {
+        "types": {
+          "Media": {
+            "src": "string",
+            "alt": "string",
+            "width": "number?",
+            "height": "number?",
+            "priority": "boolean?"
+          },
+          "Badge": {
+            "label": "string",
+            "ariaLabel": "string?"
+          },
+          "HeroProps": {
+            "title": "string",
+            "subtitle": "string?",
+            "ctaLabel": "string",
+            "ctaHref": "\"/learn\"",
+            "secondaryCta": {
+              "label": "string",
+              "href": "string"
+            },
+            "media": "Media?",
+            "badges": "Badge[]?",
+            "align": "\"center\" | \"left\"?",
+            "eyebrow": "string?"
+          },
+          "USPItem": {
+            "id": "string",
+            "title": "string",
+            "body": "string",
+            "iconToken": "string?",
+            "illustration": "Media?",
+            "illustrationPosition": "\"left\" | \"right\"?",
+            "cta": {
+              "label": "string",
+              "href": "string"
+            }
+          },
+          "USPSectionListProps": {
+            "items": "USPItem[]",
+            "spacing": "\"comfortable\" | \"compact\"?",
+            "sectionHeading": "string?"
+          },
+          "PrimaryCTAProps": {
+            "headline": "string",
+            "subcopy": "string?",
+            "ctaLabel": "string",
+            "ctaHref": "\"/learn\"",
+            "disclaimer": "string?"
+          },
+          "SocialKind": [
+            "x",
+            "github",
+            "linkedin",
+            "youtube",
+            "facebook",
+            "instagram"
+          ],
+          "FooterLink": {
+            "label": "string",
+            "href": "string",
+            "external": "boolean?",
+            "rel": "string?"
+          },
+          "FooterColumn": {
+            "heading": "string?",
+            "links": "FooterLink[]"
+          },
+          "FooterProps": {
+            "columns": "FooterColumn[]",
+            "smallPrint": {
+              "copyright": "string?",
+              "localeSwitcher": "boolean?",
+              "social": [
+                {
+                  "kind": "SocialKind",
+                  "href": "string",
+                  "label": "string?"
+                }
+              ]
+            }
+          }
+        },
+        "defaults": {
+          "Hero": {
+            "eyebrow": "GCSE-ready",
+            "title": "Master maths the fun way",
+            "subtitle": "Bite-sized lessons, instant feedback, and daily goals.",
+            "ctaLabel": "Start learning",
+            "ctaHref": "/learn"
+          },
+          "USPSectionList": {
+            "sectionHeading": "Why MathsDojo?",
+            "items": [
+              {
+                "id": "science",
+                "title": "Backed by science",
+                "body": "Learn with spaced repetition and retrieval practice.",
+                "illustrationPosition": "right"
+              },
+              {
+                "id": "motivation",
+                "title": "Stay motivated",
+                "body": "Streaks, quests, and weekly leaderboards keep you engaged."
+              },
+              {
+                "id": "personalized",
+                "title": "Personalized learning",
+                "body": "Adaptive difficulty targets your weak spots."
+              }
+            ]
+          },
+          "PrimaryCTA": {
+            "headline": "Join thousands of learners",
+            "subcopy": "Free to start. Cancel anytime.",
+            "ctaLabel": "Start learning",
+            "ctaHref": "/learn"
+          },
+          "Footer": {
+            "columns": [
+              {
+                "heading": "Product",
+                "links": [
+                  {
+                    "label": "Learn",
+                    "href": "/learn"
+                  },
+                  {
+                    "label": "Quests",
+                    "href": "/quests"
+                  }
+                ]
+              },
+              {
+                "heading": "Company",
+                "links": [
+                  {
+                    "label": "About",
+                    "href": "/help#about"
+                  },
+                  {
+                    "label": "Careers",
+                    "href": "#/careers"
+                  }
+                ]
+              },
+              {
+                "heading": "Support",
+                "links": [
+                  {
+                    "label": "Help Center",
+                    "href": "/help"
+                  },
+                  {
+                    "label": "Contact",
+                    "href": "#/contact"
+                  }
+                ]
+              },
+              {
+                "heading": "Legal",
+                "links": [
+                  {
+                    "label": "Privacy",
+                    "href": "#/privacy"
+                  },
+                  {
+                    "label": "Terms",
+                    "href": "#/terms"
+                  }
+                ]
+              }
+            ],
+            "smallPrint": {
+              "copyright": "\u00a9 2025 MathsDojo",
+              "social": [
+                {
+                  "kind": "github",
+                  "href": "https://github.com/your-org"
+                },
+                {
+                  "kind": "linkedin",
+                  "href": "https://www.linkedin.com/company/your-org"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "wireframes_assets": {
+        "markdown": "landing_page_wireframes.md"
+      }
+    }
+  },
+  "layout": {
+    "app_shell": {
+      "app_shell": {
+        "regions": [
+          "topbar",
+          "leftnav",
+          "main",
+          "rightpanel"
+        ],
+        "grid": {
+          "lg": {
+            "columns": [
+              "leftnav: 80px",
+              "main: 1fr",
+              "rightpanel: 340px"
+            ],
+            "gap": "24px"
+          },
+          "md": {
+            "columns": [
+              "leftnav: 72px",
+              "main: 1fr",
+              "rightpanel: 320px"
+            ],
+            "gap": "20px"
+          },
+          "sm": {
+            "columns": [
+              "main: 1fr"
+            ],
+            "gap": "16px"
+          }
+        },
+        "breakpoints": {
+          "lg": "\u2265 1200px",
+          "md": "\u2265 992px",
+          "sm": "< 992px"
+        },
+        "collapse_rules": {
+          "lg": {
+            "leftnav": "visible",
+            "rightpanel": "visible",
+            "topbar": "rightpanel_top"
+          },
+          "sm": {
+            "leftnav": "drawer",
+            "rightpanel": "inline_below_main",
+            "topbar": "header"
+          }
+        },
+        "right_panel_variants": {
+          "skill_path_shared": {
+            "rightpanel_desktop": [
+              "TopBarDock",
+              "PromoCard?",
+              "LeaderboardUnlockCard",
+              "DailyQuestsCard",
+              "AdSlot?"
+            ],
+            "rightpanel_mobile_inline": [
+              "PromoCard?",
+              "LeaderboardUnlockCard",
+              "DailyQuestsCard",
+              "AdSlot?"
+            ]
+          }
+        },
+        "a11y": {
+          "landmarks": [
+            "header",
+            "nav",
+            "main",
+            "complementary",
+            "footer?"
+          ]
+        },
+        "acceptance": [
+          "Leftnav collapses to a modal drawer on < md; focus is trapped while open.",
+          "Right panel cards render inline beneath main content on < md.",
+          "TopBar docks at top of RightPanel on \u2265 md; moves to header on < md.",
+          "Route swaps that share skill_path_shared do not cause layout shift > 0.1 CLS."
+        ]
+      }
+    },
+    "topbar": {
+      "placement": {
+        "desktop": "rightpanel_top",
+        "mobile": "header"
+      },
+      "widgets": [
+        {
+          "id": "streak",
+          "type": "Counter",
+          "iconToken": "flame",
+          "data": "streakDays"
+        },
+        {
+          "id": "hearts",
+          "type": "Counter",
+          "iconToken": "heart",
+          "data": "heartsRemaining"
+        },
+        {
+          "id": "gems",
+          "type": "Counter",
+          "iconToken": "gem",
+          "data": "gemBalance"
+        },
+        {
+          "id": "avatar",
+          "type": "AvatarMenu",
+          "items": [
+            {
+              "label": "Profile",
+              "href": "/profile/{username}"
+            },
+            {
+              "label": "Settings",
+              "href": "/settings"
+            },
+            {
+              "label": "Logout",
+              "action": "auth:logout"
+            }
+          ]
+        }
+      ],
+      "data_inputs": [
+        "streakDays (db)",
+        "heartsRemaining (db)",
+        "gemBalance (db)",
+        "profile (db)"
+      ],
+      "interactions": [
+        {
+          "event": "avatar_click",
+          "action": "menu:toggle"
+        },
+        {
+          "event": "profile_click_guest",
+          "action": "nav:/learn?isLoggingIn=true"
+        }
+      ],
+      "acceptance": [
+        "Counters are announced with accessible names (e.g., 'Streak: 5 days').",
+        "Avatar menu is keyboard navigable and closes on Esc and blur.",
+        "On mobile, TopBar renders in the header; on desktop it docks above the right panel."
+      ]
+    }
+  },
+  "nav": {
+    "leftnav": {
+      "route": "*",
+      "behavior": {
+        "collapsed_width": 80,
+        "expanded": false,
+        "drawer_on_mobile": true
+      },
+      "items": [
+        {
+          "id": "learn",
+          "label": "Learn",
+          "href": "/learn",
+          "iconToken": "book",
+          "active_for": [
+            "/learn"
+          ]
+        },
+        {
+          "id": "practice",
+          "label": "Practice",
+          "href": "/practice-hub",
+          "iconToken": "repeat",
+          "active_for": [
+            "/practice-hub"
+          ]
+        },
+        {
+          "id": "leaderboards",
+          "label": "Leaderboards",
+          "href": "/leaderboards",
+          "iconToken": "trophy",
+          "active_for": [
+            "/leaderboards"
+          ]
+        },
+        {
+          "id": "quests",
+          "label": "Quests",
+          "href": "/quests",
+          "iconToken": "flame",
+          "active_for": [
+            "/quests"
+          ]
+        },
+        {
+          "id": "shop",
+          "label": "Shop",
+          "href": "/shop",
+          "iconToken": "store",
+          "active_for": [
+            "/shop"
+          ]
+        },
+        {
+          "id": "sections",
+          "label": "Sections",
+          "href": "/sections",
+          "iconToken": "grid",
+          "active_for": [
+            "/sections"
+          ]
+        },
+        {
+          "id": "profile",
+          "label": "Profile",
+          "href": "/profile/{username}",
+          "iconToken": "user",
+          "active_for": [
+            "/profile/*"
+          ]
+        },
+        {
+          "id": "settings",
+          "label": "Settings",
+          "href": "/settings",
+          "iconToken": "cog",
+          "active_for": [
+            "/settings"
+          ]
+        }
+      ],
+      "interactions": [
+        {
+          "event": "nav_item_click",
+          "action": "nav:{href}"
+        },
+        {
+          "event": "hamburger_click",
+          "action": "drawer:toggle"
+        },
+        {
+          "event": "escape_key",
+          "action": "drawer:close"
+        }
+      ],
+      "a11y": {
+        "nav_role": "navigation",
+        "aria_label": "Primary",
+        "keyboard": "Arrow key roving tabindex; Enter/Space to activate; Esc closes drawer."
+      },
+      "acceptance": [
+        "Active item reflects current route via aria-current=page.",
+        "Drawer traps focus and restores it to hamburger when closed.",
+        "All items are reachable by keyboard and have visible focus rings."
+      ]
+    }
+  },
+  "panels": {
+    "learn_rightpanel": {
+      "route": "/learn",
+      "cards_order": [
+        "TopBarDock",
+        "PromoCard?",
+        "LeaderboardUnlockCard",
+        "DailyQuestsCard",
+        "AdSlot?"
+      ],
+      "data_inputs": [
+        "quest_progress (db/local)",
+        "weekly_xp (db)",
+        "promotions (config/flags)"
+      ],
+      "cards": {
+        "TopBarDock": {
+          "kind": "TopBar",
+          "source": "topbar.json"
+        },
+        "PromoCard?": {
+          "kind": "PromoCard",
+          "experimentKey": "promo_super_v1",
+          "cta": {
+            "label": "Try Premium",
+            "href": "/shop?tab=premium"
+          }
+        },
+        "LeaderboardUnlockCard": {
+          "kind": "InfoCard",
+          "text": "Complete Unit 1 to unlock Leaderboards",
+          "visible_if": "weekly_xp.eligible === false"
+        },
+        "DailyQuestsCard": {
+          "kind": "QuestsSummary",
+          "viewAllHref": "/quests"
+        },
+        "AdSlot?": {
+          "kind": "AdSlot",
+          "provider": "internal",
+          "slotId": "rp-rect-1",
+          "defer": true
+        }
+      },
+      "interactions": [
+        {
+          "event": "try_premium_click",
+          "action": "nav:/shop?tab=premium"
+        },
+        {
+          "event": "view_all_quests_click",
+          "action": "nav:/quests"
+        }
+      ],
+      "performance": {
+        "defer_heavy": [
+          "AdSlot?",
+          "PromoCard?.image"
+        ],
+        "prefetch": [
+          "view_all_quests_click \u2192 /quests"
+        ]
+      },
+      "loading": "card_skeletons",
+      "error": "toast_retry",
+      "acceptance": [
+        "Cards render in cards_order with consistent spacing.",
+        "LeaderboardUnlockCard hides once weekly_xp.eligible === true.",
+        "AdSlot is deferred and never blocks interaction readiness (TTI)."
+      ]
+    }
+  },
+  "shared": {}
+}

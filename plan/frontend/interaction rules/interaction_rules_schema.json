@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "notes": "Event → Guard → Action(s) → Feedback. Pure config; no code branching.",
+  "defaults": {
+    "cooldowns": { "toast_repeat_seconds": 3 },
+    "locale": "inherit_from_app",
+    "a11y": { "announce_to_sr": true }
+  },
+  "catalogs": {
+    "events": [
+      "lesson.start", "lesson.complete", "lesson.answer.correct", "lesson.answer.incorrect",
+      "daily.goal.updated", "daily.goal.met", "streak.freeze.auto_used", "badge.unlocked",
+      "quest.progress", "level.up",
+      "ui.leaderboard.tab_change", "ui.leaderboard.jump_to_me", "ui.leaderboard.row_click"
+    ],
+    "actions": [
+      "xp.award", "streak.update", "unlock.next", "quest.update",
+      "ui.toast", "ui.modal", "ui.confetti", "ui.xp_popup", "ui.highlight_row",
+      "nav.go", "preload.route", "sfx.play", "economy.spend_item",
+      "analytics.emit", "ai.offer_explain"
+    ],
+    "conditions": [
+      "score.gte", "feature.enabled", "user.is_premium", "day.goal.met",
+      "cooldown.ok", "inventory.has", "flag.true"
+    ]
+  },
+  "rules": [
+    {
+      "id": "TEMPLATE_RULE_ID",
+      "when": { "event": "event.name", "source": "module_or_route?" },
+      "guards": [
+        { "condition": "feature.enabled", "args": { "flag": "some_flag" } },
+        { "condition": "score.gte", "args": { "percent": 100 } }
+      ],
+      "priority": 10,
+      "do": [
+        { "action": "xp.award", "args": { "policy": "auto_from_config" } },
+        { "action": "ui.toast", "args": { "textLocKey": "toast.key", "variant": "success" } },
+        { "action": "analytics.emit", "args": { "name": "event_name", "props": { "k": "v" } } }
+      ]
+    }
+  ]
+}

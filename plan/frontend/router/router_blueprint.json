@@ -1,0 +1,331 @@
+{
+  "layouts": {
+    "root_minimal": {
+      "description": "No app shell (landing/help).",
+      "left_nav": { "visible": false },
+      "header_toolbar": { "visible": false },
+      "right_panel_variants": ["marketing", "help_doc"]
+    },
+    "app_shell": {
+      "description": "Duolingo-style shell with persistent left nav.",
+      "left_nav": {
+        "visible": true,
+        "sections": {
+          "primary": [
+            "learn",
+            "practice-hub",
+            "quests",
+            "leaderboards",
+            "shop",
+            "characters",
+            "profile"
+          ],
+          "secondary": ["settings", "help", "logout"]
+        },
+        "unauth_profile_click": "open_auth_overlay"
+      },
+      "header_toolbar": {
+        "visible": true,
+        "items": [
+          "xp_pill",
+          "streak_flame",
+          "soft_currency_gems",
+          "notifications_icon"
+        ]
+      },
+      "right_panel_variants": [
+        "skill_path_shared",
+        "quests_list",
+        "leaderboard_table",
+        "shop_grid",
+        "characters_grid",
+        "profile_view",
+        "settings_form"
+      ]
+    }
+  },
+  "router_design": {
+    "guest_flow": {
+      "landing": "/",
+      "learn": "/learn (guest allowed)"
+    },
+    "auth_overlay": {
+      "route": "/learn?isLoggingIn=true",
+      "default_behavior": {
+        "profile_click": "default_signup",
+        "more_signin_click": "default_login"
+      },
+      "toggle": "ui_state_only",
+      "close": "remove_query_and_return_to_/learn"
+    },
+    "lesson": {
+      "route": "/lesson",
+      "context": "query_or_session",
+      "guard": "beforeunload_and_confirm",
+      "post_submit": "celebrate_then_replace_to_/learn"
+    },
+    "profile": {
+      "route": "/profile/[username]",
+      "guest_click": "open_auth_overlay",
+      "authed_click": "navigate_to_own_profile"
+    }
+  },
+  "route_map": [
+    {
+      "path": "/",
+      "layout": "root_minimal",
+      "right_panel": "marketing",
+      "left_nav_persistent": false,
+      "desc": "Landing"
+    },
+    {
+      "path": "/learn",
+      "layout": "app_shell",
+      "right_panel": "skill_path_shared",
+      "left_nav_persistent": true,
+      "desc": "Skill path hub"
+    },
+    {
+      "path": "/sections",
+      "layout": "app_shell",
+      "right_panel": "skill_path_shared",
+      "left_nav_persistent": true,
+      "desc": "Topic guidebook hub (list of sections: Fractions, Percentages, Algebra)"
+    },
+    {
+      "path": "/practice-hub",
+      "layout": "app_shell",
+      "right_panel": "skill_path_shared",
+      "left_nav_persistent": true,
+      "desc": "Practice hub (same container as /learn)"
+    },
+    {
+      "path": "/quests",
+      "layout": "app_shell",
+      "right_panel": "quests_list",
+      "left_nav_persistent": true,
+      "desc": "Quests"
+    },
+    {
+      "path": "/leaderboards",
+      "layout": "app_shell",
+      "right_panel": "leaderboard_table",
+      "left_nav_persistent": true,
+      "desc": "Leaderboards"
+    },
+    {
+      "path": "/shop",
+      "layout": "app_shell",
+      "right_panel": "shop_grid",
+      "left_nav_persistent": true,
+      "desc": "Shop"
+    },
+    {
+      "path": "/characters",
+      "layout": "app_shell",
+      "right_panel": "characters_grid",
+      "left_nav_persistent": true,
+      "desc": "Characters"
+    },
+    {
+      "path": "/profile/[username]",
+      "layout": "app_shell",
+      "right_panel": "profile_view",
+      "left_nav_persistent": true,
+      "desc": "Profile"
+    },
+    {
+      "path": "/settings",
+      "layout": "app_shell",
+      "right_panel": "settings_form",
+      "left_nav_persistent": true,
+      "desc": "Settings"
+    },
+    {
+      "path": "/help",
+      "layout": "root_minimal",
+      "right_panel": "help_doc",
+      "left_nav_persistent": false,
+      "desc": "Help (no app shell)"
+    },
+    {
+      "path": "/lesson",
+      "layout": "app_shell",
+      "right_panel": "full_takeover",
+      "left_nav_persistent": true,
+      "desc": "Lesson player page (takes over main area)"
+    },
+    {
+      "path": "/logout",
+      "layout": "app_shell",
+      "action": "sign_out_then_redirect_/learn",
+      "left_nav_persistent": true,
+      "desc": "Logout action"
+    }
+  ],
+  "app_router_structure": {
+    "root": {
+      "layout": "app/layout.tsx",
+      "page": "app/page.tsx"
+    },
+    "app_group": {
+      "layout": "app/(app)/layout.tsx",
+      "routes": {
+        "learn": "app/(app)/learn/page.tsx",
+        "learn_loading": "app/(app)/learn/loading.tsx",
+        "learn_overlay_default": "app/(app)/learn/@overlay/default.tsx",
+        "learn_overlay_auth": "app/(app)/learn/@overlay/(..)auth/page.tsx",
+        "sections": "app/(app)/sections/page.tsx",
+        "lesson": "app/(app)/lesson/page.client.tsx",
+        "leaderboards": "app/(app)/leaderboards/page.tsx",
+        "quests": "app/(app)/quests/page.tsx",
+        "shop": "app/(app)/shop/page.tsx",
+        "characters": "app/(app)/characters/page.tsx",
+        "profile": "app/(app)/profile/[username]/page.tsx",
+        "settings": "app/(app)/settings/page.tsx"
+      }
+    },
+    "api": "app/api/"
+  },
+  "ui_persistence_rules": {
+    "left_nav": {
+      "persists_across": [
+        "/learn",
+        "/practice-hub",
+        "/quests",
+        "/leaderboards",
+        "/shop",
+        "/characters",
+        "/profile/*",
+        "/settings",
+        "/lesson",
+        "/sections"
+      ],
+      "hidden_on": ["/", "/help"]
+    },
+    "right_panel": {
+      "shared_container": ["/learn", "/practice-hub", "/sections"],
+      "independent_swaps": [
+        "/quests",
+        "/leaderboards",
+        "/shop",
+        "/characters",
+        "/profile/*",
+        "/settings"
+      ],
+      "full_takeover_routes": ["/lesson"],
+      "notes": "Learn and Practice-hub reuse the same skill_path panel; other routes swap modules in the same shell; lesson takes over content area."
+    }
+  },
+  "route_policies": {
+    "/lesson": {
+      "required_context": ["topic_or_sid"],
+      "on_missing": "redirect:/learn"
+    },
+    "/sections": {
+      "accepted_query": ["topic_id", "topic_slug"],
+      "on_missing_topic": "render:empty_state_with_topic_picker"
+    },
+    "/profile/[username]": {
+      "not_found": "404",
+      "normalize": { "username": "lowercase" }
+    },
+    "/logout": { "method": "POST", "on_success": "redirect:/learn" }
+  },
+  "metadata": {
+    "indexable": ["/", "/help"],
+    "noindex": [
+      "/learn",
+      "/lesson",
+      "/leaderboards",
+      "/quests",
+      "/shop",
+      "/characters",
+      "/profile/*",
+      "/settings",
+      "/sections"
+    ],
+    "titles": {
+      "/": "MathsDojo — Master maths the fun way",
+      "/learn": "Learn • MathsDojo",
+      "/sections": "Sections • MathsDojo",
+      "/lesson": "Lesson • MathsDojo",
+      "/leaderboards": "Leaderboards • MathsDojo",
+      "/quests": "Quests • MathsDojo",
+      "/shop": "Shop • MathsDojo",
+      "/profile/[username]": "Profile • MathsDojo"
+    },
+    "og_image_policy": "Only landing and help expose OG images; app routes use minimal metadata."
+  },
+  "analytics": {
+    "events": {
+      "/learn": ["page_view", "nav_click", "start_lesson_click"],
+      "/lesson": [
+        "page_view",
+        "lesson_start",
+        "lesson_submit",
+        "lesson_complete"
+      ],
+      "/sections": ["page_view", "section_card_click", "section_open_click"],
+      "/leaderboards": ["page_view"],
+      "/quests": ["page_view"],
+      "/shop": ["page_view", "purchase_click"],
+      "/profile/[username]": ["page_view"]
+    },
+    "feature_flags": {
+      "learn_panel_variant": ["A", "B"]
+    }
+  },
+  "accessibility": {
+    "auth_modal": {
+      "role": "dialog",
+      "focus_trap": true,
+      "close_keys": ["Escape"],
+      "aria_labels": {
+        "title": "Sign up or log in"
+      }
+    },
+    "nav": { "role": "navigation", "aria_label": "Primary" },
+    "focus_management": {
+      "skip_links": true,
+      "initial_focus": "first_interactive_in_panel"
+    }
+  },
+  "performance": {
+    "prefetch": {
+      "enable_on": [
+        "/learn → /lesson",
+        "/learn → /profile/*",
+        "/learn → /sections"
+      ],
+      "disable_on": ["/shop (heavy assets)"]
+    },
+    "revalidation": {
+      "/leaderboards": "ISR_30s",
+      "/profile/[username]": "on_demand_or_SSG_with_revalidate"
+    }
+  },
+  "auth_guest_matrix": {
+    "guest": {
+      "can_access": ["/", "/learn", "/lesson", "/help"],
+      "actions_trigger_auth_overlay": [
+        "open_profile",
+        "save_progress_cloud",
+        "purchase"
+      ]
+    },
+    "authenticated": {
+      "can_access": ["*"],
+      "profile_route": "/profile/{me}"
+    }
+  },
+  "testing_plan": {
+    "e2e": [
+      "landing_to_learn_guest",
+      "open_auth_overlay_from_profile_click",
+      "lesson_flow_submit_then_redirect_to_learn",
+      "profile_404_unknown_user",
+      "logout_post_redirects_to_learn"
+    ]
+  }
+}

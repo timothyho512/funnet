@@ -1,0 +1,218 @@
+{
+  "screen": {
+    "path": "/",
+    "layout": "root_minimal",
+    "purpose": "Marketing/entry. Funnel to /learn.",
+    "modules": ["Hero", "USPSectionList", "PrimaryCTA", "Footer"],
+    "data_inputs": [],
+    "interactions": [
+      {
+        "event": "cta_click",
+        "action": "nav:/learn"
+      }
+    ],
+    "loading": "none",
+    "empty_states": [],
+    "error": "fallback_message",
+    "acceptance": [
+      "Primary CTA routes to /learn.",
+      "Page is indexable and has OG meta.",
+      "Footer renders required links (Help, Privacy, Terms, Contact).",
+      "All CTAs are keyboard-focusable with visible outlines.",
+      "Content is centered and constrained to the root_minimal max width."
+    ]
+  },
+  "module_contracts": {
+    "types": {
+      "Media": {
+        "src": "string",
+        "alt": "string",
+        "width": "number?",
+        "height": "number?",
+        "priority": "boolean?"
+      },
+      "Badge": {
+        "label": "string",
+        "ariaLabel": "string?"
+      },
+      "HeroProps": {
+        "title": "string",
+        "subtitle": "string?",
+        "ctaLabel": "string",
+        "ctaHref": "\"/learn\"",
+        "secondaryCta": {
+          "label": "string",
+          "href": "string"
+        },
+        "media": "Media?",
+        "badges": "Badge[]?",
+        "align": "\"center\" | \"left\"?",
+        "eyebrow": "string?"
+      },
+      "USPItem": {
+        "id": "string",
+        "title": "string",
+        "body": "string",
+        "iconToken": "string?",
+        "illustration": "Media?",
+        "illustrationPosition": "\"left\" | \"right\"?",
+        "cta": {
+          "label": "string",
+          "href": "string"
+        }
+      },
+      "USPSectionListProps": {
+        "items": "USPItem[]",
+        "spacing": "\"comfortable\" | \"compact\"?",
+        "sectionHeading": "string?"
+      },
+      "PrimaryCTAProps": {
+        "headline": "string",
+        "subcopy": "string?",
+        "ctaLabel": "string",
+        "ctaHref": "\"/learn\"",
+        "disclaimer": "string?"
+      },
+      "SocialKind": [
+        "x",
+        "github",
+        "linkedin",
+        "youtube",
+        "facebook",
+        "instagram"
+      ],
+      "FooterLink": {
+        "label": "string",
+        "href": "string",
+        "external": "boolean?",
+        "rel": "string?"
+      },
+      "FooterColumn": {
+        "heading": "string?",
+        "links": "FooterLink[]"
+      },
+      "FooterProps": {
+        "columns": "FooterColumn[]",
+        "smallPrint": {
+          "copyright": "string?",
+          "localeSwitcher": "boolean?",
+          "social": [
+            {
+              "kind": "SocialKind",
+              "href": "string",
+              "label": "string?"
+            }
+          ]
+        }
+      }
+    },
+    "defaults": {
+      "Hero": {
+        "eyebrow": "GCSE-ready",
+        "title": "Master maths the fun way",
+        "subtitle": "Bite-sized lessons, instant feedback, and daily goals.",
+        "ctaLabel": "Start learning",
+        "ctaHref": "/learn"
+      },
+      "USPSectionList": {
+        "sectionHeading": "Why MathsDojo?",
+        "items": [
+          {
+            "id": "science",
+            "title": "Backed by science",
+            "body": "Learn with spaced repetition and retrieval practice.",
+            "illustrationPosition": "right"
+          },
+          {
+            "id": "motivation",
+            "title": "Stay motivated",
+            "body": "Streaks, quests, and weekly leaderboards keep you engaged."
+          },
+          {
+            "id": "personalized",
+            "title": "Personalized learning",
+            "body": "Adaptive difficulty targets your weak spots."
+          }
+        ]
+      },
+      "PrimaryCTA": {
+        "headline": "Join thousands of learners",
+        "subcopy": "Free to start. Cancel anytime.",
+        "ctaLabel": "Start learning",
+        "ctaHref": "/learn"
+      },
+      "Footer": {
+        "columns": [
+          {
+            "heading": "Product",
+            "links": [
+              {
+                "label": "Learn",
+                "href": "/learn"
+              },
+              {
+                "label": "Quests",
+                "href": "/quests"
+              }
+            ]
+          },
+          {
+            "heading": "Company",
+            "links": [
+              {
+                "label": "About",
+                "href": "/help#about"
+              },
+              {
+                "label": "Careers",
+                "href": "#/careers"
+              }
+            ]
+          },
+          {
+            "heading": "Support",
+            "links": [
+              {
+                "label": "Help Center",
+                "href": "/help"
+              },
+              {
+                "label": "Contact",
+                "href": "#/contact"
+              }
+            ]
+          },
+          {
+            "heading": "Legal",
+            "links": [
+              {
+                "label": "Privacy",
+                "href": "#/privacy"
+              },
+              {
+                "label": "Terms",
+                "href": "#/terms"
+              }
+            ]
+          }
+        ],
+        "smallPrint": {
+          "copyright": "© 2025 MathsDojo",
+          "social": [
+            {
+              "kind": "github",
+              "href": "https://github.com/your-org"
+            },
+            {
+              "kind": "linkedin",
+              "href": "https://www.linkedin.com/company/your-org"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "wireframes_assets": {
+    "markdown": "landing_page_wireframes.md"
+  }
+}

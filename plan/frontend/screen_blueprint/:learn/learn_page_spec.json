@@ -1,0 +1,202 @@
+{
+  "screen": {
+    "path": "/learn",
+    "layout": "app_shell",
+    "panel_variant": "skill_path_shared",
+    "purpose": "Home hub: skill path + next action.",
+    "modules": [
+      "DailyGoalMeter",
+      "StreakSummary",
+      "SkillPathGrid",
+      "NextLessonCTA",
+      "SectionsButton",
+      "PromoCard?"
+    ],
+    "data_inputs": [
+      "profile_progress (guest:local | authed:db)",
+      "daily_goal (config)",
+      "unlocks (derived from profile_progress + content_graph e.g. fractions_path.json)"
+    ],
+    "guards": [
+      {
+        "rule": "beforeunload_confirm",
+        "applies_when": "lesson_session_active_in_bg"
+      }
+    ],
+    "overlay": {
+      "auth": {
+        "query_flag": "isLoggingIn=true",
+        "default_view": {
+          "profile_click": "signup",
+          "more_signin_click": "login"
+        }
+      }
+    },
+    "interactions": [
+      {
+        "event": "start_lesson_click",
+        "action": "nav:/lesson?topic={topic}&n={index}"
+      },
+      {
+        "event": "locked_tile_click",
+        "action": "tooltip:show_requirement"
+      },
+      {
+        "event": "tile_hover",
+        "action": "prefetch:/lesson?topic={topic}&n={index}"
+      },
+      {
+        "event": "profile_click_guest",
+        "action": "nav:/learn?isLoggingIn=true"
+      },
+      {
+        "event": "celebration_payload_detected",
+        "action": "toast:celebrate_then_clear"
+      },
+      {
+        "event": "sections_button_click",
+        "action": "nav:/sections"
+      },
+      {
+        "event": "sections_button_focus_or_hover",
+        "action": "prefetch:/sections"
+      }
+    ],
+    "loading": "skeleton_path + goal_meter + streak_pill",
+    "empty_states": [
+      "no_progress_get_started_card"
+    ],
+    "error": "retry_inline_toast",
+    "acceptance": [
+      "Shares container with /practice-hub; no layout shift on route swap.",
+      "Locked tiles show requirement tooltip with unmet prerequisites.",
+      "Guest profile click opens auth overlay on same URL (?isLoggingIn=true).",
+      "Reading celebration payload from sessionStorage shows a toast then clears.",
+      "Start lesson routes to /lesson with correct query (?topic, n).",
+      "Keyboard users can traverse tiles and see focus outlines; tooltips are dismissible via Esc.",
+      "SectionsButton routes to /sections; hover/focus prefetch is enabled."
+    ],
+    "analytics": {
+      "events": [
+        "page_view",
+        "start_lesson_click",
+        "locked_tile_click",
+        "auth_overlay_open",
+        "celebration_seen",
+        "sections_button_click"
+      ]
+    },
+    "performance": {
+      "prefetch": [
+        "baseline_waterfall_next_actionable",
+        "hover_available_nodes",
+        "intersection_near_viewport_available_nodes",
+        "sections_button_focus_or_hover \u2192 /sections"
+      ],
+      "defer_heavy": [
+        "PromoCard? assets"
+      ]
+    }
+  },
+  "module_contracts": {
+    "types": {
+      "DailyGoalMeterProps": {
+        "goalXP": "number",
+        "progressXP": "number",
+        "streakEligible": "boolean",
+        "onInfoClick": "function?"
+      },
+      "StreakSummaryProps": {
+        "streakDays": "number",
+        "lastCheckInISO": "string",
+        "goalHitToday": "boolean"
+      },
+      "LockReason": [
+        "prereq",
+        "unit_checkpoint",
+        "level",
+        "premium"
+      ],
+      "Requirement": {
+        "type": "\"skill\"|\"checkpoint\"",
+        "id": "string",
+        "title": "string"
+      },
+      "SkillNode": {
+        "id": "string",
+        "unit": "number",
+        "stepIndex": "number",
+        "title": "string",
+        "lessonsTotal": "number",
+        "lessonsDone": "number",
+        "stars": {
+          "current": "number",
+          "max": "number"
+        },
+        "locked": "boolean",
+        "lockReason": "LockReason?",
+        "requirements": "Requirement[]?",
+        "nextLessonIndex": "number?"
+      },
+      "SkillPathGridProps": {
+        "lanes": "Array<{ unit: number; nodes: SkillNode[] }>",
+        "onStartLesson": "(nodeId: string, n: number) => void",
+        "onLockedClick": "(nodeId: string) => void?",
+        "onNodeHover": "(nodeId: string, n: number) => void?",
+        "layout": "\"compact\"|\"comfortable\"?"
+      },
+      "NextLessonCTAProps": {
+        "topic": "string",
+        "nodeId": "string",
+        "lessonIndex": "number",
+        "estMinutes": "number?",
+        "onStart": "() => void"
+      },
+      "SectionsButtonProps": {
+        "label": "string? // default: 'See all sections'",
+        "href": "\"/sections\"",
+        "subtitle": "string?",
+        "iconToken": "string?"
+      },
+      "PromoCardProps?": {
+        "headline": "string",
+        "body": "string",
+        "cta": {
+          "label": "string",
+          "href": "string"
+        },
+        "imageSrc": "string?",
+        "imageAlt": "string?",
+        "experimentKey": "string?"
+      }
+    },
+    "policies": {
+      "unlockPolicy": {
+        "nodeComplete": "lessonsDone === lessonsTotal",
+        "laneAdvance": "previous_node_complete",
+        "unitAdvance": {
+          "requiresCheckpointId": "FRA-CHECK-1"
+        }
+      },
+      "prefetchPolicy": {
+        "baseline": "prefetch next actionable lesson after unlock derivation",
+        "hoverDesktop": "re-prefetch on available node hover",
+        "intersectionMobile": "prefetch when available node ~300px from viewport",
+        "limits": {
+          "maxConcurrent": 3,
+          "skipLockedNodes": true
+        }
+      }
+    }
+  },
+  "wireframes_assets": {
+    "markdown": "learn_wireframes.md",
+    "desktop_png": "learn_wireframe_desktop.png",
+    "mobile_png": "learn_wireframe_mobile.png"
+  },
+  "notes": [
+    "Lanes correspond to units; nodes correspond to skills with 4 lessons.",
+    "Right panel cards and left nav are provided by app_shell; not duplicated here.",
+    "Sections button navigates to /sections and prefetches on focus/hover."
+  ]
+}
