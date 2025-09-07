@@ -1,0 +1,107 @@
+{
+  "lesson_id": "FRA-201-L1",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "A recipe needs 3/4 cup sugar. You have 1/2 cup. How much more?",
+      "options": ["1/4", "1/2"],
+      "answer": "1/4",
+      "correct_feedback": "✅ 1/4.",
+      "incorrect_feedback": "❌ 3/4-1/2=1/4.",
+      "explanation": "Subtract: 3/4-2/4=1/4."
+    },
+    {
+      "type": "TypeIn",
+      "question": "You ran 2/5 race in morning and 1/5 in afternoon. Total?",
+      "answer": "3/5",
+      "correct_feedback": "✅ 3/5.",
+      "incorrect_feedback": "❌ 2/5+1/5=3/5.",
+      "explanation": "Add numerators."
+    },
+    {
+      "type": "MCQ",
+      "question": "A jacket costs $90. Discount=1/3. How much saved?",
+      "options": ["$30", "$60"],
+      "answer": "$30",
+      "correct_feedback": "✅ $30.",
+      "incorrect_feedback": "❌ 90÷3=30.",
+      "explanation": "1/3×90=30."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: If you eat 3/8 pizza then 2/8 later, total 5/8.",
+      "answer": true,
+      "correct_feedback": "✅ Correct.",
+      "incorrect_feedback": "❌ 3/8+2/8=5/8.",
+      "explanation": "Same denominator → add numerators."
+    },
+    {
+      "type": "Match",
+      "question": "Match fractions to results",
+      "pairs": { "Half of 8 apples": "4", "1/3 of 12": "4", "2/5 of 10": "4" },
+      "correct_feedback": "✅ Nicely done.",
+      "incorrect_feedback": "❌ Multiply correctly.",
+      "explanation": "Multiply whole by fraction."
+    },
+    {
+      "type": "MCQ",
+      "question": "You drink 1/3 litre of juice, then 2/9 more. Total?",
+      "options": ["4/9", "5/9"],
+      "answer": "5/9",
+      "correct_feedback": "✅ 5/9.",
+      "incorrect_feedback": "❌ 1/3=3/9.",
+      "explanation": "3/9+2/9=5/9."
+    },
+    {
+      "type": "TypeIn",
+      "question": "A rope is cut into 5/12 and 4/12 pieces. Total length?",
+      "answer": "9/12",
+      "correct_feedback": "✅ 9/12.",
+      "incorrect_feedback": "❌ 5+4=9.",
+      "explanation": "Denominator unchanged."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 2/7 book read Mon + 3/7 Tue = 5/7",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 2+3=5.",
+      "explanation": "Denominator 7 unchanged."
+    },
+    {
+      "type": "MCQ",
+      "question": "Road paved: 2/3, more paved: 1/6. Total?",
+      "options": ["5/6", "3/4"],
+      "answer": "5/6",
+      "correct_feedback": "✅ 5/6.",
+      "incorrect_feedback": "❌ 2/3=4/6, add 1/6=5/6.",
+      "explanation": "LCM=6."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Anna read 3/8 book, then 5/16 more. Total?",
+      "answer": "11/16",
+      "correct_feedback": "✅ 11/16.",
+      "incorrect_feedback": "❌ 3/8=6/16,6/16+5/16=11/16.",
+      "explanation": "LCM=16."
+    },
+    {
+      "type": "MCQ",
+      "question": "A box has 2/7 kg fruit, add 3/14 kg. Total?",
+      "options": ["1/2", "5/14"],
+      "answer": "1/2",
+      "correct_feedback": "✅ 1/2.",
+      "incorrect_feedback": "❌ 2/7=4/14, add 3/14=7/14=1/2.",
+      "explanation": "LCM=14."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange totals smallest→largest: 1/2+1/3,1/4+1/2,2/5+1/5",
+      "items": ["1/2+1/3", "1/4+1/2", "2/5+1/5"],
+      "answer": ["2/5+1/5", "1/4+1/2", "1/2+1/3"],
+      "correct_feedback": "✅ Correct.",
+      "incorrect_feedback": "❌ Convert to decimals.",
+      "explanation": "Results: 0.6,0.75,0.833."
+    }
+  ]
+}

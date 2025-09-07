@@ -1,0 +1,106 @@
+{
+  "lesson_id": "FRA-104-L2",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "A cake uses 1/2 sugar + 1/3 flour. Total?",
+      "options": ["5/6", "2/5"],
+      "answer": "5/6",
+      "correct_feedback": "✅ 5/6.",
+      "incorrect_feedback": "❌ Use denominator 6.",
+      "explanation": "3/6+2/6=5/6."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Trip: 2/3 h car + 1/4 h bus = ?",
+      "answer": "11/12",
+      "correct_feedback": "✅ 11/12.",
+      "incorrect_feedback": "❌ 8/12+3/12.",
+      "explanation": "LCM=12."
+    },
+    {
+      "type": "MCQ",
+      "question": "Jog 3/10, walk 2/5. Total?",
+      "options": ["7/10", "1/2"],
+      "answer": "7/10",
+      "correct_feedback": "✅ 7/10.",
+      "incorrect_feedback": "❌ 2/5=4/10.",
+      "explanation": "LCM=10."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 5/12+1/8=13/24",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ LCM=24.",
+      "explanation": "10/24+3/24=13/24."
+    },
+    {
+      "type": "Match",
+      "question": "Match problems",
+      "pairs": { "1/2+1/3": "5/6", "2/3+1/4": "11/12", "3/5+1/10": "7/10" },
+      "correct_feedback": "✅ Well done.",
+      "incorrect_feedback": "❌ LCM first.",
+      "explanation": "Convert denominators."
+    },
+    {
+      "type": "MCQ",
+      "question": "You drank 1/3 + 2/9 litre juice. Total?",
+      "options": ["4/9", "5/9"],
+      "answer": "5/9",
+      "correct_feedback": "✅ 5/9.",
+      "incorrect_feedback": "❌ 1/3=3/9.",
+      "explanation": "3/9+2/9=5/9."
+    },
+    {
+      "type": "TypeIn",
+      "question": "John worked 2/5 day, Mary 3/10 day. Total?",
+      "answer": "7/10",
+      "correct_feedback": "✅ 7/10.",
+      "incorrect_feedback": "❌ 4/10+3/10.",
+      "explanation": "LCM=10."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 3/4 hr + 2/8 hr = 1",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 3/4=6/8, +2/8=8/8.",
+      "explanation": "=1."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange totals: 1/2+1/4, 1/3+1/6, 2/5+3/10",
+      "items": ["1/2+1/4", "1/3+1/6", "2/5+3/10"],
+      "answer": ["1/3+1/6", "2/5+3/10", "1/2+1/4"],
+      "correct_feedback": "✅ Correct.",
+      "incorrect_feedback": "❌ Check decimals.",
+      "explanation": "1/2+1/4=3/4=0.75, 1/3+1/6=1/2=0.5, 2/5+3/10=7/10=0.7."
+    },
+    {
+      "type": "MCQ",
+      "question": "A box holds 2/7 kg fruit, add 3/14 kg. Total?",
+      "options": ["5/14", "7/14", "1/2"],
+      "answer": "1/2",
+      "correct_feedback": "✅ 1/2.",
+      "incorrect_feedback": "❌ 2/7=4/14,4/14+3/14=7/14=1/2.",
+      "explanation": "LCM=14."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Anna read 3/8 book, then 5/16 more. Total?",
+      "answer": "11/16",
+      "correct_feedback": "✅ 11/16.",
+      "incorrect_feedback": "❌ 3/8=6/16.",
+      "explanation": "6/16+5/16=11/16."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 1/6+2/3=5/6",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 2/3=4/6, +1/6=5/6.",
+      "explanation": "LCM=6."
+    }
+  ]
+}

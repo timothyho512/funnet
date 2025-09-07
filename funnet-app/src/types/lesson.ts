@@ -57,7 +57,7 @@ interface MatchQuestion extends BaseQuestion {
   pairs: Record<string, string>;
 }
 
-interface LessonContent {
+export interface LessonContent {
   lesson_id: string;
   questions: Question[];
 }
@@ -69,22 +69,23 @@ interface LessonRef {
   reward: { xp: number; bonus_xp: number };
 }
 
-type LearningNode = SkillNode | CheckpointNode;
+export type LearningNode = SkillNode | CheckpointNode;
 
 interface SkillNode {
   id: string;
   type: "skill";
   title: string;
   lessons: LessonRef[];
+  totalLessons: number;
 }
 
 interface CheckpointNode {
   id: string;
   type: "checkpoint";
   title: string;
+  lessons: LessonRef[];
+  totalLessons: number;
   requires: string[];
-  quiz: { question_count: number };
-  xp: { base: number; perfect_bonus: number };
   reward: { gems: number; badge: string };
 }
 
@@ -99,7 +100,7 @@ interface Section {
   units: Unit[];
 }
 
-interface Topic {
+export interface Topic {
   topic: string;
   sections: Section[];
 }

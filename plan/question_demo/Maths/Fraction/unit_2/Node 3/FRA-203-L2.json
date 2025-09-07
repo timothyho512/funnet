@@ -1,0 +1,107 @@
+{
+  "lesson_id": "FRA-203-L2",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "Convert 7/10 to %",
+      "options": ["70%", "0.7%"],
+      "answer": "70%",
+      "correct_feedback": "✅ 70%.",
+      "incorrect_feedback": "❌ 7/10=0.7=70%.",
+      "explanation": "Fraction to percent."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Convert 9/20 to decimal",
+      "answer": "0.45",
+      "correct_feedback": "✅ 0.45.",
+      "incorrect_feedback": "❌ 9÷20=0.45.",
+      "explanation": "Divide numerator by denominator."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which equals 80%?",
+      "options": ["4/5", "3/4"],
+      "answer": "4/5",
+      "correct_feedback": "✅ 4/5.",
+      "incorrect_feedback": "❌ 4/5=0.8=80%.",
+      "explanation": "Percent to fraction."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 2/25=0.08",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 2÷25=0.08.",
+      "explanation": "Convert properly."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange from smallest→largest: 1/4, 30%, 0.35",
+      "items": ["1/4", "30%", "0.35"],
+      "answer": ["1/4", "30%", "0.35"],
+      "correct_feedback": "✅ Correct.",
+      "incorrect_feedback": "❌ Convert all to decimals.",
+      "explanation": "1/4=0.25, 30%=0.3, 0.35=0.35."
+    },
+    {
+      "type": "MCQ",
+      "question": "Convert 3/40 to decimal",
+      "options": ["0.075", "0.85"],
+      "answer": "0.075",
+      "correct_feedback": "✅ 0.075.",
+      "incorrect_feedback": "❌ 3÷40=0.075.",
+      "explanation": "Fraction to decimal."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Convert 7/16 to %",
+      "answer": "43.75%",
+      "correct_feedback": "✅ 43.75%.",
+      "incorrect_feedback": "❌ 7÷16=0.4375.",
+      "explanation": "Multiply by 100."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 5/12≈41.6%",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 5÷12≈0.416=41.6%.",
+      "explanation": "Approximate percent."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which equals 0.4?",
+      "options": ["2/5", "3/8"],
+      "answer": "2/5",
+      "correct_feedback": "✅ 2/5.",
+      "incorrect_feedback": "❌ 2÷5=0.4.",
+      "explanation": "Decimal to fraction."
+    },
+    {
+      "type": "Match",
+      "question": "Match decimals/percents",
+      "pairs": { "0.6": "60%", "0.125": "1/8", "0.9": "9/10" },
+      "correct_feedback": "✅ Great.",
+      "incorrect_feedback": "❌ Recheck conversions.",
+      "explanation": "Relating forms."
+    },
+    {
+      "type": "MCQ",
+      "question": "Convert 17/50 to %",
+      "options": ["34%", "36%"],
+      "answer": "34%",
+      "correct_feedback": "✅ 34%.",
+      "incorrect_feedback": "❌ 17÷50=0.34=34%.",
+      "explanation": "Multiply decimal by 100."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Convert 13/200 to decimal",
+      "answer": "0.065",
+      "correct_feedback": "✅ 0.065.",
+      "incorrect_feedback": "❌ 13÷200=0.065.",
+      "explanation": "Fraction to decimal."
+    }
+  ]
+}

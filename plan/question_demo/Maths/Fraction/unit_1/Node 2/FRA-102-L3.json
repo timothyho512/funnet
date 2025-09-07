@@ -1,0 +1,134 @@
+{
+  "lesson_id": "FRA-102-L3",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 4/9 or 5/12?",
+      "options": [
+        "4/9",
+        "5/12"
+      ],
+      "answer": "4/9",
+      "correct_feedback": "\u2705 4/9.",
+      "incorrect_feedback": "\u274c Cross multiply again.",
+      "explanation": "Cross-multiply: 4\u00d712=48, 5\u00d79=45 \u2192 4/9 larger."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 7/8 or 13/15?",
+      "options": [
+        "7/8",
+        "13/15"
+      ],
+      "answer": "7/8",
+      "correct_feedback": "\u2705 7/8.",
+      "incorrect_feedback": "\u274c Compare decimals.",
+      "explanation": "7/8=0.875, 13/15\u22480.867 \u2192 7/8 larger."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Fill: 3/4 is greater than __/8",
+      "answer": "5/8",
+      "correct_feedback": "\u2705 5/8.",
+      "incorrect_feedback": "\u274c 3/4 equals 6/8.",
+      "explanation": "3/4=6/8 \u2192 any value less than 6/8, e.g., 5/8."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 2/3 = 6/9",
+      "answer": true,
+      "correct_feedback": "\u2705 True.",
+      "incorrect_feedback": "\u274c They are equivalent.",
+      "explanation": "Multiply numerator & denominator by 3."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 8/10 or 3/4?",
+      "options": [
+        "8/10",
+        "3/4"
+      ],
+      "answer": "8/10",
+      "correct_feedback": "\u2705 8/10.",
+      "incorrect_feedback": "\u274c 0.8 > 0.75.",
+      "explanation": "8/10=0.8, 3/4=0.75."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Which is larger: 14/20 or 2/3?",
+      "answer": "14/20",
+      "correct_feedback": "\u2705 14/20.",
+      "incorrect_feedback": "\u274c 14/20 is larger.",
+      "explanation": "14/20=0.7, 2/3\u22480.667."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange from smallest to largest: 1/2, 5/6, 3/4",
+      "items": [
+        "1/2",
+        "5/6",
+        "3/4"
+      ],
+      "answer": [
+        "1/2",
+        "3/4",
+        "5/6"
+      ],
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c Convert to decimals.",
+      "explanation": "Decimals: 0.5, 0.75, 0.833."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 17/25 or 2/3?",
+      "options": [
+        "17/25",
+        "2/3"
+      ],
+      "answer": "17/25",
+      "correct_feedback": "\u2705 17/25.",
+      "incorrect_feedback": "\u274c 0.68 > 0.667.",
+      "explanation": "17/25=0.68, 2/3\u22480.667."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 15/18 = 5/6",
+      "answer": true,
+      "correct_feedback": "\u2705 True.",
+      "incorrect_feedback": "\u274c Simplify the fraction.",
+      "explanation": "Divide numerator & denominator by 3."
+    },
+    {
+      "type": "Match",
+      "question": "Match the greater fraction",
+      "pairs": {
+        "7/9 vs 5/8": "7/9",
+        "12/20 vs 11/18": "11/18",
+        "9/10 vs 17/19": "9/10"
+      },
+      "correct_feedback": "\u2705 Well done.",
+      "incorrect_feedback": "\u274c Cross-multiply carefully.",
+      "explanation": "Compare using decimals or cross-multiplication."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 21/30 or 7/10?",
+      "options": [
+        "21/30",
+        "7/10"
+      ],
+      "answer": "equal",
+      "correct_feedback": "\u2705 Equal.",
+      "incorrect_feedback": "\u274c Simplify first.",
+      "explanation": "21/30 simplifies to 7/10."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Which is greater: 5/12 or 1/3?",
+      "answer": "5/12",
+      "correct_feedback": "\u2705 5/12.",
+      "incorrect_feedback": "\u274c 5/12 is larger.",
+      "explanation": "5/12\u22480.4167, 1/3\u22480.3333."
+    }
+  ]
+}

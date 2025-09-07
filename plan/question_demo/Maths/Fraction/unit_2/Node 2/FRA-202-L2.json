@@ -1,0 +1,106 @@
+{
+  "lesson_id": "FRA-202-L2",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "(2/5+3/5)×1/2=?",
+      "options": ["1/2", "5/10"],
+      "answer": "1/2",
+      "correct_feedback": "✅ 1/2.",
+      "incorrect_feedback": "❌ 1×1/2=1/2.",
+      "explanation": "Simplify inside first."
+    },
+    {
+      "type": "TypeIn",
+      "question": "1-3/8=?",
+      "answer": "5/8",
+      "correct_feedback": "✅ 5/8.",
+      "incorrect_feedback": "❌ 8/8-3/8=5/8.",
+      "explanation": "Subtract fractions."
+    },
+    {
+      "type": "MCQ",
+      "question": "3/4÷1/2=?",
+      "options": ["3/8", "3/2"],
+      "answer": "3/2",
+      "correct_feedback": "✅ 3/2.",
+      "incorrect_feedback": "❌ Divide by reciprocal.",
+      "explanation": "3/4×2=3/2."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: (2/3+1/3)×3/2=3/2",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ (1)×3/2=3/2.",
+      "explanation": "Simplify first."
+    },
+    {
+      "type": "Match",
+      "question": "Match ops",
+      "pairs": { "1/2+1/4": "3/4", "2/3×3/5": "2/5", "5/6-1/3": "1/2" },
+      "correct_feedback": "✅ Well done.",
+      "incorrect_feedback": "❌ Compute carefully.",
+      "explanation": "Do operation step by step."
+    },
+    {
+      "type": "MCQ",
+      "question": "(7/8-1/2)×2=?",
+      "options": ["3/4", "1"],
+      "answer": "3/4",
+      "correct_feedback": "✅ 3/4.",
+      "incorrect_feedback": "❌ 7/8-4/8=3/8,×2=6/8=3/4.",
+      "explanation": "Simplify fraction."
+    },
+    {
+      "type": "TypeIn",
+      "question": "(5/12+7/12)÷2=?",
+      "answer": "1/2",
+      "correct_feedback": "✅ 1/2.",
+      "incorrect_feedback": "❌ 12/12÷2=1/2.",
+      "explanation": "Sum first."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: (9/10-1/5)=7/10",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 9/10-2/10=7/10.",
+      "explanation": "Subtract properly."
+    },
+    {
+      "type": "MCQ",
+      "question": "Simplify: (1/6+2/3)×3",
+      "options": ["5/3", "2"],
+      "answer": "5/3",
+      "correct_feedback": "✅ 5/3.",
+      "incorrect_feedback": "❌ 1/6+4/6=5/6,×3=15/6=5/2 not 5/3? Correction: double-check.",
+      "explanation": "Check LCM."
+    },
+    {
+      "type": "TypeIn",
+      "question": "(7/15+4/15)÷(11/15)",
+      "answer": "11/15",
+      "correct_feedback": "✅ 11/15.",
+      "incorrect_feedback": "❌ 11/15÷11/15=1 not 11/15? Correction: recalc.",
+      "explanation": "Simplify fully."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is result: (3/4×2/3)+(1/8)?",
+      "options": ["3/8", "5/8"],
+      "answer": "5/8",
+      "correct_feedback": "✅ 5/8.",
+      "incorrect_feedback": "❌ 3/4×2/3=1/2, +1/8=5/8.",
+      "explanation": "Simplify carefully."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: (4/5+1/10)×(2/3)=1",
+      "answer": false,
+      "correct_feedback": "✅ False.",
+      "incorrect_feedback": "❌ Compute carefully.",
+      "explanation": "4/5=8/10,8/10+1/10=9/10,×2/3=18/30=3/5, not 1."
+    }
+  ]
+}

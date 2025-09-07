@@ -1,0 +1,107 @@
+{
+  "lesson_id": "FRA-104-L1",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "1/2 + 1/4 = ?",
+      "options": ["2/4", "3/4", "2/6"],
+      "answer": "3/4",
+      "correct_feedback": "✅ 3/4.",
+      "incorrect_feedback": "❌ Convert 1/2→2/4.",
+      "explanation": "LCM=4."
+    },
+    {
+      "type": "TypeIn",
+      "question": "2/3 + 1/6 = ?",
+      "answer": "5/6",
+      "correct_feedback": "✅ 5/6.",
+      "incorrect_feedback": "❌ 2/3=4/6, then +1/6.",
+      "explanation": "LCM=6."
+    },
+    {
+      "type": "MCQ",
+      "question": "3/5 + 1/10 = ?",
+      "options": ["4/10", "7/10", "8/10"],
+      "answer": "7/10",
+      "correct_feedback": "✅ 7/10.",
+      "incorrect_feedback": "❌ 6/10+1/10.",
+      "explanation": "LCM=10."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 2/3+2/9=4/12",
+      "answer": false,
+      "correct_feedback": "✅ False — 8/9.",
+      "incorrect_feedback": "❌ 2/3=6/9.",
+      "explanation": "LCM=9."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange: 1/2+1/3, 2/5+1/10, 1/4+1/8",
+      "items": ["1/2+1/3", "2/5+1/10", "1/4+1/8"],
+      "answer": ["1/4+1/8", "2/5+1/10", "1/2+1/3"],
+      "correct_feedback": "✅ Correct.",
+      "incorrect_feedback": "❌ Try decimals.",
+      "explanation": "Totals: 3/8=0.375, 1/2=0.5, 5/6≈0.833."
+    },
+    {
+      "type": "Match",
+      "question": "Match sums",
+      "pairs": { "1/3+1/6": "1/2", "3/4+1/8": "7/8", "2/5+3/10": "7/10" },
+      "correct_feedback": "✅ Good.",
+      "incorrect_feedback": "❌ Convert first.",
+      "explanation": "LCM denominators."
+    },
+    {
+      "type": "MCQ",
+      "question": "Simplify: 4/6+2/6",
+      "options": ["6/6", "1"],
+      "answer": "both",
+      "correct_feedback": "✅ Both.",
+      "incorrect_feedback": "❌ 6/6=1.",
+      "explanation": "6/6=1."
+    },
+    {
+      "type": "TypeIn",
+      "question": "1/3+2/9=?",
+      "answer": "5/9",
+      "correct_feedback": "✅ 5/9.",
+      "incorrect_feedback": "❌ 1/3=3/9.",
+      "explanation": "LCM=9."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is larger: 2/5+1/10 or 1/2?",
+      "options": ["2/5+1/10", "1/2", "equal"],
+      "answer": "equal",
+      "correct_feedback": "✅ Equal.",
+      "incorrect_feedback": "❌ Both=1/2.",
+      "explanation": "2/5=4/10, +1/10=5/10=1/2."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 1/2+1/8=5/8",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 4/8+1/8.",
+      "explanation": "LCM=8."
+    },
+    {
+      "type": "TypeIn",
+      "question": "2/3+1/9=? (simplest form)",
+      "answer": "7/9",
+      "correct_feedback": "✅ 7/9.",
+      "incorrect_feedback": "❌ 2/3=6/9.",
+      "explanation": "LCM=9."
+    },
+    {
+      "type": "MCQ",
+      "question": "Simplify: 5/10+2/10",
+      "options": ["7/10", "14/20", "both"],
+      "answer": "both",
+      "correct_feedback": "✅ Both.",
+      "incorrect_feedback": "❌ 7/10=14/20.",
+      "explanation": "Equivalent forms."
+    }
+  ]
+}

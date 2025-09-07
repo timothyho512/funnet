@@ -66,3 +66,38 @@ This log tracks important architectural and strategic decisions made during the 
 - Simpler progress tracking logic (boolean completion + XP totals)
 - Clear user expectation: complete lesson perfectly to unlock next content
 - Future flexibility to add stars back if user testing shows need
+
+## ADR-004: Client-Side Progress Tracking with localStorage
+
+**Date:** 2025-08-26  
+**Status:** Decided  
+**Context:** Need user progress persistence for lesson unlocking and completion tracking. Options include server-side database, client-side localStorage, or hybrid approach.
+
+**Decision:** Implement progress tracking using browser localStorage with structured data format.
+
+**Rationale:**
+- Immediate persistence without backend complexity or user authentication requirements
+- Enables offline functionality and instant state updates
+- Perfect for MVP and learning-focused development phase
+- Data structure designed to be easily migrated to server-side storage later
+- Supports guest users without friction
+
+**Alternatives Considered:**
+1. **Server-side only**: Requires authentication, database, API endpoints - too complex for MVP
+2. **Session storage**: Lost on browser close, poor user experience
+3. **Hybrid (localStorage + server sync)**: Over-engineered for current needs
+
+**Implementation:**
+```typescript
+interface UserProgress {
+  completedLessons: Set<string>;
+  completedNodes: Set<string>;
+}
+```
+
+**Consequences:**
+- Users can access their progress across sessions on the same device
+- Progress is device-specific (acceptable for MVP)
+- Data loss if user clears browser data (documented limitation)
+- Clear migration path to server-side persistence when authentication is added
+- Enables rapid iteration on progress-dependent features

@@ -1,0 +1,256 @@
+{
+  "topic": "Maths",
+  "sections": [
+    {
+      "name": "Section 1: Fractions",
+      "units": [
+        {
+          "name": "Unit 1: Fractions Basics",
+          "guidebook": {
+            "summary": "Numerators & denominators, visual models, comparing simple fractions, proper vs improper.",
+            "key_points": [
+              "A fraction is parts/whole with equal parts.",
+              "When denominators match, compare numerators.",
+              "Convert to common denominators to compare or add."
+            ]
+          },
+          "nodes": [
+            {
+              "id": "FRA-101",
+              "type": "skill",
+              "title": "What is a fraction?",
+              "lessons": [
+                {
+                  "id": "FRA-101-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-101-L1.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-101-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-101-L2.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-101-L3",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-101-L3.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-101-L4",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-101-L4.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                }
+              ],
+              "totalLessons": 4
+            },
+            {
+              "id": "FRA-102",
+              "type": "skill",
+              "title": "Compare fractions",
+              "lessons": [
+                {
+                  "id": "FRA-102-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-102-L1.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-102-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-102-L2.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-102-L3",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-102-L3.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-102-L4",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-102-L4.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                }
+              ],
+              "totalLessons": 4
+            },
+            {
+              "id": "FRA-103",
+              "type": "skill",
+              "title": "Add same denominators",
+              "lessons": [
+                {
+                  "id": "FRA-103-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-103-L1.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-103-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-103-L2.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-103-L3",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-103-L3.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-103-L4",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-103-L4.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                }
+              ],
+              "totalLessons": 4
+            },
+            {
+              "id": "FRA-104",
+              "type": "skill",
+              "title": "Add different denominators",
+              "lessons": [
+                {
+                  "id": "FRA-104-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-104-L1.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-104-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-104-L2.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-104-L3",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-104-L3.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-104-L4",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-104-L4.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                }
+              ],
+              "totalLessons": 4
+            },
+            {
+              "id": "FRA-10X",
+              "type": "checkpoint",
+              "title": "Unit 1 Checkpoint",
+              "lessons": [
+                {
+                  "id": "FRA-10X-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-10X-L1.json",
+                  "reward": { "xp": 20, "bonus_xp": 5 }
+                }
+              ],
+              "totalLessons": 1,
+              "requires": ["FRA-101", "FRA-102", "FRA-103", "FRA-104"],
+              "reward": { "gems": 50, "badge": "fractions_unit_1" }
+            }
+          ]
+        },
+        {
+          "name": "Unit 2: Fractions in Context",
+          "guidebook": {
+            "summary": "Applying fractions in real-life problems, combining operations, and converting between fractions, decimals, and percentages.",
+            "key_points": [
+              "Fractions can represent time, distance, or parts in real-life problems.",
+              "Operations on fractions may involve addition, subtraction, multiplication, or division together.",
+              "Fractions can be converted into decimals and percentages for easier comparison."
+            ]
+          },
+          "nodes": [
+            {
+              "id": "FRA-201",
+              "type": "skill",
+              "title": "Fractions in Word Problems",
+              "lessons": [
+                {
+                  "id": "FRA-201-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-201-L1.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-201-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-201-L2.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                }
+              ],
+              "totalLessons": 2
+            },
+            {
+              "id": "FRA-202",
+              "type": "skill",
+              "title": "Mixed Operations",
+              "lessons": [
+                {
+                  "id": "FRA-202-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-202-L1.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-202-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-202-L2.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                }
+              ],
+              "totalLessons": 2
+            },
+            {
+              "id": "FRA-203",
+              "type": "skill",
+              "title": "Fractions → Decimals & Percentages",
+              "lessons": [
+                {
+                  "id": "FRA-203-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-203-L1.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                },
+                {
+                  "id": "FRA-203-L2",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-203-L2.json",
+                  "reward": { "xp": 10, "bonus_xp": 5 }
+                }
+              ],
+              "totalLessons": 2
+            },
+            {
+              "id": "FRA-20X",
+              "type": "checkpoint",
+              "title": "Unit 1 Checkpoint",
+              "lessons": [
+                {
+                  "id": "FRA-20X-L1",
+                  "question_count": 12,
+                  "content_ref": "content/fractions/FRA-10X-L1.json",
+                  "reward": { "xp": 20, "bonus_xp": 5 }
+                }
+              ],
+              "totalLessons": 1,
+              "requires": ["FRA-201", "FRA-202", "FRA-203", "FRA-204"],
+              "reward": { "gems": 50, "badge": "fractions_unit_1" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

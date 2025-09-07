@@ -1,0 +1,108 @@
+{
+  "lesson_id": "FRA-CHECK-2",
+  "type": "checkpoint_quiz",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 5/8 or 0.6?",
+      "options": ["5/8", "0.6"],
+      "answer": "5/8",
+      "correct_feedback": "✅ 5/8.",
+      "incorrect_feedback": "❌ 5/8=0.625 > 0.6.",
+      "explanation": "Convert to decimals."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Convert 3/5 to %",
+      "answer": "60%",
+      "correct_feedback": "✅ 60%.",
+      "incorrect_feedback": "❌ 3÷5=0.6=60%.",
+      "explanation": "Fraction to percent."
+    },
+    {
+      "type": "MCQ",
+      "question": "A recipe uses 2/3 cup flour and 1/4 sugar. Total?",
+      "options": ["11/12", "3/4"],
+      "answer": "11/12",
+      "correct_feedback": "✅ 11/12.",
+      "incorrect_feedback": "❌ 8/12+3/12=11/12.",
+      "explanation": "LCM=12."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: (1/2+1/3)×2=5/3",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 1/2+1/3=5/6, ×2=10/6=5/3.",
+      "explanation": "Simplify after operation."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange smallest→largest: 1/2, 55%, 0.48",
+      "items": ["1/2", "55%", "0.48"],
+      "answer": ["0.48", "1/2", "55%"],
+      "correct_feedback": "✅ Correct.",
+      "incorrect_feedback": "❌ Convert all to decimals.",
+      "explanation": "0.48 < 0.5 < 0.55."
+    },
+    {
+      "type": "MCQ",
+      "question": "Convert 7/20 to decimal",
+      "options": ["0.35", "0.45"],
+      "answer": "0.35",
+      "correct_feedback": "✅ 0.35.",
+      "incorrect_feedback": "❌ 7÷20=0.35.",
+      "explanation": "Fraction to decimal."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Convert 45% to fraction (simplest form)",
+      "answer": "9/20",
+      "correct_feedback": "✅ 9/20.",
+      "incorrect_feedback": "❌ 45/100=9/20.",
+      "explanation": "Simplify fraction."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 0.125 = 1/8",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 0.125=1/8.",
+      "explanation": "Decimal to fraction."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is largest?",
+      "options": ["2/3", "65%", "0.66"],
+      "answer": "2/3",
+      "correct_feedback": "✅ 2/3≈0.667.",
+      "incorrect_feedback": "❌ 2/3=0.667 > 0.66≈0.66.",
+      "explanation": "Compare decimals/percents."
+    },
+    {
+      "type": "Match",
+      "question": "Match conversions",
+      "pairs": { "0.75": "3/4", "0.2": "1/5", "80%": "4/5" },
+      "correct_feedback": "✅ Nicely done.",
+      "incorrect_feedback": "❌ Recheck.",
+      "explanation": "Equivalent values."
+    },
+    {
+      "type": "MCQ",
+      "question": "Simplify: 15/30 + 1/6",
+      "options": ["2/3", "3/4"],
+      "answer": "2/3",
+      "correct_feedback": "✅ 2/3.",
+      "incorrect_feedback": "❌ 15/30=1/2, +1/6=2/3.",
+      "explanation": "Simplify fractions first."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Convert 27/50 to %",
+      "answer": "54%",
+      "correct_feedback": "✅ 54%.",
+      "incorrect_feedback": "❌ 27÷50=0.54=54%.",
+      "explanation": "Multiply by 100."
+    }
+  ]
+}

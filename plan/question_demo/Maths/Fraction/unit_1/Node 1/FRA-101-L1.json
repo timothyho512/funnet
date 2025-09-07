@@ -1,0 +1,137 @@
+{
+  "lesson_id": "FRA-101-L1",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "Which part of 3/4 is the numerator?",
+      "options": [
+        "3",
+        "4"
+      ],
+      "answer": "3",
+      "correct_feedback": "\u2705 Correct \u2014 numerator is the top (3).",
+      "incorrect_feedback": "\u274c Numerator is the top number.",
+      "explanation": "Numerator is the top number; denominator is the bottom."
+    },
+    {
+      "type": "MCQ",
+      "question": "In 5/6, what does '6' represent?",
+      "options": [
+        "Parts taken",
+        "Equal parts in the whole",
+        "A decimal"
+      ],
+      "answer": "Equal parts in the whole",
+      "correct_feedback": "\u2705 Yes \u2014 denominator shows total equal parts.",
+      "incorrect_feedback": "\u274c Denominator is total equal parts.",
+      "explanation": "'6' is the denominator \u2014 total equal parts the whole is split into."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Write the fraction for 2 slices eaten out of 8.",
+      "answer": "2/8",
+      "correct_feedback": "\u2705 2/8 is correct (or 1/4 simplified).",
+      "incorrect_feedback": "\u274c Use eaten/total \u2192 2/8.",
+      "explanation": "Parts taken / total parts = 2/8 (can be simplified later)."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 5/5 equals a whole.",
+      "answer": true,
+      "correct_feedback": "\u2705 Correct \u2014 5/5 = 1.",
+      "incorrect_feedback": "\u274c 5/5 is one whole.",
+      "explanation": "When numerator equals denominator, the value is 1 (a whole)."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which picture best represents 1/2 of a pizza?",
+      "options": [
+        "One of two equal slices shaded",
+        "One of three slices shaded"
+      ],
+      "answer": "One of two equal slices shaded",
+      "correct_feedback": "\u2705 Correct \u2014 equal halves.",
+      "incorrect_feedback": "\u274c 1/2 must be 1 of 2 equal parts.",
+      "explanation": "Equal parts matter; 1/2 means 1 of 2 equal parts."
+    },
+    {
+      "type": "Order",
+      "question": "Order from least to greatest",
+      "items": [
+        "1/6",
+        "1/3",
+        "1/2"
+      ],
+      "answer": [
+        "1/6",
+        "1/3",
+        "1/2"
+      ],
+      "correct_feedback": "\u2705 Correct order.",
+      "incorrect_feedback": "\u274c Try converting to decimals.",
+      "explanation": "Smaller denominator with numerator 1 means larger value; compare as decimals 0.166.., 0.333.., 0.5."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Fill: A fraction compares _____ to the whole.",
+      "answer": "parts",
+      "correct_feedback": "\u2705 Yes \u2014 parts.",
+      "incorrect_feedback": "\u274c The word is 'parts'.",
+      "explanation": "A fraction compares parts to the whole with equal-sized parts."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is a proper fraction?",
+      "options": [
+        "7/3",
+        "3/7",
+        "9/9"
+      ],
+      "answer": "3/7",
+      "correct_feedback": "\u2705 Correct \u2014 3/7 is proper.",
+      "incorrect_feedback": "\u274c Proper means top < bottom.",
+      "explanation": "Proper fractions have numerator < denominator."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is an improper fraction?",
+      "options": [
+        "4/3",
+        "3/4",
+        "1/4"
+      ],
+      "answer": "4/3",
+      "correct_feedback": "\u2705 Yes \u2014 4/3.",
+      "incorrect_feedback": "\u274c Improper means top \u2265 bottom.",
+      "explanation": "Improper fractions have numerator \u2265 denominator."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Convert 8/4 to a mixed number.",
+      "answer": "2",
+      "correct_feedback": "\u2705 Correct \u2014 2.",
+      "incorrect_feedback": "\u274c 8 \u00f7 4 = 2.",
+      "explanation": "8/4 = 2 wholes."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 2/8 equals 1/4 after simplification.",
+      "answer": true,
+      "correct_feedback": "\u2705 Correct \u2014 1/4.",
+      "incorrect_feedback": "\u274c 2/8 simplifies to 1/4.",
+      "explanation": "Divide numerator & denominator by 2: 2/8 \u2192 1/4."
+    },
+    {
+      "type": "Match",
+      "question": "Match fraction to word",
+      "pairs": {
+        "1/2": "half",
+        "1/3": "third",
+        "3/4": "three quarters"
+      },
+      "correct_feedback": "\u2705 Nicely matched.",
+      "incorrect_feedback": "\u274c Review common names.",
+      "explanation": "Common names: 1/2 half, 1/3 third, 3/4 three quarters."
+    }
+  ]
+}

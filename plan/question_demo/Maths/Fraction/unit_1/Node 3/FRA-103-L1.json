@@ -1,0 +1,138 @@
+{
+  "lesson_id": "FRA-103-L1",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "2/8 + 3/8 = ?",
+      "options": [
+        "4/8",
+        "5/8",
+        "6/8"
+      ],
+      "answer": "5/8",
+      "correct_feedback": "\u2705 5/8.",
+      "incorrect_feedback": "\u274c 2+3=5, denominator stays 8.",
+      "explanation": "Add numerators when denominators are equal: 2+3=5."
+    },
+    {
+      "type": "TypeIn",
+      "question": "1/5 + 2/5 = ?",
+      "answer": "3/5",
+      "correct_feedback": "\u2705 3/5.",
+      "incorrect_feedback": "\u274c 1+2=3, denominator 5.",
+      "explanation": "Denominators same \u2192 add numerators: 1+2=3."
+    },
+    {
+      "type": "MCQ",
+      "question": "4/9 + 2/9 = ?",
+      "options": [
+        "6/9",
+        "6/18",
+        "8/9"
+      ],
+      "answer": "6/9",
+      "correct_feedback": "\u2705 6/9.",
+      "incorrect_feedback": "\u274c Denominator stays 9.",
+      "explanation": "Add numerators: 4+2=6; denominator unchanged."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 3/7 + 2/7 = 5/14",
+      "answer": false,
+      "correct_feedback": "\u2705 False \u2014 correct is 5/7.",
+      "incorrect_feedback": "\u274c Correct sum is 5/7.",
+      "explanation": "Same denominator \u2192 3+2=5 with denominator 7 \u2192 5/7."
+    },
+    {
+      "type": "TypeIn",
+      "question": "5/10 + 3/10 = ?",
+      "answer": "8/10",
+      "correct_feedback": "\u2705 8/10.",
+      "incorrect_feedback": "\u274c 5+3=8.",
+      "explanation": "Add numerators: 5+3=8."
+    },
+    {
+      "type": "MCQ",
+      "question": "7/12 + 2/12 = ?",
+      "options": [
+        "8/12",
+        "9/12",
+        "10/12"
+      ],
+      "answer": "9/12",
+      "correct_feedback": "\u2705 9/12.",
+      "incorrect_feedback": "\u274c Denominator stays 12.",
+      "explanation": "Add tops only: 7+2=9."
+    },
+    {
+      "type": "Match",
+      "question": "Match each sum to its result",
+      "pairs": {
+        "1/4+2/4": "3/4",
+        "2/8+5/8": "7/8",
+        "3/10+4/10": "7/10"
+      },
+      "correct_feedback": "\u2705 Great.",
+      "incorrect_feedback": "\u274c Denominator stays the same.",
+      "explanation": "Add numerators; denominator unchanged."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange sums from smallest to largest",
+      "items": [
+        "1/6+1/6",
+        "4/6+1/6",
+        "2/6+3/6"
+      ],
+      "answer": [
+        "1/6+1/6",
+        "4/6+1/6",
+        "2/6+3/6"
+      ],
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c Compute each sum.",
+      "explanation": "Compute: 2/6, 5/6, 5/6 \u2192 ties allowed; canonical order shown."
+    },
+    {
+      "type": "MCQ",
+      "question": "Simplify: 6/12 + 3/12",
+      "options": [
+        "9/12",
+        "3/4",
+        "both"
+      ],
+      "answer": "both",
+      "correct_feedback": "\u2705 Both 9/12 and 3/4 are correct.",
+      "incorrect_feedback": "\u274c 9/12 simplifies to 3/4.",
+      "explanation": "6/12+3/12=9/12, which simplifies to 3/4."
+    },
+    {
+      "type": "TypeIn",
+      "question": "5/7 + 1/7 = ?",
+      "answer": "6/7",
+      "correct_feedback": "\u2705 6/7.",
+      "incorrect_feedback": "\u274c 5+1=6 with denominator 7.",
+      "explanation": "Same denominator \u2192 add numerators."
+    },
+    {
+      "type": "MCQ",
+      "question": "8/15 + 4/15 = ?",
+      "options": [
+        "11/15",
+        "12/15"
+      ],
+      "answer": "12/15",
+      "correct_feedback": "\u2705 12/15.",
+      "incorrect_feedback": "\u274c Add numerators: 8+4=12.",
+      "explanation": "8+4=12; denominator 15."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 9/20 + 7/20 = 4/5",
+      "answer": true,
+      "correct_feedback": "\u2705 True.",
+      "incorrect_feedback": "\u274c 16/20 simplifies to 4/5.",
+      "explanation": "9/20+7/20=16/20=4/5 after simplification."
+    }
+  ]
+}

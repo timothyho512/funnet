@@ -1,0 +1,115 @@
+{
+  "lesson_id": "FRA-103-L2",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "A jug has 2/6 water. Add 1/6 more. Total?",
+      "options": [
+        "2/6",
+        "3/6",
+        "4/6"
+      ],
+      "answer": "3/6",
+      "correct_feedback": "\u2705 3/6.",
+      "incorrect_feedback": "\u274c 2+1=3.",
+      "explanation": "2+1=3; denominator unchanged."
+    },
+    {
+      "type": "TypeIn",
+      "question": "You ate 1/8 cake in morning and 2/8 in afternoon. Total?",
+      "answer": "3/8",
+      "correct_feedback": "\u2705 3/8.",
+      "incorrect_feedback": "\u274c 1/8 + 2/8 = 3/8.",
+      "explanation": "Add: 1+2=3; denominator 8."
+    },
+    {
+      "type": "MCQ",
+      "question": "A rope is cut into 5/12 and 4/12 pieces. Total length?",
+      "options": [
+        "8/12",
+        "9/12"
+      ],
+      "answer": "9/12",
+      "correct_feedback": "\u2705 9/12.",
+      "incorrect_feedback": "\u274c Denominator stays 12.",
+      "explanation": "5+4=9; denominator 12."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 7/10 + 2/10 = 9/20",
+      "answer": false,
+      "correct_feedback": "\u2705 False \u2014 9/10.",
+      "incorrect_feedback": "\u274c Correct total is 9/10.",
+      "explanation": "Same denominator: 7+2=9 \u2192 9/10."
+    },
+    {
+      "type": "TypeIn",
+      "question": "You read 3/5 of a book and later 1/5 more. Total?",
+      "answer": "4/5",
+      "correct_feedback": "\u2705 4/5.",
+      "incorrect_feedback": "\u274c Denominator unchanged.",
+      "explanation": "Add numerators: 3+1=4."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which equals 6/9 + 2/9?",
+      "options": [
+        "8/9",
+        "6/18"
+      ],
+      "answer": "8/9",
+      "correct_feedback": "\u2705 8/9.",
+      "incorrect_feedback": "\u274c 6+2=8.",
+      "explanation": "Add tops: 6+2=8."
+    },
+    {
+      "type": "Match",
+      "question": "Match each story to the sum",
+      "pairs": {
+        "2/7+3/7": "5/7",
+        "1/6+4/6": "5/6",
+        "5/8+2/8": "7/8"
+      },
+      "correct_feedback": "\u2705 Well done.",
+      "incorrect_feedback": "\u274c Denominator stays the same.",
+      "explanation": "All same denominators \u2192 add numerators."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange totals from smallest to largest",
+      "items": [
+        "1/9+1/9",
+        "4/9+2/9",
+        "3/9+5/9"
+      ],
+      "answer": [
+        "1/9+1/9",
+        "4/9+2/9",
+        "3/9+5/9"
+      ],
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c Calculate each first.",
+      "explanation": "Compute: 2/9, 6/9, 8/9."
+    },
+    {
+      "type": "MCQ",
+      "question": "A tank is 4/8 full; add 3/8. New level?",
+      "options": [
+        "6/8",
+        "7/8"
+      ],
+      "answer": "7/8",
+      "correct_feedback": "\u2705 7/8.",
+      "incorrect_feedback": "\u274c 4/8 + 3/8 = 7/8.",
+      "explanation": "4+3=7; denominator 8."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 2/11 + 9/11 = 1",
+      "answer": true,
+      "correct_feedback": "\u2705 True.",
+      "incorrect_feedback": "\u274c 11/11 equals 1.",
+      "explanation": "2/11+9/11=11/11=1."
+    }
+  ]
+}

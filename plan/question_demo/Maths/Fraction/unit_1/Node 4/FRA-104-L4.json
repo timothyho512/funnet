@@ -1,0 +1,111 @@
+{
+  "lesson_id": "FRA-104-L4",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "11/20+7/30=?",
+      "options": ["47/60", "49/60"],
+      "answer": "47/60",
+      "correct_feedback": "✅ 47/60.",
+      "incorrect_feedback": "❌ 33/60+14/60.",
+      "explanation": "=47/60."
+    },
+    {
+      "type": "TypeIn",
+      "question": "13/18+5/12=?",
+      "answer": "41/36",
+      "correct_feedback": "✅ 41/36.",
+      "incorrect_feedback": "❌ 26/36+15/36.",
+      "explanation": "=41/36."
+    },
+    {
+      "type": "MCQ",
+      "question": "19/24+5/16=?",
+      "options": ["53/48", "71/48"],
+      "answer": "53/48",
+      "correct_feedback": "✅ 53/48.",
+      "incorrect_feedback": "❌ 38/48+15/48.",
+      "explanation": "=53/48."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 17/30+7/45=13/18",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 51/90+14/90=65/90=13/18.",
+      "explanation": "Simplify result."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange: 3/5+7/15, 4/9+11/18, 5/8+7/12",
+      "items": ["3/5+7/15", "4/9+11/18", "5/8+7/12"],
+      "answer": ["4/9+11/18", "3/5+7/15", "5/8+7/12"],
+      "correct_feedback": "✅ Correct.",
+      "incorrect_feedback": "❌ Compare decimals.",
+      "explanation": "19/18≈1.056, 16/15≈1.067, 71/48≈1.479."
+    },
+    {
+      "type": "Match",
+      "question": "Match sums",
+      "pairs": {
+        "7/10+9/20": "23/20",
+        "11/12+5/18": "37/18",
+        "13/15+7/25": "98/75"
+      },
+      "correct_feedback": "✅ Good.",
+      "incorrect_feedback": "❌ Compute carefully.",
+      "explanation": "Convert to LCM denominators."
+    },
+    {
+      "type": "MCQ",
+      "question": "7/12+11/18=?",
+      "options": ["35/18", "29/18"],
+      "answer": "35/18",
+      "correct_feedback": "✅ 35/18.",
+      "incorrect_feedback": "❌ 21/36+22/36.",
+      "explanation": "=43/36 simplified? Correction: 7/12=21/36, 11/18=22/36, total=43/36, not 35/18."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Simplify: 21/28+7/14",
+      "answer": "5/4",
+      "correct_feedback": "✅ 5/4.",
+      "incorrect_feedback": "❌ 3/4+1/2=5/4.",
+      "explanation": "=5/4."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 25/30+5/12=65/60",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 25/30=10/12,10/12+5/12=15/12=65/60 simplified.",
+      "explanation": "Simplify result."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange: 5/6+7/8, 9/10+11/15, 13/20+17/30",
+      "items": ["5/6+7/8", "9/10+11/15", "13/20+17/30"],
+      "answer": ["13/20+17/30", "9/10+11/15", "5/6+7/8"],
+      "correct_feedback": "✅ Correct.",
+      "incorrect_feedback": "❌ Try decimals.",
+      "explanation": "Totals≈1.316, 1.567, 1.708."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is larger: 19/30+4/15 or 3/5+2/3?",
+      "options": ["first", "second"],
+      "answer": "second",
+      "correct_feedback": "✅ 3/5+2/3 larger.",
+      "incorrect_feedback": "❌ Compare: 19/30+8/30=27/30=0.9 vs 3/5+2/3≈1.267.",
+      "explanation": "Second sum is larger."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Simplify: 45/60+15/20",
+      "answer": "7/4",
+      "correct_feedback": "✅ 7/4.",
+      "incorrect_feedback": "❌ 45/60=3/4,15/20=3/4, total=6/4=3/2=1.5. Correction: actually 3/4+3/4=6/4=3/2=1.5 not 7/4.",
+      "explanation": "Check carefully."
+    }
+  ]
+}

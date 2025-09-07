@@ -1,0 +1,143 @@
+{
+  "lesson_id": "FRA-102-L4",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "Which is larger: 19/24 or 7/9?",
+      "options": [
+        "19/24",
+        "7/9"
+      ],
+      "answer": "19/24",
+      "correct_feedback": "\u2705 19/24.",
+      "incorrect_feedback": "\u274c Compare decimals.",
+      "explanation": "19/24\u22480.792, 7/9\u22480.778."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is smaller: 23/30 or 37/48?",
+      "options": [
+        "23/30",
+        "37/48"
+      ],
+      "answer": "23/30",
+      "correct_feedback": "\u2705 23/30.",
+      "incorrect_feedback": "\u274c 23/30 is slightly smaller.",
+      "explanation": "23/30\u22480.767, 37/48\u22480.771 \u2014 so 23/30 is smaller."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 29/40 > 21/28",
+      "answer": false,
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c 21/28 is larger.",
+      "explanation": "29/40=0.725, 21/28=0.75 \u2192 False."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Which is greater: 31/50 or 61/100?",
+      "answer": "31/50",
+      "correct_feedback": "\u2705 31/50.",
+      "incorrect_feedback": "\u274c 31/50 is larger.",
+      "explanation": "31/50=0.62, 61/100=0.61."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 17/22 or 23/30?",
+      "options": [
+        "17/22",
+        "23/30"
+      ],
+      "answer": "17/22",
+      "correct_feedback": "\u2705 17/22.",
+      "incorrect_feedback": "\u274c 17/22 is larger.",
+      "explanation": "17/22\u22480.773, 23/30\u22480.767."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange from smallest to largest: 5/12, 7/16, 9/20",
+      "items": [
+        "5/12",
+        "7/16",
+        "9/20"
+      ],
+      "answer": [
+        "5/12",
+        "7/16",
+        "9/20"
+      ],
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c Convert to decimals.",
+      "explanation": "Decimals: 0.417, 0.438, 0.45."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is larger: 41/60 or 27/40?",
+      "options": [
+        "41/60",
+        "27/40"
+      ],
+      "answer": "41/60",
+      "correct_feedback": "\u2705 41/60.",
+      "incorrect_feedback": "\u274c 41/60 is larger.",
+      "explanation": "41/60\u22480.683, 27/40=0.675."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 33/44 = 3/4",
+      "answer": true,
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c 33/44 = 3/4.",
+      "explanation": "33/44 simplifies to 3/4."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Which is greater: 19/30 or 12/19?",
+      "answer": "19/30",
+      "correct_feedback": "\u2705 19/30.",
+      "incorrect_feedback": "\u274c 19/30 is slightly larger.",
+      "explanation": "19/30\u22480.633, 12/19\u22480.632."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 29/50 or 28/49?",
+      "options": [
+        "29/50",
+        "28/49"
+      ],
+      "answer": "29/50",
+      "correct_feedback": "\u2705 29/50.",
+      "incorrect_feedback": "\u274c 29/50 is larger.",
+      "explanation": "29/50=0.58, 28/49\u22480.571."
+    },
+    {
+      "type": "Match",
+      "question": "Match the greater fraction",
+      "pairs": {
+        "15/22 vs 19/28": "15/22",
+        "11/20 vs 13/24": "11/20",
+        "21/25 vs 29/35": "21/25"
+      },
+      "correct_feedback": "\u2705 Good.",
+      "incorrect_feedback": "\u274c Re-check values.",
+      "explanation": "Compare via decimals or cross-multiplication."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange from largest to smallest: 13/18, 17/24, 21/32",
+      "items": [
+        "13/18",
+        "17/24",
+        "21/32"
+      ],
+      "answer": [
+        "13/18",
+        "17/24",
+        "21/32"
+      ],
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c Compare decimals.",
+      "explanation": "Decimals: 0.722, 0.708, 0.656."
+    }
+  ]
+}

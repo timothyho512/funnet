@@ -1,0 +1,107 @@
+{
+  "lesson_id": "FRA-201-L2",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "Class finished 5/6 of project, then 1/6 more. Complete?",
+      "options": ["1", "11/12"],
+      "answer": "1",
+      "correct_feedback": "✅ 1.",
+      "incorrect_feedback": "❌ 5/6+1/6=1.",
+      "explanation": "Total=1."
+    },
+    {
+      "type": "TypeIn",
+      "question": "You drank 3/10 litre + friend 4/10. Total?",
+      "answer": "7/10",
+      "correct_feedback": "✅ 7/10.",
+      "incorrect_feedback": "❌ 3+4=7.",
+      "explanation": "Denominator unchanged."
+    },
+    {
+      "type": "MCQ",
+      "question": "Cake eaten 1/4 morning, 3/8 evening. Total?",
+      "options": ["5/8", "5/12"],
+      "answer": "5/8",
+      "correct_feedback": "✅ 5/8.",
+      "incorrect_feedback": "❌ 1/4=2/8,2/8+3/8=5/8.",
+      "explanation": "LCM=8."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 7/10+2/10=9/20",
+      "answer": false,
+      "correct_feedback": "✅ False.",
+      "incorrect_feedback": "❌ 7/10+2/10=9/10.",
+      "explanation": "Denominator=10."
+    },
+    {
+      "type": "Match",
+      "question": "Match sums",
+      "pairs": { "2/7+3/7": "5/7", "1/6+4/6": "5/6", "5/8+2/8": "7/8" },
+      "correct_feedback": "✅ Well done.",
+      "incorrect_feedback": "❌ Denominator same.",
+      "explanation": "Add numerators."
+    },
+    {
+      "type": "MCQ",
+      "question": "Road 3/5 built, add 1/10. Total?",
+      "options": ["7/10", "2/3"],
+      "answer": "7/10",
+      "correct_feedback": "✅ 7/10.",
+      "incorrect_feedback": "❌ 3/5=6/10,6/10+1/10=7/10.",
+      "explanation": "LCM=10."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Milk bottle 2/3 filled, pour 1/6 more. Now?",
+      "answer": "5/6",
+      "correct_feedback": "✅ 5/6.",
+      "incorrect_feedback": "❌ 2/3=4/6,4/6+1/6=5/6.",
+      "explanation": "LCM=6."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 3/4 hr + 2/8 hr = 1",
+      "answer": true,
+      "correct_feedback": "✅ True.",
+      "incorrect_feedback": "❌ 3/4=6/8,6/8+2/8=8/8.",
+      "explanation": "=1."
+    },
+    {
+      "type": "MCQ",
+      "question": "Tank has 1/3 water, add 1/6. New level?",
+      "options": ["1/2", "2/3"],
+      "answer": "1/2",
+      "correct_feedback": "✅ 1/2.",
+      "incorrect_feedback": "❌ 1/3=2/6,2/6+1/6=3/6=1/2.",
+      "explanation": "LCM=6."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange totals: 1/2+1/2, 2/3+1/3, 1/4+3/4",
+      "items": ["1/2+1/2", "2/3+1/3", "1/4+3/4"],
+      "answer": ["1/2+1/2", "1/4+3/4", "2/3+1/3"],
+      "correct_feedback": "✅ Correct.",
+      "incorrect_feedback": "❌ Simplify correctly.",
+      "explanation": "1,1,1 but ordered by canonical sequence."
+    },
+    {
+      "type": "MCQ",
+      "question": "2/5 of class absent, 3/10 more absent. Total absent?",
+      "options": ["7/10", "1/2"],
+      "answer": "7/10",
+      "correct_feedback": "✅ 7/10.",
+      "incorrect_feedback": "❌ 2/5=4/10,4/10+3/10=7/10.",
+      "explanation": "LCM=10."
+    },
+    {
+      "type": "TypeIn",
+      "question": "You ate 2/3 of cake, then 1/9 more. Total?",
+      "answer": "7/9",
+      "correct_feedback": "✅ 7/9.",
+      "incorrect_feedback": "❌ 2/3=6/9,6/9+1/9=7/9.",
+      "explanation": "LCM=9."
+    }
+  ]
+}

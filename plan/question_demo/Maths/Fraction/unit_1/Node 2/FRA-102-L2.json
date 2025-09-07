@@ -1,0 +1,143 @@
+{
+  "lesson_id": "FRA-102-L2",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 2/3 or 3/5?",
+      "options": [
+        "2/3",
+        "3/5"
+      ],
+      "answer": "2/3",
+      "correct_feedback": "\u2705 2/3.",
+      "incorrect_feedback": "\u274c Use cross multiplication.",
+      "explanation": "Cross-multiply: 2\u00d75=10, 3\u00d73=9 \u2192 2/3 is larger."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is smaller: 4/5 or 7/10?",
+      "options": [
+        "4/5",
+        "7/10"
+      ],
+      "answer": "7/10",
+      "correct_feedback": "\u2705 7/10.",
+      "incorrect_feedback": "\u274c Convert to decimals.",
+      "explanation": "4/5=0.8, 7/10=0.7 \u2192 7/10 is smaller."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 5/6 > 4/5",
+      "answer": true,
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c 5/6 is larger.",
+      "explanation": "5/6\u22480.833, 4/5=0.8 \u2192 True."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Which is greater: 7/12 or 2/3?",
+      "answer": "2/3",
+      "correct_feedback": "\u2705 2/3.",
+      "incorrect_feedback": "\u274c Convert to denominator 12.",
+      "explanation": "2/3=8/12 > 7/12."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange from smallest to largest: 1/2, 3/8, 5/8",
+      "items": [
+        "1/2",
+        "3/8",
+        "5/8"
+      ],
+      "answer": [
+        "3/8",
+        "1/2",
+        "5/8"
+      ],
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c Convert to decimals.",
+      "explanation": "Decimals: 0.375, 0.5, 0.625."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is larger: 5/12 or 7/18?",
+      "options": [
+        "5/12",
+        "7/18"
+      ],
+      "answer": "5/12",
+      "correct_feedback": "\u2705 5/12.",
+      "incorrect_feedback": "\u274c Cross-multiply carefully.",
+      "explanation": "Cross-multiply: 5\u00d718=90, 7\u00d712=84 \u2192 5/12 larger."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Which is greater: 9/10 or 17/20?",
+      "answer": "equal",
+      "correct_feedback": "\u2705 Equal.",
+      "incorrect_feedback": "\u274c Both are 0.9.",
+      "explanation": "Both equal 0.9."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 11/15 < 7/10",
+      "answer": false,
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c 11/15 is larger.",
+      "explanation": "11/15\u22480.733, 7/10=0.7 \u2192 False."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 3/7 or 4/9?",
+      "options": [
+        "3/7",
+        "4/9"
+      ],
+      "answer": "4/9",
+      "correct_feedback": "\u2705 4/9.",
+      "incorrect_feedback": "\u274c Compare decimals.",
+      "explanation": "3/7\u22480.4286, 4/9\u22480.4444 \u2192 4/9 is larger."
+    },
+    {
+      "type": "Match",
+      "question": "Match the greater fraction",
+      "pairs": {
+        "2/5 vs 3/7": "3/7",
+        "6/11 vs 5/9": "5/9",
+        "4/6 vs 5/8": "4/6"
+      },
+      "correct_feedback": "\u2705 Great.",
+      "incorrect_feedback": "\u274c Cross-multiply.",
+      "explanation": "Use cross-multiplication or decimals."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 13/20 or 5/8?",
+      "options": [
+        "13/20",
+        "5/8"
+      ],
+      "answer": "13/20",
+      "correct_feedback": "\u2705 13/20.",
+      "incorrect_feedback": "\u274c Convert to decimals.",
+      "explanation": "13/20=0.65, 5/8=0.625."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange from smallest to largest: 7/8, 2/3, 5/6",
+      "items": [
+        "7/8",
+        "2/3",
+        "5/6"
+      ],
+      "answer": [
+        "2/3",
+        "5/6",
+        "7/8"
+      ],
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c Convert to decimals.",
+      "explanation": "Decimals: 0.667, 0.833, 0.875."
+    }
+  ]
+}

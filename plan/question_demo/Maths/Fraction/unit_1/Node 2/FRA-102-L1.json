@@ -1,0 +1,139 @@
+{
+  "lesson_id": "FRA-102-L1",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 3/4 or 2/4?",
+      "options": [
+        "3/4",
+        "2/4"
+      ],
+      "answer": "3/4",
+      "correct_feedback": "\u2705 3/4 is greater.",
+      "incorrect_feedback": "\u274c Compare the numerators.",
+      "explanation": "When denominators match, compare numerators."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is smaller: 5/8 or 7/8?",
+      "options": [
+        "5/8",
+        "7/8"
+      ],
+      "answer": "5/8",
+      "correct_feedback": "\u2705 5/8.",
+      "incorrect_feedback": "\u274c Smaller numerator = smaller value.",
+      "explanation": "Same denominator \u2192 smaller numerator is smaller."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 6/9 > 6/10",
+      "answer": true,
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c 6/9\u22480.667, 6/10=0.6.",
+      "explanation": "6/9\u22480.667 and 6/10=0.6, so True."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Write which is bigger: 4/6 or 3/6",
+      "answer": "4/6",
+      "correct_feedback": "\u2705 4/6.",
+      "incorrect_feedback": "\u274c 4/6 is greater.",
+      "explanation": "Denominators match \u2192 higher numerator wins."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange from smallest to largest: 1/6, 4/6, 2/6",
+      "items": [
+        "1/6",
+        "4/6",
+        "2/6"
+      ],
+      "answer": [
+        "1/6",
+        "2/6",
+        "4/6"
+      ],
+      "correct_feedback": "\u2705 Correct order.",
+      "incorrect_feedback": "\u274c Order by numerators.",
+      "explanation": "All with denominator 6 \u2192 order numerators."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is smaller: 9/12 or 10/12?",
+      "options": [
+        "9/12",
+        "10/12"
+      ],
+      "answer": "9/12",
+      "correct_feedback": "\u2705 9/12.",
+      "incorrect_feedback": "\u274c 9<10.",
+      "explanation": "Smaller numerator \u2192 smaller value."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Which is greater: 5/7 or 6/7?",
+      "answer": "6/7",
+      "correct_feedback": "\u2705 6/7.",
+      "incorrect_feedback": "\u274c 6/7 is larger.",
+      "explanation": "Compare numerators: 6>5."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 2/10 < 5/10",
+      "answer": true,
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c 2 is less than 5.",
+      "explanation": "Same denominator \u2192 2<5."
+    },
+    {
+      "type": "MCQ",
+      "question": "Which is greater: 11/15 or 13/15?",
+      "options": [
+        "11/15",
+        "13/15"
+      ],
+      "answer": "13/15",
+      "correct_feedback": "\u2705 13/15.",
+      "incorrect_feedback": "\u274c 13>11.",
+      "explanation": "Denominators equal \u2192 higher numerator wins."
+    },
+    {
+      "type": "TypeIn",
+      "question": "Fill: Which is greater, 19/20 or 18/20?",
+      "answer": "19/20",
+      "correct_feedback": "\u2705 19/20.",
+      "incorrect_feedback": "\u274c 19/20 is larger.",
+      "explanation": "Compare numerators: 19>18."
+    },
+    {
+      "type": "Match",
+      "question": "Match the greater fraction in each pair",
+      "pairs": {
+        "3/8 vs 5/8": "5/8",
+        "7/12 vs 10/12": "10/12",
+        "4/9 vs 2/9": "4/9"
+      },
+      "correct_feedback": "\u2705 Great work.",
+      "incorrect_feedback": "\u274c Compare numerators.",
+      "explanation": "Denominators are equal within each pair \u2014 pick the larger numerator."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange from largest to smallest: 2/9, 8/9, 5/9",
+      "items": [
+        "2/9",
+        "8/9",
+        "5/9"
+      ],
+      "answer": [
+        "8/9",
+        "5/9",
+        "2/9"
+      ],
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c Order by numerators.",
+      "explanation": "Denominators equal \u2192 order by numerators."
+    }
+  ]
+}

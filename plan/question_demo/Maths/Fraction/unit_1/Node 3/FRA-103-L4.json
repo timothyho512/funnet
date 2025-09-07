@@ -1,0 +1,115 @@
+{
+  "lesson_id": "FRA-103-L4",
+  "questions": [
+    {
+      "type": "MCQ",
+      "question": "9/20 + 7/20 = ?",
+      "options": [
+        "16/20",
+        "17/20"
+      ],
+      "answer": "16/20",
+      "correct_feedback": "\u2705 16/20.",
+      "incorrect_feedback": "\u274c 9+7=16.",
+      "explanation": "Add numerators: 9+7=16."
+    },
+    {
+      "type": "TypeIn",
+      "question": "12/15 + 2/15 = ?",
+      "answer": "14/15",
+      "correct_feedback": "\u2705 14/15.",
+      "incorrect_feedback": "\u274c Add numerators.",
+      "explanation": "12+2=14; denominator 15."
+    },
+    {
+      "type": "MCQ",
+      "question": "11/18 + 5/18 = ?",
+      "options": [
+        "16/18",
+        "15/36"
+      ],
+      "answer": "16/18",
+      "correct_feedback": "\u2705 16/18.",
+      "incorrect_feedback": "\u274c 11+5=16.",
+      "explanation": "Denominator unchanged; 11+5=16."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 7/14 + 3/14 = 10/14",
+      "answer": true,
+      "correct_feedback": "\u2705 True.",
+      "incorrect_feedback": "\u274c 7+3=10.",
+      "explanation": "Same denominator \u2192 add numerators."
+    },
+    {
+      "type": "Order",
+      "question": "Arrange sums from smallest to largest",
+      "items": [
+        "3/10+1/10",
+        "5/12+2/12",
+        "7/16+4/16"
+      ],
+      "answer": [
+        "3/10+1/10",
+        "5/12+2/12",
+        "7/16+4/16"
+      ],
+      "correct_feedback": "\u2705 Correct.",
+      "incorrect_feedback": "\u274c Convert to decimals.",
+      "explanation": "Compute: 0.4, 7/12\u22480.583, 11/16\u22480.688."
+    },
+    {
+      "type": "Match",
+      "question": "Match each to simplest form",
+      "pairs": {
+        "6/18+3/18": "1/2",
+        "8/20+6/20": "7/10",
+        "9/12+1/12": "5/6"
+      },
+      "correct_feedback": "\u2705 Good.",
+      "incorrect_feedback": "\u274c Use greatest common factor.",
+      "explanation": "Add, then simplify."
+    },
+    {
+      "type": "MCQ",
+      "question": "13/30 + 11/30 = ?",
+      "options": [
+        "24/30",
+        "4/5"
+      ],
+      "answer": "both",
+      "correct_feedback": "\u2705 Both are correct.",
+      "incorrect_feedback": "\u274c 24/30 simplifies to 4/5.",
+      "explanation": "24/30 simplifies to 4/5."
+    },
+    {
+      "type": "TypeIn",
+      "question": "17/21 + 2/21 = ?",
+      "answer": "19/21",
+      "correct_feedback": "\u2705 19/21.",
+      "incorrect_feedback": "\u274c Denominator stays 21.",
+      "explanation": "Add numerators: 17+2=19."
+    },
+    {
+      "type": "MCQ",
+      "question": "19/40 + 13/40 = ?",
+      "options": [
+        "32/40",
+        "4/5",
+        "both"
+      ],
+      "answer": "both",
+      "correct_feedback": "\u2705 Both are correct.",
+      "incorrect_feedback": "\u274c Simplify 32/40.",
+      "explanation": "32/40 simplifies to 4/5."
+    },
+    {
+      "type": "TrueFalse",
+      "question": "True/False: 29/50 + 21/50 = 1",
+      "answer": true,
+      "correct_feedback": "\u2705 True.",
+      "incorrect_feedback": "\u274c 50/50 equals 1.",
+      "explanation": "29/50+21/50=50/50=1."
+    }
+  ]
+}
