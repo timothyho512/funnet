@@ -101,3 +101,43 @@ interface UserProgress {
 - Data loss if user clears browser data (documented limitation)
 - Clear migration path to server-side persistence when authentication is added
 - Enables rapid iteration on progress-dependent features
+
+## ADR-005: Full-Stack Migration with Supabase
+
+**Date:** 2025-08-28  
+**Status:** Decided  
+**Context:** Ready to migrate from localStorage to proper database with multi-user support. Need to choose database, authentication, and deployment strategy for production-ready full-stack architecture.
+
+**Decision:** Migrate to Supabase (PostgreSQL) with Row Level Security, maintaining exact localStorage data structure in database schema.
+
+**Rationale:**
+- Supabase provides PostgreSQL + Auth + Real-time in single platform, reducing vendor sprawl
+- RLS enforces multi-tenant security at database level, not just application code
+- Direct mapping from localStorage structure minimizes migration complexity
+- Strong TypeScript integration and Next.js SSR support
+- Immutable completion tracking matches business logic (no lesson failure states)
+
+**Database Schema:**
+```sql
+-- Direct localStorage equivalent
+lesson_completions(user_id, lesson_id, completed_at)
+node_completions(user_id, node_id, completed_at)
+user_progress view (computed: completed_lessons[], completed_nodes[])
+```
+
+**Security Design:**
+- Minimal RLS policies: SELECT/INSERT only (no UPDATE/DELETE)
+- Immutable completions prevent data tampering
+- Each user isolated by RLS policies using auth.uid()
+
+**Alternatives Considered:**
+1. **Firebase**: Good real-time, poor relational queries for progress calculations
+2. **PlanetScale + NextAuth**: More vendor coordination, no built-in RLS
+3. **Complex event sourcing**: Over-engineered for completion-only tracking
+
+**Consequences:**
+- Multi-user support with secure data isolation
+- Clear migration path from current localStorage implementation  
+- Production-ready authentication and database persistence
+- Maintained system simplicity while adding enterprise security features
+- Foundation for future real-time features (leaderboards, collaborative learning)

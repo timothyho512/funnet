@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { LessonContent, Topic } from "@/types/lesson";
 import {
   markLessonCompleted,
   markNodeCompleted,
   getUserProgress,
 } from "@/lib/progress-tracker";
-import { loadTopicData } from "@/lib/topic-loader";
 
 interface LessonPlayerProps {
   lessonId: string;
@@ -25,6 +25,8 @@ export default function LessonPlayer({
   lessonData,
   topicData,
 }: LessonPlayerProps) {
+  const router = useRouter();
+
   // TODO: Add your useState hooks here
   // You'll need: current question index, lesson state, user answer, etc.
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -71,9 +73,9 @@ export default function LessonPlayer({
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-6 max-w-sm mx-4">
-          <h3 className="text-lg font-bold mb-2">Wait, don't go</h3>
+          <h3 className="text-lg font-bold mb-2">Wait, don&apos;t go</h3>
           <p className="text-gray-600 mb-6">
-            You'll lose your progress if you quit now
+            You&apos;ll lose your progress if you quit now
           </p>
           <div className="flex gap-3">
             <button
@@ -83,7 +85,7 @@ export default function LessonPlayer({
               KEEP LEARNING
             </button>
             <button
-              onClick={() => (window.location.href = "/learn")}
+              onClick={() => router.push("/learn")}
               className="flex-1 bg-red-500 text-white py-2 px-4 rounded font-semibold hover:bg-red-600"
             >
               END SESSION
@@ -154,6 +156,13 @@ export default function LessonPlayer({
     setUserOrderAnswer([]); // Clear order answer
     setUserMatchAnswer({});
     setSelectedMatchItem(null); // Clear seletion
+
+    // Reinitialize Order questions after clearing wrong answer
+    if (currentQuestion.type === "Order" && "items" in currentQuestion) {
+      // Initialize with original items order for retry (keeps user's partial progress visible)
+      setUserOrderAnswer([...currentQuestion.items]);
+    }
+
     setLessonState("answering"); // Back to answering state
   };
 
@@ -178,14 +187,18 @@ export default function LessonPlayer({
       // Both skill and checkpoint nodes now have lessons array
       if (node.type !== "skill" && node.type !== "checkpoint") return;
 
+      // TODO(human): Update async calls in checkAndMarkNodeCompletion
+      // 1. Add await to getUserProgress() call (now returns Promise)
+      // 2. Add await to markNodeCompleted(nodeId) call (now returns Promise<boolean>)
+
       // Check if all lessons in this node are now completed
-      const progress = getUserProgress();
+      const progress = await getUserProgress();
       const allLessonsComplete = node.lessons.every((lesson) =>
         progress.completedLessons.has(lesson.id)
       );
 
       if (allLessonsComplete) {
-        markNodeCompleted(nodeId);
+        await markNodeCompleted(nodeId);
         console.log(`🎉 Node ${nodeId} completed!`);
       }
     } catch (error) {
@@ -193,7 +206,15 @@ export default function LessonPlayer({
     }
   };
 
-  const handleContinue = () => {
+  // TODO(human): Update handleContinue to be async
+  // This function should:
+  // 1. Change function signature to async
+  // 2. Add await to markLessonCompleted(lessonId) call
+  // 3. Add await to checkAndMarkNodeCompletion(lessonId) call
+  // 4. Add error handling with try/catch around the async operations
+  // 5. Consider showing loading state or error message to user
+
+  const handleContinue = async () => {
     // Move to next question or complete lesson
     if (currentQuestionIndex < lessonData.questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
@@ -202,9 +223,15 @@ export default function LessonPlayer({
       setUserMatchAnswer({});
       setLessonState("answering");
     } else {
-      markLessonCompleted(lessonId);
-      checkAndMarkNodeCompletion(lessonId); // Add smart node completion check
-      setLessonState("completed");
+      try {
+        await markLessonCompleted(lessonId);
+        await checkAndMarkNodeCompletion(lessonId); // Add smart node completion check
+        setLessonState("completed");
+      } catch (error) {
+        console.error("Failed to save progress:", error);
+        // Still show completion to user even if save failed
+        setLessonState("completed");
+      }
     }
   };
 
@@ -283,7 +310,7 @@ export default function LessonPlayer({
             <p className="text-lg">+10 XP earned</p>
           </div>
           <button
-            onClick={() => (window.location.href = "/learn")}
+            onClick={() => router.push("/learn")}
             className="bg-white text-green-600 px-8 py-3 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors"
           >
             Continue Learning
@@ -300,11 +327,21 @@ export default function LessonPlayer({
           <button
             onClick={() => setShowExitModal(true)}
             className="text-gray-500 hover:text-gray-700 text-xl"
+            aria-label="Exit lesson"
           >
             ✕
           </button>
           <div className="flex-1 mx-6">
-            <div className="bg-gray-200 rounded-full h-3">
+            <div
+              className="bg-gray-200 rounded-full h-3"
+              role="progressbar"
+              aria-label={`Lesson progress: ${currentQuestionIndex + 1} of ${
+                lessonData.questions.length
+              } questions completed`}
+              aria-valuenow={currentQuestionIndex + 1}
+              aria-valuemin={0}
+              aria-valuemax={lessonData.questions.length}
+            >
               <div
                 className="bg-green-500 h-3 rounded-full transition-all duration-500"
                 style={{
@@ -480,9 +517,9 @@ export default function LessonPlayer({
             {/* Right Column - Values (shuffled) */}
             <div className="space-y-3">
               <h3 className="font-semibold text-gray-700 mb-3">Right Column</h3>
-              {shuffledValues.map((rightItem) => (
+              {shuffledValues.map((rightItem, index) => (
                 <button
-                  key={rightItem}
+                  key={`right-${index}`}
                   onClick={() => handleMatchClick(rightItem, "right")}
                   className={`w-full p-3 text-left rounded-lg border-2
                     transition-colors ${

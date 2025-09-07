@@ -73,6 +73,8 @@ export async function loadLessonData(
     const fileContent = fs.readFileSync(filePath, "utf8");
     return JSON.parse(fileContent) as LessonContent;
   } catch (error) {
+    // Log error for production debugging
+    console.error(`Failed to load lesson file: ${filePath}`, error);
     return null; // File not found or invalid JSON
   }
 }

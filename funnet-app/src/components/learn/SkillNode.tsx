@@ -25,10 +25,10 @@ export default function SkillNode({
   onClick,
 }: SkillNodeProps) {
   const getNodeStyle = () => {
-    if (isCompleted) return "bg-green-500 text-white border-green-600";
+    if (isCompleted) return "bg-green-500 text-white border-green-600 focus:ring-4 focus:ring-green-200";
     if (isLocked)
-      return "bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed";
-    return "bg-white text-blue-600 border-blue-400 hover:border-blue-500 cursor-pointer";
+      return "bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed focus:ring-4 focus:ring-gray-200";
+    return "bg-white text-blue-600 border-blue-400 hover:border-blue-500 cursor-pointer focus:ring-4 focus:ring-blue-200 focus:outline-none";
   };
 
   const getIcon = () => {
@@ -38,12 +38,21 @@ export default function SkillNode({
     return "📝";
   };
 
+  const getAriaLabelForLessonButton = () => {
+    const nodeType = node.type === "checkpoint" ? "checkpoint" : "lesson";
+    const state = isCompleted ? "completed" : isLocked ? "locked" : "available";
+    const action = isLocked ? "" : ", click to start";
+
+    return `${node.title} ${nodeType}, ${state}${action}`;
+  };
+
   return (
     <div className="flex flex-col items-center mb-6">
       <button
         onClick={isLocked ? undefined : onClick}
         disabled={isLocked}
         className={`w-20 h-20 rounded-full border-4 flex items-center justify-center text-2xl font-bold transition-all duration-200 ${getNodeStyle()}`}
+        aria-label={getAriaLabelForLessonButton()}
       >
         {getIcon()}
       </button>
