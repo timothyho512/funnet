@@ -3,7 +3,6 @@
    * 
    * Purpose: Load topic structure and calculate progress/unlock 
   states
-   * Dependencies: fs, path, TypeScript interfaces
    * Inputs: Topic name (e.g., "Maths")
    * Outputs: Topic structure with lesson nodes
    */

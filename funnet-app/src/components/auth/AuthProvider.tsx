@@ -1,4 +1,3 @@
-// TODO(human): Implement authentication context provider
 // Reference: https://supabase.com/docs/guides/auth/quickstarts/nextjs
 // Reference: https://react.dev/reference/react/createContext
 "use client";
@@ -35,9 +34,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      // What do you do with the session here?
-      // How do you extract the user?
-      // How do you update the loading state?
       setUser(session?.user ?? null);
       setLoading(false);
     };
@@ -56,14 +52,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Return cleanup function
     return () => subscription.unsubscribe();
   }, []);
-  // TODO: signOut function
   const signOut = async () => {
     // call the supabase sign out method
     await supabase.auth.signOut();
-    // Let listener handle the state update
-    // Possible: Add error handling when building UI
   };
-  // TODO: return the Provider JSX
   return (
     <AuthContext.Provider value={{ user, loading, signOut }}>
       {children}

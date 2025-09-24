@@ -1,8 +1,5 @@
 /**
- * Duolingo-style lesson route for FunNet
- *
- * Purpose: Single-question focused learning experience with progress tracking
- * Dependencies: TypeScript interfaces from src/types/lesson.ts, lesson session management
+ * Single-question focused learning experience with progress tracking
  * Inputs: Lesson ID from URL params (e.g., /lesson/FRA-101-L1)
  * Outputs: Interactive single-question lesson with CHECK/CONTINUE flow
  *

@@ -8,6 +8,15 @@ import {
   markNodeCompleted,
   getUserProgress,
 } from "@/lib/progress-tracker";
+import { checkSpecificNodeCompletion } from "@/app/actions/progress";
+
+/**
+ * LessonPlayer - Core gamified learning component
+ *
+ * Architecture: State machine pattern with 4 states (answering → incorrect/correct → completed)
+ * Integration: Database-backed progress tracking with atomic XP/gem rewards
+ * Question types: MCQ, TypeIn, TrueFalse, Order (button-based), Match (click-to-connect)
+ */
 
 interface LessonPlayerProps {
   lessonId: string;
@@ -17,8 +26,9 @@ interface LessonPlayerProps {
 
 type LessonState = "answering" | "incorrect" | "correct" | "completed";
 
-// TODO: Define your state type here
-// What should the lesson state be called, and what are the possible values?
+// State machine: answering → incorrect (retry loop) → correct → next question
+// Design choice: Separate state for each question type to handle complex interactions
+// Order questions: array manipulation, Match questions: bidirectional selection
 
 export default function LessonPlayer({
   lessonId,
@@ -27,8 +37,6 @@ export default function LessonPlayer({
 }: LessonPlayerProps) {
   const router = useRouter();
 
-  // TODO: Add your useState hooks here
-  // You'll need: current question index, lesson state, user answer, etc.
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [lessonState, setLessonState] = useState<LessonState>("answering");
   const [userAnswer, setUserAnswer] = useState<string>("");
@@ -40,6 +48,7 @@ export default function LessonPlayer({
     item: string;
     side: "left" | "right";
   } | null>(null);
+  const [isCompletingLesson, setIsCompletingLesson] = useState(false);
   const [showExitModal, setShowExitModal] = useState(false);
 
   const currentQuestion = lessonData.questions[currentQuestionIndex];
@@ -56,7 +65,7 @@ export default function LessonPlayer({
 
   const shuffledValues = useMemo(() => {
     if (currentQuestion.type === "Match" && "pairs" in currentQuestion) {
-      return shuffleArray(Object.values(currentQuestion.pairs));
+      return shuffleArray(Object.values(currentQuestion.pairs)); // Shuffing right hand side and return as an array
     }
     return [];
   }, [currentQuestion]);
@@ -65,7 +74,7 @@ export default function LessonPlayer({
   useEffect(() => {
     if (currentQuestion.type === "Order" && "items" in currentQuestion) {
       // Initialize with shuffled items for Order questions
-      setUserOrderAnswer([...currentQuestion.items]);
+      setUserOrderAnswer(shuffleArray([...currentQuestion.items]));
     }
   }, [currentQuestionIndex, currentQuestion]);
 
@@ -112,7 +121,7 @@ export default function LessonPlayer({
   };
 
   const handleCheck = () => {
-    //TODO: Check if answer is correct
+    // Check if answer is correct
     let isCorrect = false;
     // Check answer based on question type
     switch (currentQuestion.type) {
@@ -124,7 +133,7 @@ export default function LessonPlayer({
         isCorrect = userAnswer === currentQuestion.answer.toString();
         break;
       case "Order":
-        // TODO(human): Implement array comparison for Order questions
+        // Array comparison for Order questions
         // Compare userOrderAnswer array with currentQuestion.answer array
         isCorrect =
           userOrderAnswer.length === currentQuestion.answer.length &&
@@ -133,7 +142,7 @@ export default function LessonPlayer({
           );
         break;
       case "Match":
-        // TODO: Implement object comparison for Match questions
+        // Object comparison for Match questions
         const correctPairs = currentQuestion.pairs;
         isCorrect =
           Object.keys(correctPairs).length ===
@@ -167,6 +176,9 @@ export default function LessonPlayer({
   };
 
   // Helper function to check and mark node completion
+  // Smart node completion: Checks if all lessons in a node are complete
+  // Performance choice: Targeted query vs loading full user progress
+  // Business logic: Node completion unlocks next content in learning path
   const checkAndMarkNodeCompletion = async (completedLessonId: string) => {
     try {
       // Extract nodeId from lessonId: "FRA-101-L1" -> "FRA-101"
@@ -183,19 +195,14 @@ export default function LessonPlayer({
 
       const node = allNodes.find((n) => n.id === nodeId);
       if (!node) return;
+      // check if lessons exist
+      if (!node.lessons || node.lessons.length === 0) return;
 
-      // Both skill and checkpoint nodes now have lessons array
-      if (node.type !== "skill" && node.type !== "checkpoint") return;
+      const lessonIds = node.lessons.map((lesson) => lesson.id);
 
-      // TODO(human): Update async calls in checkAndMarkNodeCompletion
-      // 1. Add await to getUserProgress() call (now returns Promise)
-      // 2. Add await to markNodeCompleted(nodeId) call (now returns Promise<boolean>)
+      const result = await checkSpecificNodeCompletion(nodeId, lessonIds);
 
-      // Check if all lessons in this node are now completed
-      const progress = await getUserProgress();
-      const allLessonsComplete = node.lessons.every((lesson) =>
-        progress.completedLessons.has(lesson.id)
-      );
+      const allLessonsComplete = result.success && result.isComplete;
 
       if (allLessonsComplete) {
         await markNodeCompleted(nodeId);
@@ -206,23 +213,16 @@ export default function LessonPlayer({
     }
   };
 
-  // TODO(human): Update handleContinue to be async
-  // This function should:
-  // 1. Change function signature to async
-  // 2. Add await to markLessonCompleted(lessonId) call
-  // 3. Add await to checkAndMarkNodeCompletion(lessonId) call
-  // 4. Add error handling with try/catch around the async operations
-  // 5. Consider showing loading state or error message to user
-
   const handleContinue = async () => {
     // Move to next question or complete lesson
-    if (currentQuestionIndex < lessonData.questions.length - 1) {
+    if (currentQuestionIndex < lessonData.questions.length - 9) {
       setCurrentQuestionIndex((prev) => prev + 1);
       setUserAnswer(""); // Clear answer for new question
       setUserOrderAnswer([]); // Clear order answer
       setUserMatchAnswer({});
       setLessonState("answering");
     } else {
+      setIsCompletingLesson(true);
       try {
         await markLessonCompleted(lessonId);
         await checkAndMarkNodeCompletion(lessonId); // Add smart node completion check
@@ -231,6 +231,8 @@ export default function LessonPlayer({
         console.error("Failed to save progress:", error);
         // Still show completion to user even if save failed
         setLessonState("completed");
+      } finally {
+        setIsCompletingLesson(false);
       }
     }
   };
@@ -418,7 +420,6 @@ export default function LessonPlayer({
               ))}
           </div>
         )}
-        {/* TODO: Add other question types here */}
         {currentQuestion.type === "TypeIn" && (
           <div className="mb-8">
             <input
@@ -474,11 +475,11 @@ export default function LessonPlayer({
         {/* Order Questions */}
         {currentQuestion.type === "Order" && (
           <div className="space-y-3 mb-8">
-            {/* TODO(human): Implement Order question drag-and-drop interface */}
-            {/* Your task: Create draggable items that can be reordered */}
+            {/* Order question drag-and-drop interface */}
+            {/* Draggable items that can be reordered */}
             {/* Available data: currentQuestion.items (shuffled items to order) */}
             {/* State: userOrderAnswer (array of strings in current order) */}
-            {/* Goal: Allow user to drag items to reorder them */}
+            {/* Allow user to drag items to reorder them */}
             {userOrderAnswer.map((item, index) => (
               <div
                 key={item}
@@ -588,10 +589,14 @@ export default function LessonPlayer({
           {lessonState === "correct" && (
             <button
               onClick={handleContinue}
-              className="bg-green-500 text-white px-8 py-3 
-            rounded-lg font-semibold hover:bg-green-600"
+              disabled={isCompletingLesson}
+              className={`px-8 py-3 rounded-lg font-semibold ${
+                isCompletingLesson
+                  ? "bg-gray-400 text-white cursor-not-allowed"
+                  : "bg-blue-500 text-white hover:bg-blue-600"
+              }`}
             >
-              CONTINUE
+              {isCompletingLesson ? "Saving progress..." : "Continue"}
             </button>
           )}
         </div>

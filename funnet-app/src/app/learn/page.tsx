@@ -1,26 +1,27 @@
 /**
  * Learn page - Lesson selection and progress overview (PROTECTED)
  *
- * Purpose: Display available lessons, progress, and next actions for authenticated users
+ * Display available lessons, progress, and next actions for authenticated users
  * Dependencies: Authentication, topic path data, progress tracking
- * UX: Duolingo-style skill tree with locked/available/completed states
  */
 "use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SkillGrid from "@/components/learn/SkillGrid";
+import UserProfileCard from "@/components/profile/UserProfileCard";
+import LeaderboardCard from "@/components/profile/LeaderboardCard";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { Topic } from "@/types/lesson";
 import { getTopicData } from "@/app/actions/progress";
 
-// TODO(human): Add authentication protection
-// This component should:
-// 1. Use useAuth() to check authentication state
-// 2. Show loading spinner while auth is loading
-// 3. Redirect to /auth if user is not authenticated
-// 4. Only render the learning content if user is authenticated
-// 5. Load topic data after confirming authentication
+// Add authentication protection
+
+// Use useAuth() to check authentication state
+// Show loading spinner while auth is loading
+// Redirect to /auth if user is not authenticated
+// Only render the learning content if user is authenticated
+// Load topic data after confirming authentication
 
 export default function LearnPage() {
   const router = useRouter();
@@ -32,13 +33,13 @@ export default function LearnPage() {
   useEffect(() => {
     // If still loading auth, wait
     if (loading) return;
-    
+
     // If no user, redirect to auth
     if (!user) {
       router.push("/auth");
       return;
     }
-    
+
     // User is authenticated, load data
     const loadData = async () => {
       try {
@@ -98,6 +99,13 @@ export default function LearnPage() {
         <h1 className="text-3xl font-bold text-center mb-8">
           Learn {topicData.topic}
         </h1>
+
+        {/* Profile Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          <UserProfileCard />
+          <LeaderboardCard />
+        </div>
+
         <SkillGrid topicData={topicData} />
       </div>
     </div>

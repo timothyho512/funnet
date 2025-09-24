@@ -1,7 +1,7 @@
 /**
  * Supabase client configuration for Next.js App Router
  *
- * Purpose: Provide both server and client Supabase instances
+ * Provide both server and client Supabase instances
  * Dependencies: @supabase/supabase-js, @supabase/ssr
  * Usage: Use createServerClient for Server Components/Actions, createBrowserClient for Client Components
  * Security: Server client handles auth cookies, browser client for interactions

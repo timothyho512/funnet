@@ -1,7 +1,7 @@
 /**
    * Skill Grid component - Main layout for learn page
    * 
-   * Purpose: Render topic structure as navigable skill nodes with unlock logic
+   * Render topic structure as navigable skill nodes with unlock logic
    * Dependencies: Topic data, progress tracking, unlock calculator, SkillNode 
   component
    * Inputs: Topic data with sections/units/nodes
@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Topic, LearningNode } from "@/types/lesson";
 import { getUserProgress, UserProgress } from "@/lib/progress-tracker";
-import { calculatNodeState } from "@/lib/unlock-calculator";
+import { calculateNodeState } from "@/lib/unlock-calculator";
 import SkillNode from "./SkillNode";
 
 interface SkillGridProps {
@@ -31,9 +31,6 @@ export default function SkillGrid({ topicData }: SkillGridProps) {
 
   // Load progress on component mount
   useEffect(() => {
-    // TODO(human): Add proper loading state management
-    // Currently progress loads instantly from localStorage, but in production
-    // this might involve API calls that need loading indicators
     const loadData = async () => {
       try {
         const userProgress = await getUserProgress();
@@ -102,7 +99,7 @@ export default function SkillGrid({ topicData }: SkillGridProps) {
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {unit.nodes.map((node) => {
-                  const nodeState = calculatNodeState(
+                  const nodeState = calculateNodeState(
                     node.id,
                     progress,
                     topicData

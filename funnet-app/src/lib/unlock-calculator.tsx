@@ -1,9 +1,8 @@
 /**
    * Unlock calculation utilities
    * 
-   * Purpose: Determine which nodes are locked/unlocked based on 
+   * Determine which nodes are locked/unlocked based on 
   user progress
-   * Dependencies: Progress tracker, topic structure
    * Logic: Sequential unlocking with checkpoint gates
    */
 
@@ -16,17 +15,17 @@ export interface NodeState {
   isAvailable: boolean; // unlocked but not completed
 }
 
-export function calculatNodeState(
+export function calculateNodeState(
   nodeId: string,
   progress: UserProgress,
   topicData: Topic
 ): NodeState {
   // Find the specific node
   const allNodes: LearningNode[] = topicData.sections
-    .flatMap(section => section.units)
-    .flatMap(unit => unit.nodes);
-  
-  const node = allNodes.find(n => n.id === nodeId);
+    .flatMap((section) => section.units)
+    .flatMap((unit) => unit.nodes);
+
+  const node = allNodes.find((n) => n.id === nodeId);
   if (!node) {
     return { isLocked: true, isCompleted: false, isAvailable: false };
   }
