@@ -1,22 +1,15 @@
-// TODO(human): Implement combined login/signup page
-// This should be a client component that:
-// 1. Has toggle state between 'login' and 'signup' modes
-// 2. Shows appropriate form fields (email, password, confirm password conditionally)
-// 3. Handles form submission with Supabase auth
-// 4. Shows loading states and error messages
-// 5. Redirects to /learn on successful authentication
+/**
+ * AuthPage - Combined authentication interface with toggle functionality
+ * 
+ * Architecture: Single-page login/signup flow with optimistic UI patterns
+ * UX: Professional gradient design with loading states and error boundaries
+ * Security: Client-side validation with server-side Supabase authentication
+ */
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
-/*import {
-  Form,
-  FormField,
-  FormLabel,
-  FormInput,
-  FormButton,
-} from "@/components/ui/form"; */
 
 export default function AuthPage() {
   const [mode, setMode] = useState<"login" | "signup">("login");
@@ -70,20 +63,24 @@ export default function AuthPage() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            {mode === "login" ? "Sign in to your account" : "Create your account"}
+            {mode === "login"
+              ? "Sign in to your account"
+              : "Create your account"}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            {mode === "login" 
-              ? "Welcome back! Continue your learning journey" 
-              : "Join thousands of learners mastering math"
-            }
+            {mode === "login"
+              ? "Welcome back! Continue your learning journey"
+              : "Join thousands of learners mastering math"}
           </p>
         </div>
-        
+
         <div className="bg-white shadow-xl rounded-lg p-8">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Email address
               </label>
               <input
@@ -102,14 +99,19 @@ export default function AuthPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Password
               </label>
               <input
                 id="password"
                 name="password"
                 type="password"
-                autoComplete={mode === "login" ? "current-password" : "new-password"}
+                autoComplete={
+                  mode === "login" ? "current-password" : "new-password"
+                }
                 required
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Enter your password"
@@ -122,7 +124,10 @@ export default function AuthPage() {
 
             {mode === "signup" && (
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Confirm Password
                 </label>
                 <input
@@ -161,14 +166,32 @@ export default function AuthPage() {
               >
                 {loading ? (
                   <div className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Processing...
                   </div>
+                ) : mode === "login" ? (
+                  "Sign in"
                 ) : (
-                  mode === "login" ? "Sign in" : "Create account"
+                  "Create account"
                 )}
               </button>
             </div>
@@ -184,10 +207,9 @@ export default function AuthPage() {
                 }}
                 className="text-indigo-600 hover:text-indigo-500 text-sm font-medium transition-colors duration-200"
               >
-                {mode === "login" 
-                  ? "Need an account? Sign up" 
-                  : "Already have an account? Sign in"
-                }
+                {mode === "login"
+                  ? "Need an account? Sign up"
+                  : "Already have an account? Sign in"}
               </button>
             </div>
           </form>
