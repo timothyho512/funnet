@@ -48,7 +48,4 @@ export async function createServerSupabaseClient() {
   });
 }
 
-// Type-safe database interface (we'll generate this after creating schema)
-export interface Database {
-  // TODO: Generate types from schema
-}
+//export interface Database {} Type-safe database interface

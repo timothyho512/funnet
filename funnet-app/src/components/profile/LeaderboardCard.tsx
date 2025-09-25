@@ -126,7 +126,9 @@ export default function LeaderboardCard() {
         );
         setUserGlobalRank((globalRankResult.data as GlobalUserRank) || null);
         setUserWeeklyRank((weeklyRankResult.data as WeeklyUserRank) || null);
-        setCurrentUserProfileId((userProfileResult.data as any)?.id || null);
+        setCurrentUserProfileId(
+          userProfileResult.data?.id ? String(userProfileResult.data.id) : null
+        );
       } catch (error) {
         console.error("failed to load leaderboard data:", error);
         setError(
@@ -282,10 +284,12 @@ export default function LeaderboardCard() {
               activeTab === "global" ? userGlobalRank : userWeeklyRank;
 
             // Helper function to get XP value
-            const getXpValue = (entry: any) => {
+            const getXpValue = (
+              entry: GlobalLeaderboardEntry | WeeklyLeaderboardEntry
+            ) => {
               return activeTab === "global"
-                ? entry.total_xp_earned
-                : entry.weekly_xp;
+                ? (entry as GlobalLeaderboardEntry).total_xp_earned
+                : (entry as WeeklyLeaderboardEntry).weekly_xp;
             };
 
             // Helper function to get trophy icon
@@ -312,8 +316,10 @@ export default function LeaderboardCard() {
                       <div className="flex items-center space-x-2">
                         <span className="text-blue-600 font-bold">
                           {activeTab === "global"
-                            ? (currentUserRank as any).total_xp_earned
-                            : (currentUserRank as any).weekly_xp}{" "}
+                            ? (currentUserRank as GlobalUserRank)
+                                .total_xp_earned
+                            : (currentUserRank as WeeklyUserRank)
+                                .weekly_xp}{" "}
                           XP
                         </span>
                         <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">
